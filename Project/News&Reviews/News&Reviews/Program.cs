@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using News_Reviews.Data;
+
 namespace News_Reviews
 {
     public class Program
@@ -5,6 +8,12 @@ namespace News_Reviews
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            var conectionString = builder.Configuration.GetConnectionString("DefaultConection");
+            builder.Services.AddDbContext<GameDbContext>(options =>
+            {
+                options.UseSqlServer(conectionString);
+            });
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
