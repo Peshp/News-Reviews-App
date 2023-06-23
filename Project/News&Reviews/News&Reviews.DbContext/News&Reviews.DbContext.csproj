@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\News&amp;Reviews.DataModels\News&amp;Reviews.DataModels.csproj" />
+  </ItemGroup>
+
 </Project>

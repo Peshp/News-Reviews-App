@@ -7,4 +7,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="UserModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\News&amp;Reviews.Helpers\News&amp;Reviews.Helpers.csproj" />
+  </ItemGroup>
+
 </Project>

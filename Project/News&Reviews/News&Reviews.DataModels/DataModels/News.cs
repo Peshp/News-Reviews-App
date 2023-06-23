@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static News_Reviews.Helpers.Constants.ContentConstats;
 using static News_Reviews.Helpers.Constants.ReviewsConstants;
 
 namespace News_Reviews.DataModels.DataModels

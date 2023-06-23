@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using static News_Reviews.Helpers.Constants.ReviewsConstants;
+using static News_Reviews.Helpers.Constants.GenreConstants;
 
 namespace News_Reviews.DataModels.DataModels
 {
