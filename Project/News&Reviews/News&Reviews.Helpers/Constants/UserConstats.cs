@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace News_Reviews.Helpers.Constants
+﻿namespace News_Reviews.Helpers.Constants
 {
-    internal class UserConstats
+    public static class UserConstats
     {
+        public const int UsernameMaxLength = 30;
+        public const int UsernameMinLength = 3;
+
+        public const int PasswordMaxLength = 30;
+        public const int PasswordMinLength = 6;
     }
 }

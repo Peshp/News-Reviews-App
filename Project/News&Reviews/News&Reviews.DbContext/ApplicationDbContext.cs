@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using News_Reviews.DataModels.DataModels;
+using News_Reviews.DataModels.UserModels;
 using System.Diagnostics.Metrics;
 using System.Reflection.Emit;
 
 namespace News_Reviews.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

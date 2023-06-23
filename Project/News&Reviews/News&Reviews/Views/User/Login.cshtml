@@ -1,0 +1,25 @@
+﻿@using News_Reviews.Models.UserModels;
+@model LoginViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <img src="https://img.freepik.com/free-photo/cool-geometric-triangular-figure-neon-laser-light-great-backgrounds_181624-11068.jpg?w=1380&t=st=1687532251~exp=1687532851~hmac=278dc9df30a287d1afa43491be22b08b96d478d9e92d2f678fbdeb3e089cc1e0" 
+            class="img-fluid" alt="Login Image">
+        </div>
+        <div class="col-lg-6">
+            <h1>Login Page</h1>
+            <form method="post" action="/login">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control form-control-sm" id="username" name="Username" value="@Model.Username" />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control form-control-sm" id="password" name="Password" />
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+</div>

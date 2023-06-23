@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using static News_Reviews.Helpers.Constants.UserConstats;
 
 namespace News_Reviews.DataModels.UserModels
 {
-    internal class User
+    public class User : IdentityUser
     {
+        [Key]
+        public Guid Id { get; set; } = Guid.NewGuid();
+
+
+        [Required]
+        [StringLength(UsernameMaxLength, MinimumLength = UsernameMinLength)]
+        public string Username { get; set; }
     }
 }

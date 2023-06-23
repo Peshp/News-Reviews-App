@@ -26,4 +26,8 @@
     <ProjectReference Include="..\News&amp;Reviews.DataModels\News&amp;Reviews.DataModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
