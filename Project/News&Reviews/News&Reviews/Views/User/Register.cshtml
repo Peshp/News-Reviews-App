@@ -6,28 +6,31 @@
 }
 
 <div class="container">
-    <div class="row">
-        <div class="col-lg-6">
-            <img src="https://img.freepik.com/free-photo/cool-geometric-triangular-figure-neon-laser-light-great-backgrounds_181624-11068.jpg?w=1380&t=st=1687532251~exp=1687532851~hmac=278dc9df30a287d1afa43491be22b08b96d478d9e92d2f678fbdeb3e089cc1e0" 
-            class="img-fluid" alt="Registration Image">
-        </div>
-        <div class="col-lg-6">
-            <h1>Register Page</h1>
-            <form method="post" action="/register">
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" class="form-control form-control-sm" id="username" name="Username" value="@Model.Username" />
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" class="form-control form-control-sm" id="password" name="Password" />
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm Password:</label>
-                    <input type="password" class="form-control form-control-sm" id="confirmPassword" name="ConfirmPassword" />
-                </div>
-                <button type="submit" class="btn btn-primary">Register</button>
-            </form>
-        </div>
+    <div class="col-md-2">
+        <h2 class="text-white">Register</h2>
+        <form>
+            <div class="form-group">
+                <input type="text" class="form-control form-control-lg text-light" id="username" placeholder="Enter username" style="background-color: transparent; border: #fff; border-bottom: 1px solid #fff; padding: 5px; width: 300px;">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control form-control-lg text-light" id="password" placeholder="Enter password" style="background-color: transparent; color: #fff; border: none; border-bottom: 1px solid #fff; padding: 5px; width: 300px">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control form-control-lg text-light" id="confirm-password" placeholder="Confirm password" style="background-color: transparent; color: #fff; border: none; border-bottom: 1px solid #fff; padding: 5px; width: 300px">
+            </div>
+            <button type="submit" class="btn btn-lg btn-block border text-light">Register</button>
+
+            <style>
+                .btn:hover {
+                    background-color: purple;
+                    color: white;
+                }
+            </style>
+
+        </form>
     </div>
 </div>
+
+
+
+
