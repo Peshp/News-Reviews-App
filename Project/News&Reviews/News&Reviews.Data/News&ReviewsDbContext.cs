@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using News_Reviews.DataModels;
 using News_Reviews.DataModels.DataModels;
+using System.Reflection;
 
 namespace News_Reviews.Data
 {
@@ -23,6 +24,10 @@ namespace News_Reviews.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            Assembly configAssembly = Assembly.GetAssembly(typeof(ApplicationDbContext)) ??
+                                      Assembly.GetExecutingAssembly();
+            builder.ApplyConfigurationsFromAssembly(configAssembly);
+
             base.OnModelCreating(builder);
         }
     }
