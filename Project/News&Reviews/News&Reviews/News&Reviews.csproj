@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-News_Reviews-3d009c99-ac8a-441e-b67f-c8c838469934</UserSecretsId>
+    <RootNamespace>News_Reviews</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\News&amp;Reviews.DataModels\News&amp;Reviews.DataModels.csproj" />
+    <ProjectReference Include="..\News&amp;Reviews.Data\News&amp;Reviews.Data.csproj" />
+    <ProjectReference Include="..\News&amp;Reviews.Models\News&amp;Reviews.Models.csproj" />
+  </ItemGroup>
+
+</Project>
