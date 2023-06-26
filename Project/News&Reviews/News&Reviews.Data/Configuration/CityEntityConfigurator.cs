@@ -44,8 +44,8 @@ namespace News_Reviews.Data.Configuration
             city = new City()
             {
                 Id = 4,
-                Name = "Paris",
-                CountryId = 1,
+                Name = "Washington",
+                CountryId = 4,
             };
             cities.Add(city);
 
