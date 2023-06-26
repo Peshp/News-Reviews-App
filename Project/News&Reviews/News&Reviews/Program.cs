@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using News_Reviews.Data;
 using News_Reviews.DataModels;
+using News_Reviews.Services.Interfaces;
+using News_Reviews.Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +33,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddControllersWithViews();
+
+//builder.Services.AddScoped<INewsReviewsInterface, NewsReviewsService>();
 
 var app = builder.Build();
 
