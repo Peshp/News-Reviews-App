@@ -86,7 +86,7 @@ namespace News_Reviews.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            ModelState.AddModelError(string.Empty, "Login failed");
+            ModelState.AddModelError(string.Empty, "Username or password is incorrect");
             return View(model);
         }
 
