@@ -21,8 +21,19 @@ namespace News_Reviews.DataModels.DataModels
         public int PublisherId { get; set; }
         public virtual Publisher Publisher { get; set; }
 
-        public virtual IEnumerable<Platform> Platforms { get; set; } = new List<Platform>();
+        [Required]
+        [ForeignKey(nameof(Genre))]
+        public int GenreId { get; set; }
 
-        public virtual IEnumerable<Genre> Genres { get; set; } = new List<Genre>();
+        [Required]
+        public virtual Genre Genre { get; set; }
+
+
+        [Required]
+        [ForeignKey(nameof(Platform))]
+        public int PlatformId { get; set; }
+
+        [Required]
+        public virtual Platform Platform { get; set; }
     }
 }
