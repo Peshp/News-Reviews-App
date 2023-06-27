@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\News&amp;Reviews.DataModels\News&amp;Reviews.DataModels.csproj" />
+    <ProjectReference Include="..\News&amp;Reviews.Data\News&amp;Reviews.Data.csproj" />
+    <ProjectReference Include="..\News&amp;Reviews.Models\News&amp;Reviews.Models.csproj" />
+  </ItemGroup>
+
 </Project>
