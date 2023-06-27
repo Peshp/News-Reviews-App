@@ -1,6 +1,9 @@
-﻿namespace News_Reviews.Services.Interfaces
+﻿using News_Reviews.Models.Models;
+
+namespace News_Reviews.Services.Interfaces
 {
-    public class INewsReviewsInterface
+    public interface INewsReviewsInterface
     {
+        public Task<IEnumerable<ReviewsViewModel>> GetReviewsAsync();
     }
 }
