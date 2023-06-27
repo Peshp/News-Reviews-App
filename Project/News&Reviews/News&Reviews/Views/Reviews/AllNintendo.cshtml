@@ -1,0 +1,16 @@
+﻿@using News_Reviews.Models.Models;
+@model IEnumerable<ReviewsViewModel>
+
+
+<div class="text-center row">
+    @foreach (var review in Model)
+    {
+        <div class="card col-4" style="width: 20rem; ">
+            <img class="card-img-top" style="width: 18rem;"
+                 src="@review.ImageURL" alt="Book Image">
+            <div class="card-body">
+                <h5 class="card-title mt-1">@review.Title</h5>
+            </div>
+        </div>
+    }
+</div>

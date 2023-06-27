@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using News_Reviews.Data;
 
@@ -11,9 +12,10 @@ using News_Reviews.Data;
 namespace News_Reviews.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230627092842_PlatformUpdate2")]
+    partial class PlatformUpdate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -522,14 +524,11 @@ namespace News_Reviews.Data.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasMaxLength(10000)
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
 
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("PlatformId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -537,8 +536,6 @@ namespace News_Reviews.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PlatformId");
 
                     b.ToTable("News");
                 });
@@ -663,8 +660,11 @@ namespace News_Reviews.Data.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasMaxLength(10000)
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImageURL")
                         .IsRequired()
@@ -679,6 +679,8 @@ namespace News_Reviews.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GameId");
 
                     b.HasIndex("PlatformId");
 
@@ -774,17 +776,6 @@ namespace News_Reviews.Data.Migrations
                     b.Navigation("Publisher");
                 });
 
-            modelBuilder.Entity("News_Reviews.DataModels.DataModels.News", b =>
-                {
-                    b.HasOne("News_Reviews.DataModels.DataModels.Platform", "Platform")
-                        .WithMany()
-                        .HasForeignKey("PlatformId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Platform");
-                });
-
             modelBuilder.Entity("News_Reviews.DataModels.DataModels.Publisher", b =>
                 {
                     b.HasOne("News_Reviews.DataModels.DataModels.City", "City")
@@ -806,11 +797,19 @@ namespace News_Reviews.Data.Migrations
 
             modelBuilder.Entity("News_Reviews.DataModels.DataModels.Review", b =>
                 {
+                    b.HasOne("News_Reviews.DataModels.DataModels.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("News_Reviews.DataModels.DataModels.Platform", "Platform")
                         .WithMany()
                         .HasForeignKey("PlatformId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Game");
 
                     b.Navigation("Platform");
                 });

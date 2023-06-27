@@ -34,7 +34,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<INewsReviewsInterface, NewsReviewsService>();
+builder.Services.AddScoped<IReviewsService, ReviewsService>();
+builder.Services.AddScoped<INewsService, NewsService>();
 
 var app = builder.Build();
 

@@ -11,11 +11,6 @@ namespace News_Reviews.DataModels.DataModels
         public int Id { get; set; }
 
         [Required]
-        [ForeignKey(nameof(Game))]
-        public int GameId { get; set; }
-        public virtual Game Game { get; set; }
-
-        [Required]
         [MaxLength(TitleMaxLength)]
         public string Title { get; set; }
 
@@ -25,5 +20,12 @@ namespace News_Reviews.DataModels.DataModels
 
         [Required]
         public string ImageURL { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(Platform))]
+        public int PlatformId { get; set; }
+
+        [Required]
+        public Platform Platform { get; set; }
     }
 }

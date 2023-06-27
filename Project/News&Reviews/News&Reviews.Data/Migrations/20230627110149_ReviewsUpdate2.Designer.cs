@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using News_Reviews.Data;
 
@@ -11,9 +12,10 @@ using News_Reviews.Data;
 namespace News_Reviews.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230627110149_ReviewsUpdate2")]
+    partial class ReviewsUpdate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -528,17 +530,12 @@ namespace News_Reviews.Data.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PlatformId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PlatformId");
 
                     b.ToTable("News");
                 });
@@ -772,17 +769,6 @@ namespace News_Reviews.Data.Migrations
                     b.Navigation("Platform");
 
                     b.Navigation("Publisher");
-                });
-
-            modelBuilder.Entity("News_Reviews.DataModels.DataModels.News", b =>
-                {
-                    b.HasOne("News_Reviews.DataModels.DataModels.Platform", "Platform")
-                        .WithMany()
-                        .HasForeignKey("PlatformId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Platform");
                 });
 
             modelBuilder.Entity("News_Reviews.DataModels.DataModels.Publisher", b =>
