@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using News_Reviews.Models.Models;
+@model ReviewsViewModel
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,6 +27,17 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>      
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="reviewsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Reviews</a>
+                            <ul class="dropdown-menu" aria-labelledby="reviewsDropdown">
+                                <li><a class="dropdown-item" href="#">All Reviews</a></li>
+                                <li><a class="nav-link text-dark" asp-area="" asp-controller="NewsReviews" asp-action="All">PC</a>
+                                <li><a class="dropdown-item" href="#">Playstation</a></li>
+                                <li><a class="dropdown-item" href="#">Xbox</a></li>
+                                <li><a class="dropdown-item" href="#">Nintendo</a></li>
+                                <li><a class="dropdown-item" href="#">Mobile</a></li>
+                            </ul>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
