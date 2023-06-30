@@ -90,5 +90,12 @@ namespace News_Reviews.Controllers
 
             return RedirectToAction(nameof(All));
         }
+
+        public async Task<IActionResult> Read(int id)
+        {
+            ReadReviewModel review = await service.ReadReview(id);
+
+            return View(review);
+        }
     }
 }
