@@ -62,5 +62,22 @@ namespace News_Reviews.Services.Services
 
             return reviews;
         }
+
+        public async Task<ReadReviewModel> ReadReview(int Id)
+        {
+            var review = await context.Reviews
+                .Where(r => r.Id == Id)
+                .Select(r => new ReadReviewModel
+                {
+                    Id = r.Id,
+                    Title = r.Title,
+                    Content = r.Content,
+                })
+                .FirstOrDefaultAsync();
+
+            
+
+            return review;
+        }
     }
 }
