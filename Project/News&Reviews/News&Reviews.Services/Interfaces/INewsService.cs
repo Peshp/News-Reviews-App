@@ -5,5 +5,9 @@ namespace News_Reviews.Services.Interfaces
     public interface INewsService
     {
         public Task<IEnumerable<NewsViewModel>> GetNewsAsync();
+
+        public Task AddNews(NewsFormModel model);
+
+        public Task<IEnumerable<PlatformViewModel>> GetPlatformAsync();
     }
 }
