@@ -55,5 +55,39 @@ namespace News_Reviews.Controllers
 
             return View(news.Where(n => n.Platform == "Mobile"));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+            var platforms = await service.GetPlatformAsync();
+
+            var model = new NewsFormModel()
+            {
+                Platforms = platforms,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(NewsFormModel model)
+        {
+            var validPlatforms = await service.GetPlatformAsync();
+
+            if (!validPlatforms.Any(p => p.Id == model.PlatformId))
+            {
+                ModelState.AddModelError(nameof(model.PlatformId), "Invalid platform");
+            }
+
+            if (ModelState.IsValid)
+            {
+                model.Platforms = validPlatforms;
+                return View(model);
+            }
+
+            await service.AddNews(model);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }
