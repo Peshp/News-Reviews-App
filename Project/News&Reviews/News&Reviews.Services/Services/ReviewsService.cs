@@ -3,6 +3,7 @@ using News_Reviews.Data;
 using News_Reviews.DataModels.DataModels;
 using News_Reviews.Models.Models;
 using News_Reviews.Services.Interfaces;
+using System.Net;
 
 namespace News_Reviews.Services.Services
 {
@@ -28,7 +29,59 @@ namespace News_Reviews.Services.Services
 
             context.Reviews.Add(review);
             await context.SaveChangesAsync();
-        }        
+        }
+
+        public async Task DeleteReview(int id)
+        {
+            var review = await context.Reviews
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            if (review != null)
+            {
+                context.Reviews.Remove(review);
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        public async Task EditReviewAsync(int id, ReviewEditModel model)
+        {
+            var review = await context.Reviews
+                .FirstOrDefaultAsync (r => r.Id == id);
+
+            if (review != null)
+            {
+                review.Id = model.Id;
+                review.Title = model.Title;
+                review.Content = model.Content;
+                review.ImageURL = model.ImageURL;
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        public async Task<ReviewEditModel> FindReviewById(int id)
+        {
+            var review = await context.Reviews
+                .Include(r => r.Platform)
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            var reviews = await context.Reviews.ToArrayAsync();
+
+            if (review != null)
+            {
+                ReviewEditModel reviewModel = new ReviewEditModel()
+                {
+                    Id = review.Id,
+                    Title = review.Title,
+                    Content = review.Content,
+                    ImageURL = review.ImageURL,
+                };
+
+                return reviewModel;
+            }
+            return null;
+        }
 
         public async Task<IEnumerable<PlatformViewModel>> GetPlatformAsync()
         {
