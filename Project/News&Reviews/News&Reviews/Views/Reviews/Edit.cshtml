@@ -1,0 +1,33 @@
+﻿@using News_Reviews.Models.Models
+@model ReviewEditModel
+
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="Edit" method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.Title" class="form-label">Title</label>
+                <input asp-for="@Model.Title" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Content" class="form-label">Description</label>
+                <textarea asp-for="@Model.Content" class="form-control" aria-required="true" rows="5"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.ImageURL" class="form-label">Image URL</label>
+                <input asp-for="@Model.ImageURL" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.ImageURL" class="text-danger"></span>
+            </div>           
+            <div class="mb-3 text-center">
+                <input class="btn btn-warning" type="submit" value="Edit" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
