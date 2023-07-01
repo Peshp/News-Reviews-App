@@ -97,5 +97,52 @@ namespace News_Reviews.Controllers
 
             return View(review);
         }
+
+        public async Task<IActionResult> Remove(int id)
+        {
+            try
+            {
+                await service.DeleteReview(id);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var review = await service.FindReviewById(id);
+
+            if (review == null)
+            {
+                return NotFound();
+            }
+
+            return View(review);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, ReviewEditModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                await service.EditReviewAsync(id, model);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            return RedirectToAction($"{nameof(All)}");
+        }
     }
 }
