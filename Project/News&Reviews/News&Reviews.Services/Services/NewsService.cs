@@ -30,6 +30,55 @@ namespace News_Reviews.Services.Services
             await context.SaveChangesAsync();
         }
 
+        public async Task DeleteNews(int id)
+        {
+            var news = await context.News
+                .FirstOrDefaultAsync(n => n.Id == id);
+
+            if(news != null)
+            {
+                context.News.Remove(news);
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        public async Task EditNewsAsync(int id, NewsFormModel model)
+        {
+            var news = await context.News
+                .FirstOrDefaultAsync (n => n.Id == id);
+
+            if(news != null)
+            {
+                news.Id = model.Id;
+                news.Title = model.Title;
+                news.Content = model.Content;
+            }
+            await context.SaveChangesAsync();
+        }
+
+        public async Task<NewsEditModel> FindNewsById(int id)
+        {
+            var news = await context.News
+                .Include(r => r.Platform)
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            var newsContext = await context.News.ToArrayAsync();
+
+            if (news != null)
+            {
+                NewsEditModel newsModel = new NewsEditModel()
+                {
+                    Id = news.Id,
+                    Title = news.Title,
+                    Content = news.Content,
+                };
+
+                return newsModel;
+            }
+            return null;
+        }
+
         public async Task<IEnumerable<NewsViewModel>> GetNewsAsync()
         {
             var models = await context.News
@@ -61,6 +110,21 @@ namespace News_Reviews.Services.Services
                 });
 
             return platform;
+        }
+
+        public async Task<ReadNewsModel> ReadNews(int id)
+        {
+            var news = await context.News
+                .Where(n => n.Id == id)
+                .Select(x => new ReadNewsModel()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Content = x.Content,
+                })
+                .FirstOrDefaultAsync();
+
+            return news;
         }
     }
 }
