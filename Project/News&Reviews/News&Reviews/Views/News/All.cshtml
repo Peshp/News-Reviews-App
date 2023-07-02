@@ -3,17 +3,17 @@
 
 
 <div class="text-center row">
-    @foreach (var review in Model)
+    @foreach (var news in Model)
     {
-        <div class="card col-4" style="width: 20rem; ">
+        <div class="card" style="width:400px">
             <div class="card-body">
-                <h5 class="card-title mt-1">@review.Title</h5>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title mt-1">@review.Content</h5>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title mt-1">@review.Data</h5>
+                <h4 class="card-title">@news.Title</h4>
+                <p>@Html.Raw(System.Web.HttpUtility.HtmlDecode(news.Content.Substring(0, news.Content.IndexOf('.') + 1)))</p>
+                <a asp-controller="News" asp-action="Read" asp-route-id="@news.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Read</a>
+                <form class="input-group-sm" asp-controller="News" asp-action="Remove" asp-route-id="@news.Id">
+                    <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
+                </form>
+                <a asp-controller="News" asp-action="Edit" asp-route-id="@news.Id" class="btn btn-primary w-50 mb-2 ">Edit</a>
             </div>
         </div>
     }
