@@ -89,5 +89,61 @@ namespace News_Reviews.Controllers
 
             return RedirectToAction(nameof(All));
         }
+
+        public async Task<IActionResult> Read(int id)
+        {
+            ReadNewsModel news = await service.ReadNews(id);
+
+            return View(news);
+        
+        
+        }
+
+        public async Task<IActionResult> Remove(int id)
+        {
+            try
+            {
+                await service.DeleteNews(id);
+            }
+            catch (Exception)
+            {
+                return BadRequest();              
+            }
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var news = await service.FindNewsById(id);
+
+            if(news == null)
+            {
+                return NotFound();
+            }
+
+            return View(news);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, NewsFormModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                await service.EditNewsAsync(id, model);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }
