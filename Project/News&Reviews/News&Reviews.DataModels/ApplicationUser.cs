@@ -8,10 +8,13 @@ namespace News_Reviews.DataModels
     {
         public ApplicationUser() : base()
         { 
+            Comments = new HashSet<Comment>();
         }
 
         [Required]
         [MaxLength(UsernameMaxLength)]
         public override string UserName { get => base.UserName; set => base.UserName = value; }
+
+        public IEnumerable<Comment> Comments { get; set; }
     }
 }
