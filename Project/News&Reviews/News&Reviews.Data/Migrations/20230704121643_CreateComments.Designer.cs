@@ -12,8 +12,8 @@ using News_Reviews.Data;
 namespace News_Reviews.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230704093412_ConnectCommentsToReviews")]
-    partial class ConnectCommentsToReviews
+    [Migration("20230704121643_CreateComments")]
+    partial class CreateComments
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
