@@ -12,7 +12,7 @@ namespace News_Reviews.Services.Interfaces
 
         public Task AddNewReview(ReviewFormModel model);
 
-        public Task<ReadReviewModel> ReadReview(int id);
+        public Task<ReadReviewModel> ReadReview(int id, IEnumerable<CommentsViewModel> model);
 
         public Task DeleteReview(int id);
 
@@ -21,5 +21,7 @@ namespace News_Reviews.Services.Interfaces
         public Task<ReviewEditModel> FindReviewById(int id);
 
         public Task<IEnumerable<CommentsViewModel>> GetCommentsAsync();
+
+        public Task AddNewCommentAsync(CommentsFormModel model, string userId);
     }
 }
