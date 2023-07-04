@@ -1,11 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using News_Reviews.Common.UserConstants;
 using News_Reviews.Data;
+using News_Reviews.DataModels;
 using News_Reviews.DataModels.DataModels;
 using News_Reviews.Models.Models;
 using News_Reviews.Models.Models.Comments;
 using News_Reviews.Models.Models.Reviews;
 using News_Reviews.Services.Interfaces;
 using System.Net;
+using System.Security.Claims;
 
 namespace News_Reviews.Services.Services
 {
@@ -16,6 +19,19 @@ namespace News_Reviews.Services.Services
         public ReviewsService(ApplicationDbContext context)
         {
             this.context = context;
+        }
+
+        public async Task AddNewCommentAsync(CommentsFormModel model, string userId)
+        {
+            Comment comment = new Comment()
+            {
+                Id = model.Id,
+                Content = model.Content,
+                UserId = userId,
+            };
+
+            await context.Comments.AddAsync(comment);
+            await context.SaveChangesAsync();
         }
 
         public async Task AddNewReview(ReviewFormModel model)
@@ -92,7 +108,6 @@ namespace News_Reviews.Services.Services
             var comments = models
                 .Select(x => new CommentsViewModel()
                 {
-                    Username = x.User.UserName,
                     Content = x.Content,
                 });
 
@@ -132,10 +147,8 @@ namespace News_Reviews.Services.Services
             return reviews;
         }
 
-        public async Task<ReadReviewModel> ReadReview(int Id)
+        public async Task<ReadReviewModel> ReadReview(int Id, IEnumerable<CommentsViewModel> model)
         {
-            var comments = await GetCommentsAsync();
-
             var review = await context.Reviews
                 .Where(r => r.Id == Id)
                 .Select(r => new ReadReviewModel
@@ -143,8 +156,8 @@ namespace News_Reviews.Services.Services
                     Id = r.Id,
                     Title = r.Title,
                     Content = r.Content,
-                    Comments = comments.ToList(),
-                })
+                    Comments = model.ToList(),
+                }) 
                 .FirstOrDefaultAsync();
             
             return review;
