@@ -1,4 +1,6 @@
 ﻿using News_Reviews.Models.Models;
+using News_Reviews.Models.Models.Comments;
+using News_Reviews.Models.Models.Reviews;
 
 namespace News_Reviews.Services.Interfaces
 {
@@ -17,5 +19,7 @@ namespace News_Reviews.Services.Interfaces
         public Task EditReviewAsync(int id, ReviewEditModel model);
 
         public Task<ReviewEditModel> FindReviewById(int id);
+
+        public Task<IEnumerable<CommentsViewModel>> GetCommentsAsync();
     }
 }
