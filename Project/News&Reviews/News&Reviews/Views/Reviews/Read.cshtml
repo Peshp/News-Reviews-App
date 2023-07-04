@@ -19,7 +19,7 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <p>@comment.Content</p>
-                            <small>Posted by: @comment.Username</small>
+                            <small>@comment.Username</small>
                         </div>
                     </div>
                 }
@@ -29,6 +29,19 @@
                 <p>No comments yet.</p>
             }
         </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <h3>Write a Comment</h3>
+            <form method="post" action="/Reviews/AddComment">
+                <input type="hidden" name="reviewId" value="@Model.Id" />
+                <div class="form-group">
+                    <textarea class="form-control" name="content" rows="3" placeholder="Enter your comment"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
 </div
 
 

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using News_Reviews.DataModels.DataModels;
 using News_Reviews.Models.Models;
+using News_Reviews.Models.Models.Comments;
 using News_Reviews.Models.Models.Reviews;
 using News_Reviews.Services.Interfaces;
 using System.Security.Claims;
@@ -89,7 +91,8 @@ namespace News_Reviews.Controllers
 
         public async Task<IActionResult> Read(int id)
         {
-            ReadReviewModel review = await service.ReadReview(id);
+            var comments = await service.GetCommentsAsync();
+            ReadReviewModel review = await service.ReadReview(id, comments);
 
             return View(review);
         }
@@ -139,6 +142,16 @@ namespace News_Reviews.Controllers
             }
 
             return RedirectToAction($"{nameof(All)}");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddComment(CommentsFormModel model)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            await service.AddNewCommentAsync(model, userId);
+
+            return RedirectToAction("All", "Reviews");
         }
     }
 }
