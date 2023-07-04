@@ -21,6 +21,7 @@ namespace News_Reviews.Data
         public DbSet<Platform> Platforms { get; set; } = null!;
         public DbSet<Publisher> Publishers { get; set; } = null!;
         public DbSet<Review> Reviews { get; set; } = null!;
+        public DbSet<Comment> Comments { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
