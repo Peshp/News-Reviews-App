@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using static News_Reviews.Common.Constants.ReviewsConstants;
 using static News_Reviews.Common.Constants.ContentConstats;
 
-namespace News_Reviews.Models.Models
+namespace News_Reviews.Models.Models.News
 {
     public class NewsEditModel
     {
