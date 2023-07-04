@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using static News_Reviews.Common.Constants.ReviewsConstants;
 using static News_Reviews.Common.Constants.ContentConstats;
 
-namespace News_Reviews.Models.Models
+namespace News_Reviews.Models.Models.Reviews
 {
-    public class ReviewFormModel
+    public class ReviewEditModel
     {
         public int Id { get; set; }
 
@@ -22,10 +22,5 @@ namespace News_Reviews.Models.Models
 
         [Required]
         public string ImageURL { get; set; }
-
-        [Required]
-        public int PlatformId { get; set; }
-
-        public IEnumerable<PlatformViewModel> Platforms {  get; set; } 
     }
 }

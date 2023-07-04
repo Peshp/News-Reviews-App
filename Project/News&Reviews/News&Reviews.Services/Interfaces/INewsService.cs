@@ -1,4 +1,5 @@
 ﻿using News_Reviews.Models.Models;
+using News_Reviews.Models.Models.News;
 
 namespace News_Reviews.Services.Interfaces
 {
