@@ -2,6 +2,8 @@
 using News_Reviews.Data;
 using News_Reviews.DataModels.DataModels;
 using News_Reviews.Models.Models;
+using News_Reviews.Models.Models.Comments;
+using News_Reviews.Models.Models.Reviews;
 using News_Reviews.Services.Interfaces;
 using System.Net;
 
@@ -83,6 +85,20 @@ namespace News_Reviews.Services.Services
             return null;
         }
 
+        public async Task<IEnumerable<CommentsViewModel>> GetCommentsAsync()
+        {
+            var models = await context.Comments.ToArrayAsync();
+
+            var comments = models
+                .Select(x => new CommentsViewModel()
+                {
+                    Username = x.User.UserName,
+                    Content = x.Content,
+                });
+
+            return comments;
+        }
+
         public async Task<IEnumerable<PlatformViewModel>> GetPlatformAsync()
         {
             var models = await context.Platforms.ToArrayAsync();
@@ -118,6 +134,8 @@ namespace News_Reviews.Services.Services
 
         public async Task<ReadReviewModel> ReadReview(int Id)
         {
+            var comments = await GetCommentsAsync();
+
             var review = await context.Reviews
                 .Where(r => r.Id == Id)
                 .Select(r => new ReadReviewModel
@@ -125,11 +143,10 @@ namespace News_Reviews.Services.Services
                     Id = r.Id,
                     Title = r.Title,
                     Content = r.Content,
+                    Comments = comments.ToList(),
                 })
                 .FirstOrDefaultAsync();
-
             
-
             return review;
         }
     }

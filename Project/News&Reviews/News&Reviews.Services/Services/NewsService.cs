@@ -2,6 +2,7 @@
 using News_Reviews.Data;
 using News_Reviews.DataModels.DataModels;
 using News_Reviews.Models.Models;
+using News_Reviews.Models.Models.News;
 using News_Reviews.Services.Interfaces;
 
 namespace News_Reviews.Services.Services
