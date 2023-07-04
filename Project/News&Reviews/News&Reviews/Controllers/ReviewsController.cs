@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using News_Reviews.Models.Models;
+using News_Reviews.Models.Models.Reviews;
 using News_Reviews.Services.Interfaces;
+using System.Security.Claims;
 
 namespace News_Reviews.Controllers
 {
@@ -78,12 +80,6 @@ namespace News_Reviews.Controllers
             if (!validPlatforms.Any(p => p.Id == model.PlatformId))
             {
                 ModelState.AddModelError(nameof(model.PlatformId), "Invalid platform");
-            }
-
-            if (ModelState.IsValid)
-            {
-                model.Platforms = validPlatforms;
-                return View(model);
             }
 
             await service.AddNewReview(model);

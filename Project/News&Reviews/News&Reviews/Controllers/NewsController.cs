@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using News_Reviews.Models.Models;
+using News_Reviews.Models.Models.News;
 using News_Reviews.Services.Interfaces;
 using News_Reviews.Services.Services;
 
