@@ -11,6 +11,6 @@ namespace News_Reviews.Models.Models.Comments
         [StringLength(ContentMaxLength, MinimumLength = ContentMinLength)]
         public string Content { get; set; }
 
-        public string UserId { get; set; }
+        public string Username { get; set; }
     }
 }

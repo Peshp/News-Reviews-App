@@ -101,7 +101,7 @@ namespace News_Reviews.Services.Services
             return null;
         }
 
-        public async Task<IEnumerable<CommentsViewModel>> GetCommentsAsync()
+        public async Task<IEnumerable<CommentsViewModel>> GetCommentsAsync(string username)
         {
             var models = await context.Comments.ToArrayAsync();
 
@@ -109,6 +109,7 @@ namespace News_Reviews.Services.Services
                 .Select(x => new CommentsViewModel()
                 {
                     Content = x.Content,
+                    Username = username,
                 });
 
             return comments;
@@ -147,7 +148,7 @@ namespace News_Reviews.Services.Services
             return reviews;
         }
 
-        public async Task<ReadReviewModel> ReadReview(int Id, IEnumerable<CommentsViewModel> model)
+        public async Task<ReadReviewModel> ReadReview(int Id, IEnumerable<CommentsViewModel> comments)
         {
             var review = await context.Reviews
                 .Where(r => r.Id == Id)
@@ -156,7 +157,7 @@ namespace News_Reviews.Services.Services
                     Id = r.Id,
                     Title = r.Title,
                     Content = r.Content,
-                    Comments = model.ToList(),
+                    Comments = comments.ToList(),
                 }) 
                 .FirstOrDefaultAsync();
             
