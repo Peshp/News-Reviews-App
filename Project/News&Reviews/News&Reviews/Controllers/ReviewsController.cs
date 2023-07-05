@@ -93,8 +93,7 @@ namespace News_Reviews.Controllers
         {
             var username = User.FindFirstValue(ClaimTypes.Name);
 
-            var comments = await service.GetCommentsAsync(username);
-            ReadReviewModel review = await service.ReadReview(id, comments);
+            ReadReviewModel review = await service.ReadReview(id);
             
             return View(review);
         }
@@ -146,14 +145,5 @@ namespace News_Reviews.Controllers
             return RedirectToAction($"{nameof(All)}");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddComment(CommentsFormModel model)
-        {
-            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            await service.AddNewCommentAsync(model, userID);
-
-            return RedirectToAction("All", "Reviews");
-        }
     }
 }
