@@ -91,9 +91,11 @@ namespace News_Reviews.Controllers
 
         public async Task<IActionResult> Read(int id)
         {
-            var comments = await service.GetCommentsAsync();
-            ReadReviewModel review = await service.ReadReview(id, comments);
+            var username = User.FindFirstValue(ClaimTypes.Name);
 
+            var comments = await service.GetCommentsAsync(username);
+            ReadReviewModel review = await service.ReadReview(id, comments);
+            
             return View(review);
         }
 
@@ -147,9 +149,9 @@ namespace News_Reviews.Controllers
         [HttpPost]
         public async Task<IActionResult> AddComment(CommentsFormModel model)
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await service.AddNewCommentAsync(model, userId);
+            await service.AddNewCommentAsync(model, userID);
 
             return RedirectToAction("All", "Reviews");
         }
