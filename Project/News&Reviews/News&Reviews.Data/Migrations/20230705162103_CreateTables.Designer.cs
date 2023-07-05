@@ -12,8 +12,8 @@ using News_Reviews.Data;
 namespace News_Reviews.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230627090156_PlatformUpdate")]
-    partial class PlatformUpdate
+    [Migration("20230705162103_CreateTables")]
+    partial class CreateTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -225,6 +225,35 @@ namespace News_Reviews.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("News_Reviews.DataModels.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("ReviewId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReviewId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("News_Reviews.DataModels.DataModels.City", b =>
@@ -524,11 +553,14 @@ namespace News_Reviews.Data.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasMaxLength(10000)
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("PlatformId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -536,6 +568,8 @@ namespace News_Reviews.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PlatformId");
 
                     b.ToTable("News");
                 });
@@ -660,19 +694,15 @@ namespace News_Reviews.Data.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
-
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
+                        .HasMaxLength(10000)
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Platform")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PlatformId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -681,7 +711,7 @@ namespace News_Reviews.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GameId");
+                    b.HasIndex("PlatformId");
 
                     b.ToTable("Reviews");
                 });
@@ -737,6 +767,25 @@ namespace News_Reviews.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("News_Reviews.DataModels.Comment", b =>
+                {
+                    b.HasOne("News_Reviews.DataModels.DataModels.Review", "Review")
+                        .WithMany("Comments")
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("News_Reviews.DataModels.ApplicationUser", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Review");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("News_Reviews.DataModels.DataModels.City", b =>
                 {
                     b.HasOne("News_Reviews.DataModels.DataModels.Country", "Country")
@@ -775,6 +824,17 @@ namespace News_Reviews.Data.Migrations
                     b.Navigation("Publisher");
                 });
 
+            modelBuilder.Entity("News_Reviews.DataModels.DataModels.News", b =>
+                {
+                    b.HasOne("News_Reviews.DataModels.DataModels.Platform", "Platform")
+                        .WithMany()
+                        .HasForeignKey("PlatformId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Platform");
+                });
+
             modelBuilder.Entity("News_Reviews.DataModels.DataModels.Publisher", b =>
                 {
                     b.HasOne("News_Reviews.DataModels.DataModels.City", "City")
@@ -796,13 +856,18 @@ namespace News_Reviews.Data.Migrations
 
             modelBuilder.Entity("News_Reviews.DataModels.DataModels.Review", b =>
                 {
-                    b.HasOne("News_Reviews.DataModels.DataModels.Game", "Game")
+                    b.HasOne("News_Reviews.DataModels.DataModels.Platform", "Platform")
                         .WithMany()
-                        .HasForeignKey("GameId")
+                        .HasForeignKey("PlatformId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Game");
+                    b.Navigation("Platform");
+                });
+
+            modelBuilder.Entity("News_Reviews.DataModels.ApplicationUser", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("News_Reviews.DataModels.DataModels.Country", b =>
@@ -813,6 +878,11 @@ namespace News_Reviews.Data.Migrations
             modelBuilder.Entity("News_Reviews.DataModels.DataModels.Genre", b =>
                 {
                     b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("News_Reviews.DataModels.DataModels.Review", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

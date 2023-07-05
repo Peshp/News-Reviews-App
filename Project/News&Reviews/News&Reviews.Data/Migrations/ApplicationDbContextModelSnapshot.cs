@@ -22,21 +22,6 @@ namespace News_Reviews.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("CommentReview", b =>
-                {
-                    b.Property<int>("CommentsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReviewsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CommentsId", "ReviewsId");
-
-                    b.HasIndex("ReviewsId");
-
-                    b.ToTable("CommentReview");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -253,15 +238,20 @@ namespace News_Reviews.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<int>("ReviewId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ReviewId");
+
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("News_Reviews.DataModels.DataModels.City", b =>
@@ -284,7 +274,7 @@ namespace News_Reviews.Data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
 
                     b.HasData(
                         new
@@ -334,7 +324,7 @@ namespace News_Reviews.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
 
                     b.HasData(
                         new
@@ -397,7 +387,7 @@ namespace News_Reviews.Data.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Games");
+                    b.ToTable("Games", (string)null);
 
                     b.HasData(
                         new
@@ -516,7 +506,7 @@ namespace News_Reviews.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Genres", (string)null);
 
                     b.HasData(
                         new
@@ -579,7 +569,7 @@ namespace News_Reviews.Data.Migrations
 
                     b.HasIndex("PlatformId");
 
-                    b.ToTable("News");
+                    b.ToTable("News", (string)null);
                 });
 
             modelBuilder.Entity("News_Reviews.DataModels.DataModels.Platform", b =>
@@ -597,7 +587,7 @@ namespace News_Reviews.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Platforms");
+                    b.ToTable("Platforms", (string)null);
 
                     b.HasData(
                         new
@@ -652,7 +642,7 @@ namespace News_Reviews.Data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Publishers");
+                    b.ToTable("Publishers", (string)null);
 
                     b.HasData(
                         new
@@ -721,22 +711,7 @@ namespace News_Reviews.Data.Migrations
 
                     b.HasIndex("PlatformId");
 
-                    b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("CommentReview", b =>
-                {
-                    b.HasOne("News_Reviews.DataModels.Comment", null)
-                        .WithMany()
-                        .HasForeignKey("CommentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("News_Reviews.DataModels.DataModels.Review", null)
-                        .WithMany()
-                        .HasForeignKey("ReviewsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -792,11 +767,19 @@ namespace News_Reviews.Data.Migrations
 
             modelBuilder.Entity("News_Reviews.DataModels.Comment", b =>
                 {
+                    b.HasOne("News_Reviews.DataModels.DataModels.Review", "Review")
+                        .WithMany("Comments")
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("News_Reviews.DataModels.ApplicationUser", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Review");
 
                     b.Navigation("User");
                 });
@@ -893,6 +876,11 @@ namespace News_Reviews.Data.Migrations
             modelBuilder.Entity("News_Reviews.DataModels.DataModels.Genre", b =>
                 {
                     b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("News_Reviews.DataModels.DataModels.Review", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

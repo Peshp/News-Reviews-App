@@ -21,11 +21,12 @@ namespace News_Reviews.Services.Services
             this.context = context;
         }
 
-        public async Task AddNewCommentAsync(CommentsFormModel model, string userId)
+        public async Task AddNewCommentAsync(CommentsFormModel model, string userId, int id)
         {
             Comment comment = new Comment()
             {
-                Id = model.Id,
+                //Id = model.Id,
+                ReviewId = model.ReviewId,  
                 Content = model.Content,
                 UserId = userId,
             };
@@ -101,6 +102,22 @@ namespace News_Reviews.Services.Services
             return null;
         }
 
+        public async Task<IEnumerable<CommentsViewModel>> GetCommendsAsync(int id, string username)
+        {
+            var models = await context.Comments
+                .Where(r => r.ReviewId == id)
+                .ToArrayAsync();
+
+            var reviews = models
+                .Select(r => new CommentsViewModel()
+                {
+                    Username = username,
+                    Content = r.Content,
+                });
+
+            return reviews;
+        }
+
         public async Task<IEnumerable<PlatformViewModel>> GetPlatformAsync()
         {
             var models = await context.Platforms.ToArrayAsync();
@@ -134,7 +151,7 @@ namespace News_Reviews.Services.Services
             return reviews;
         }
 
-        public async Task<ReadReviewModel> ReadReview(int Id)
+        public async Task<ReadReviewModel> ReadReview(int Id, IEnumerable<CommentsViewModel> comments)
         {
             var review = await context.Reviews
                 .Where(r => r.Id == Id)
@@ -143,6 +160,7 @@ namespace News_Reviews.Services.Services
                     Id = r.Id,
                     Title = r.Title,
                     Content = r.Content,
+                    Comments = comments.ToList(),
                 }) 
                 .FirstOrDefaultAsync();
             

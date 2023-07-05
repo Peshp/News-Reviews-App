@@ -7,6 +7,8 @@ namespace News_Reviews.Models.Models.Comments
     {
         public int Id { get; set; }
 
+        public int ReviewId { get; set; }
+
         [Required]
         [StringLength(ContentMaxLength, MinimumLength = ContentMinLength)]
         public string Content { get; set; }

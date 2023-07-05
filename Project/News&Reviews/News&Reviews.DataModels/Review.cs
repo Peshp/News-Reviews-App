@@ -28,6 +28,6 @@ namespace News_Reviews.DataModels.DataModels
         [Required]
         public Platform Platform { get; set; }
 
-        public IEnumerable<Comment> Comments { get; set; } = new HashSet<Comment>();
+        public IEnumerable<Comment> Comments { get; set; } = new Stack<Comment>();
     }
 }

@@ -20,6 +20,9 @@ namespace News_Reviews.DataModels
 
         public virtual ApplicationUser User { get; set; }
 
-        public IEnumerable<Review> Reviews { get; set; } = new List<Review>();
+        [ForeignKey(nameof(Review))]
+        public int ReviewId { get; set; }
+
+        public virtual Review Review { get; set; }
     }
 }
