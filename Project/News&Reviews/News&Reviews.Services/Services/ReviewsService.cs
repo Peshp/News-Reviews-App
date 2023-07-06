@@ -52,12 +52,12 @@ namespace News_Reviews.Services.Services
 
         public async Task DeleteReview(int id)
         {
-            var review = await context.Reviews
+            var review = await context.Comments
                 .FirstOrDefaultAsync(r => r.Id == id);
 
             if (review != null)
             {
-                context.Reviews.Remove(review);
+                context.Comments.Remove(review);
             }
 
             await context.SaveChangesAsync();
@@ -111,6 +111,7 @@ namespace News_Reviews.Services.Services
             var reviews = models
                 .Select(r => new CommentsViewModel()
                 {
+                    Id = r.Id,
                     Username = username,
                     Content = r.Content,
                 });
@@ -165,6 +166,19 @@ namespace News_Reviews.Services.Services
                 .FirstOrDefaultAsync();
             
             return review;
+        }
+
+        public async Task RemoveCommentAsync(int id)
+        {
+            var comment = await context.Comments
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            if(comment != null)
+            {
+                context.Comments.Remove(comment);
+            }
+
+            await context.SaveChangesAsync();
         }
     }
 }
