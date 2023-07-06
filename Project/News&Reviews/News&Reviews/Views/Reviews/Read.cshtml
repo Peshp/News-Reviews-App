@@ -22,12 +22,16 @@
                             <p>@comment.Content</p>
                         </div>
                     </div>
+                    <form class="input-group-sm" asp-controller="Reviews" asp-action="RemoveComment" asp-route-id="@comment.Id">
+                    <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
+                </form>
                 }
             }
             else
             {
                 <p>No comments yet.</p>
             }
+            
         </div>
     </div>
     <div class="row justify-content-center mt-4">
