@@ -154,5 +154,19 @@ namespace News_Reviews.Controllers
 
             return RedirectToAction("All", "Reviews");
         }
+
+        public async Task<IActionResult> RemoveComment(int id)
+        {
+            try
+            {
+                await service.DeleteReview(id);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }
