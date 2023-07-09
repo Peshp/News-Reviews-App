@@ -36,6 +36,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IReviewsService, ReviewsService>();
 builder.Services.AddScoped<INewsService, NewsService>();
+builder.Services.AddScoped<IForumService, ForumService>();
 
 var app = builder.Build();
 

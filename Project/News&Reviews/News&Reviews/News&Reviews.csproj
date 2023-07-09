@@ -23,8 +23,4 @@
     <ProjectReference Include="..\News&amp;Reviews.Services\News&amp;Reviews.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\NewsReviews\" />
-  </ItemGroup>
-
 </Project>
