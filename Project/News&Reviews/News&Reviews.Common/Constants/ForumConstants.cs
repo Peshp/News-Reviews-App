@@ -5,7 +5,7 @@
         public const int PostContentMaxLength = 1000;
         public const int PostContentMinLength = 10;
 
-        public const int ThemeTitleMaxLength = 3;
-        public const int ThemeTitleMinLength = 50;
+        public const int ThemeTitleMaxLength = 100;
+        public const int ThemeTitleMinLength = 3;
     }
 }
