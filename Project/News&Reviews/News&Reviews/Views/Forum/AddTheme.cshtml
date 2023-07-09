@@ -1,0 +1,16 @@
+﻿@using News_Reviews.Models.Models.Forum;
+@model ThemesFormModel
+
+<h1 style="text-align: center; color: #333; font-size: 24px; margin-bottom: 20px;">Add New Theme</h1>
+
+<form method="post" action="/Forum/AddTheme">
+    <div class="form-group" style="margin-bottom: 20px;">
+        <label for="title" style="font-weight: bold;">Title:</label>
+        <input type="text" class="form-control" id="title" name="title" required style="width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+        @if (!string.IsNullOrEmpty(ViewData["TitleError"] as string))
+        {
+            <p class="text-danger" style="color: red; font-size: 14px;">@ViewData["TitleError"]</p>
+        }
+    </div>
+    <input type="submit" value="Add Theme" class="btn btn-primary" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px;">
+</form>

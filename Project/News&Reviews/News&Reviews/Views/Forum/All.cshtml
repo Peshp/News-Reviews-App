@@ -1,0 +1,44 @@
+﻿@using News_Reviews.Models.Models.Forum;
+@model IEnumerable<ThemesViewModel>
+
+<div style="background-color: #f8f8f8; padding: 20px; display: flex; justify-content: flex-start;">
+    <div style="width: 50%;">
+        <div style="display: flex; flex-direction: column;">
+            @foreach (var theme in Model)
+            {
+                <div style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); padding: 20px; margin-bottom: 20px;">
+                    <h3 style="font-size: 20px; color: #333; margin-bottom: 10px;">
+                        <a href="@Url.Action("AllPosts", "Forum", new { id = theme.Id })" style="text-decoration: none; color: #333;">@theme.Title</a>
+                    </h3>
+                    <div style="margin-top: 10px;">
+                        @if (theme.Posts != null && theme.Posts.Any())
+                        {
+                            foreach (var post in theme.Posts)
+                            {
+                                <div style="background-color: #f3f3f3; border-radius: 5px; padding: 10px; margin-bottom: 10px;">
+                                    <h5 style="font-size: 16px; color: #666;">@post.Content</h5>
+                                    <p style="font-size: 14px; color: #999;">By: @post.Username</p>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p style="font-size: 14px; color: #999;">No posts available.</p>
+                        }
+                    </div>
+                    <h3 style="font-size: 20px; color: #333; margin-bottom: 10px;">
+                        <form class="input-group-sm" asp-controller="Forum" asp-action="RemoveTheme" asp-route-id="@theme.Id">
+                            <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
+                        </form>
+                    </h3>                  
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 20px;">
+    <a href="@Url.Action("AddTheme", "Forum")" class="btn btn-primary" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px;">Add Theme</a>
+</div>
+
+
