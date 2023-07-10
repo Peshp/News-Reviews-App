@@ -146,11 +146,11 @@ namespace News_Reviews.Controllers
             return RedirectToAction($"{nameof(All)}");
         }
 
-        public async Task<IActionResult> AddComment(CommentsFormModel model, int id)
+        public async Task<IActionResult> AddComment(CommentsFormModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await service.AddNewCommentAsync(model, userId, id);
+            await service.AddNewCommentAsync(model, userId);
 
             return RedirectToAction("All", "Reviews");
         }
