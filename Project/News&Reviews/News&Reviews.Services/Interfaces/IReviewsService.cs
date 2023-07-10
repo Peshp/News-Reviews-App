@@ -22,7 +22,7 @@ namespace News_Reviews.Services.Interfaces
 
         public Task<IEnumerable<CommentsViewModel>> GetCommendsAsync(int id, string username);
 
-        public Task AddNewCommentAsync(CommentsFormModel model, string userId, int id);
+        public Task AddNewCommentAsync(CommentsFormModel model, string userId);
 
         public Task RemoveCommentAsync(int id);
     }
