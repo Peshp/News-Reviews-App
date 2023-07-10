@@ -14,5 +14,33 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    background: rgb(14,20,34);
+    background: radial-gradient(circle, rgba(14,20,34,1) 0%, rgba(14,20,34,1) 50%, rgba(38,43,56,1) 100%);
+}
+
+header {
+    font-family: "Times New Roman", Times, serif;
+    flex-grow: 3;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: cyan;
+    flex-grow: 3;
+}
+
+.navbar-light .navbar-nav .dropdown-menu {
+    background-color: #36013f;
+}
+
+    .navbar-light .navbar-nav .dropdown-menu .dropdown-item {
+        color: white;       
+    }
+
+.navbar-light .navbar-nav .dropdown-menu .dropdown-item:hover {
+        background-color: #490648;
+    }
+
+.navbar {
+    background-color: #262B38;
+    filter: brightness(90%) contrast(110%) saturate(120%) hue-rotate(10deg);
 }
