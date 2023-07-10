@@ -21,11 +21,10 @@ namespace News_Reviews.Services.Services
             this.context = context;
         }
 
-        public async Task AddNewCommentAsync(CommentsFormModel model, string userId, int id)
+        public async Task AddNewCommentAsync(CommentsFormModel model, string userId)
         {
             Comment comment = new Comment()
             {
-                //Id = model.Id,
                 ReviewId = model.ReviewId,  
                 Content = model.Content,
                 UserId = userId,
