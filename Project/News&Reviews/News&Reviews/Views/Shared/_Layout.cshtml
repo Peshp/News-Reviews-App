@@ -3,16 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - News_Reviews</title>
+    <title>@ViewData["Title"] - NewsReviews</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/News_Reviews.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light" style="background-image:
+            url('https://static.vecteezy.com/system/resources/previews/013/402/107/non_2x/moonlight-night-in-forest-dark-forest-sky-with-river-and-moon-landscape-background-illustration-free-vector.jpg');
+            background-size: cover; background-position: top; border-bottom: 3px solid cyan;">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">News_Reviews</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="color: cyan">News_Reviews</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,10 +22,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>    
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="reviewsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">News</a>
+                            <a class="nav-link dropdown-toggle text-light" href="#" id="reviewsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">News</a>
                             <ul class="dropdown-menu" aria-labelledby="reviewsDropdown">
                                 <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="All">All News</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="AllPc">PC</a></li>
@@ -34,7 +36,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="reviewsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Reviews</a>
+                            <a class="nav-link dropdown-toggle text-light" href="#" id="reviewsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Reviews</a>
                             <ul class="dropdown-menu" aria-labelledby="reviewsDropdown">
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="All">All Reviews</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="AllPc">PC</a></li>
@@ -45,7 +47,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="newsreviewsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Add</a>
+                            <a class="nav-link dropdown-toggle text-light" href="#" id="newsreviewsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Add</a>
                             <ul class="dropdown-menu" aria-labelledby="reviewsDropdown">
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="Add">Add Reviews</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="Add">Add News</a></li>
@@ -53,28 +55,29 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Forum" asp-action="All">Forum</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Forum" asp-action="All">Forum</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
+        </```html
         <div class="container">
-            &copy; 2023 - News_Reviews - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2023 - News_Reviews - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
