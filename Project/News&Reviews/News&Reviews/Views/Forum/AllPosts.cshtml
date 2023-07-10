@@ -1,0 +1,41 @@
+﻿﻿@using News_Reviews.Models.Models.Forum;
+@model IEnumerable<PostViewModel>
+
+@{
+    var themeId = ViewContext.RouteData.Values["id"] as string;
+}
+
+@foreach (var post in Model)
+{
+    <div class="card mb-3" style="background-color: #353746; border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
+        <div class="card-body">
+            <h3 style="color: cyan; font-size: 20px; margin-bottom: 10px; padding-bottom: 10px;">@post.Username</h3>
+            <p style="color: cyan; font-size: 18px; margin-bottom: 0;">@post.Content</p>
+        </div>
+    </div>
+    <form class="input-group-sm" asp-controller="Forum" asp-action="RemovePost" asp-route-id="@post.Id" style="display: inline;">
+        <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" style="background-color: #007bff; color: #fff; border: none; border-radius: 5px; font-size: 14px; cursor: pointer;" />
+    </form>
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <h3 style="font-size: 25px; color: lightblue;">Write a Post</h3>
+        <form method="post" asp-controller="Forum" asp-action="AddPost" asp-route-themeId="@themeId">
+            <div class="form-group">
+                <input type="hidden" name="themeId" value="@themeId" />
+                <textarea class="form-control" name="content" rows="3" placeholder="Enter your post" style="border: 2px solid cyan; border-radius: 5px; padding: 5px; background-color: #1C1E2F; color: white;" oninput="changeTextColor(this)"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="background-color: #007bff; color: #1C1E2F; border: none; border-radius: 5px; font-size: 14px; padding: 8px 16px; cursor: pointer;">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function changeTextColor(element) {
+        element.style.color = element.value.trim() === "" ? "white" : "white";
+    }
+</script>
+
+
+
