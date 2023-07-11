@@ -152,7 +152,7 @@ namespace News_Reviews.Controllers
 
             await service.AddNewCommentAsync(model, userId);
 
-            return RedirectToAction("All", "Reviews");
+            return RedirectToAction("Read", "Reviews");
         }
 
         public async Task<IActionResult> RemoveComment(int id)
