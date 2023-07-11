@@ -1,9 +1,21 @@
-﻿﻿@using News_Reviews.Models.Models.Forum;
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+
+﻿@using News_Reviews.Models.Models.Forum;
 @model IEnumerable<PostViewModel>
 
 @{
     var themeId = ViewContext.RouteData.Values["id"] as string;
 }
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("AllPosts", new { page = page, id = themeId }),
+    new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+    {
+        DisplayItemSliceAndTotal = true,
+        ContainerDivClasses = new[] { "navigation" },
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" },
+    })
 
 @foreach (var post in Model)
 {
@@ -36,6 +48,16 @@
         element.style.color = element.value.trim() === "" ? "white" : "white";
     }
 </script>
+
+@section Scripts{
+    <script>
+        // Workaround to fix style of text for showing items .. through ..
+        // Problem related to Boostrap 4 according to issue in link below
+        $(document).ready(function () {
+            $('ul.pagination > li.disabled > a').addClass('page-link');
+        });
+    </script>
+}
 
 
 
