@@ -8,6 +8,6 @@ namespace News_Reviews.Models.Models.Forum
 
         public string Title { get; set; }
 
-        public IEnumerable<PostViewModel> Posts { get; set; } = new List<PostViewModel>();
+        public IEnumerable<PostViewModel> Posts { get; set; } 
     }
 }
