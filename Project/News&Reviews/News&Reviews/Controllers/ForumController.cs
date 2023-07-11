@@ -4,6 +4,7 @@ using News_Reviews.DataModels;
 using News_Reviews.Models.Models.Forum;
 using News_Reviews.Services.Interfaces;
 using System.Security.Claims;
+using X.PagedList;
 
 namespace News_Reviews.Controllers
 {
@@ -17,17 +18,19 @@ namespace News_Reviews.Controllers
             service = _service;
         }
 
-        public async Task<IActionResult> All(int themeId)
+        public async Task<IActionResult> All(int id, int? page)
         {
+            var pageNumber = page ?? 1;
+            int pageSize = 8;          
+
             var username = User.FindFirstValue(ClaimTypes.Name);
 
-            var posts = await service.GetPostsAsync(themeId, username);
+            var posts = await service.GetPostsAsync(id, username);
             var themes = await service.GetThemesAsync(posts);
-            
 
-            themes.ToList().ForEach(t => t.Posts = posts);
+            var onePageOfThemes = themes.ToPagedList(pageNumber, pageSize);
 
-            return View(themes);
+            return View(onePageOfThemes);
         }
 
         [HttpGet]
@@ -64,12 +67,17 @@ namespace News_Reviews.Controllers
             return RedirectToAction(nameof(All));
         }
 
-        public async Task<IActionResult> AllPosts(int id)
+        public async Task<IActionResult> AllPosts(int id, int? page)
         {
+            var pageNumber = page ?? 1;
+            int pageSize = 8;
+
             var username = User.FindFirstValue(ClaimTypes.Name);
             var posts = await service.GetPostsAsync(id, username);
 
-            return View(posts);
+            var onePageOfThemes = posts.ToPagedList(pageNumber, pageSize);
+
+            return View(onePageOfThemes);
         }
 
         public async Task<IActionResult> AddPost(PostViewModel model, int themeId)
