@@ -4,18 +4,8 @@
 
 
 <div class="text-center row">
-    @foreach (var review in Model)
+    @foreach (var news in Model)
     {
-        <div class="card col-4" style="width: 20rem; ">
-            <div class="card-body">
-                <h5 class="card-title mt-1">@review.Title</h5>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title mt-1">@review.Content</h5>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title mt-1">@review.Data</h5>
-            </div>
-        </div>
+        <partial name="_NewsPartial" model="news" />
     }
 </div>
