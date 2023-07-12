@@ -92,11 +92,10 @@ namespace News_Reviews.Controllers
 
         public async Task<IActionResult> Read(int id)
         {
+
             ReadNewsModel news = await service.ReadNews(id);
 
-            return View(news);
-        
-        
+            return View(news);             
         }
 
         public async Task<IActionResult> Remove(int id)
