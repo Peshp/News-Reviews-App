@@ -51,12 +51,12 @@ namespace News_Reviews.Services.Services
 
         public async Task DeleteReview(int id)
         {
-            var review = await context.Comments
+            var review = await context.Reviews
                 .FirstOrDefaultAsync(r => r.Id == id);
 
             if (review != null)
             {
-                context.Comments.Remove(review);
+                context.Reviews.Remove(review);
             }
 
             await context.SaveChangesAsync();
