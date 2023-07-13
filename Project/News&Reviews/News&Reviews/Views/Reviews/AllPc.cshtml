@@ -6,13 +6,6 @@
 <div class="text-center row">
     @foreach (var review in Model)
     {
-        <div class="card" style="width:400px">
-            <img class="card-img-top" src="@review.ImageURL" alt="Card image">
-            <div class="card-body">
-                <h4 class="card-title">@review.Title</h4>
-                <p>@Html.Raw(System.Web.HttpUtility.HtmlDecode(review.Content.Substring(0, review.Content.IndexOf('.') + 1)))</p>
-                <a asp-controller="Reviews" asp-action="Read" asp-route-id="@review.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Read</a>
-            </div>
-        </div>
+        <partial name="_ReviewsPartial" model="review" />
     }
 </div>
