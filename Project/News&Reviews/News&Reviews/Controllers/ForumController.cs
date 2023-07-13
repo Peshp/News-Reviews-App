@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using News_Reviews.DataModels;
 using News_Reviews.Models.Models.Forum;
 using News_Reviews.Services.Interfaces;
