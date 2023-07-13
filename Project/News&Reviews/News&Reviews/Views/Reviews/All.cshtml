@@ -3,20 +3,26 @@
 @model IEnumerable<ReviewsViewModel>
 
 
-<div class="text-center row">
+<div class="row">
     @foreach (var review in Model)
     {
-        <div class="card" style="width:400px">
-            <img class="card-img-top" src="@review.ImageURL" alt="Card image">
-            <div class="card-body">
-                <h4 class="card-title">@review.Title</h4>
-                <p>@Html.Raw(System.Web.HttpUtility.HtmlDecode(review.Content.Substring(0, review.Content.IndexOf('.') + 1)))</p>
-                <a asp-controller="Reviews" asp-action="Read" asp-route-id="@review.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Read</a>
-                <form class="input-group-sm" asp-controller="Reviews" asp-action="Remove" asp-route-id="@review.Id">
-                    <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
-                </form>
-                <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-primary w-50 mb-2 ">Edit</a>
+        <div class="card mb-3" style="border-bottom: 1px solid #ccc; padding: 10px;">
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="card-img-left" src="@review.ImageURL" alt="Card image" style="max-height: 100px; width: auto;">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="@Url.Action("Read", "Reviews", new { id = review.Id })" class="text-decoration-none text-dark">@review.Title</a></h4>
+                        <div class="d-flex justify-content-end">
+                            <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-primary">Edit</a>
+                            <form class="input-group-sm" asp-controller="Reviews" asp-action="Remove" asp-route-id="@review.Id">
+                                <input type="submit" value="Remove" class="fs-6 btn btn-success ml-2" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>     
+        </div>
     }
 </div>
