@@ -35,6 +35,12 @@ namespace News_Reviews.Data
 
         public DbSet<Post> Posts { get; set; } = null!;
 
+        public DbSet<Question> Questions { get; set; } = null!;
+
+        public DbSet<Answer> Answers { get; set; } = null!;
+
+        public DbSet<UserAnswers> UserAnswers { get; set; } = null!;
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
