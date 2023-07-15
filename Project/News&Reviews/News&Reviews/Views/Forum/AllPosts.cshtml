@@ -8,16 +8,6 @@
     var themeId = ViewContext.RouteData.Values["id"] as string;
 }
 
-@Html.PagedListPager((IPagedList)Model, page => Url.Action("AllPosts", new { page = page, id = themeId }),
-    new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
-    {
-        DisplayItemSliceAndTotal = true,
-        ContainerDivClasses = new[] { "navigation" },
-        UlElementClasses = new[] { "pagination" },
-        LiElementClasses = new[] { "page-item" },
-        PageClasses = new[] { "page-link" },
-    })
-
 @foreach (var post in Model)
 {
     <div class="card mb-3" style="background-color: #353746; border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
@@ -43,6 +33,16 @@
         </form>
     </div>
 </div>
+
+<!-- paging control for navigation to the previous page, next page, etc -->
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("AllPosts", new { page = page, id = themeId }),
+    new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+    {
+        DisplayItemSliceAndTotal = true,
+        ContainerDivClasses = new[] { "navigation" },
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" },
+    })
 
 @section Scripts{
     <script>
