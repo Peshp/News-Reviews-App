@@ -5,17 +5,6 @@
 
 @model IEnumerable<ThemesViewModel>
 
-<!-- paging control for navigation to the previous page, next page, etc -->
-@Html.PagedListPager((IPagedList)Model, page => Url.Action("All", new { page = page }),
-    new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
-    {
-        DisplayItemSliceAndTotal = true,
-        ContainerDivClasses = new[] { "navigation" },
-        LiElementClasses = new[] { "page-item" },
-        PageClasses = new[] { "page-link" },
-    })
-
-
 <div style="padding: 20px; display: flex; justify-content: flex-start;">
     <div style="width: 50%;">
         <div style="display: flex; flex-direction: column;">
@@ -36,17 +25,59 @@
     </div>
 </div>
 
-<div style="text-align: center; margin-top: 20px;">
-    <a href="@Url.Action("AddTheme", "Forum")" class="btn btn-primary" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px;">Add Theme</a>
-</div>
+<!-- paging control for navigation to the previous page, next page, etc -->
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("All", new { page = page }),
+    new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+    {
+        DisplayItemSliceAndTotal = true,
+        ContainerDivClasses = new[] { "navigation" },
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" },
+    })
 
 @section Scripts{
     <script>
         // Workaround to fix style of text for showing items .. through ..
-        // Problem related to Boostrap 4 according to issue in link below
+        // Problem related to Bootstrap 4 according to issue in link below
         $(document).ready(function () {
             $('ul.pagination > li.disabled > a').addClass('page-link');
         });
+
+        $(document).ready(function () {
+            // Get all the pagination links
+            var paginationLinks = document.querySelectorAll('.pagination .page-link');
+
+            // Change the colors
+            paginationLinks.forEach(function (link) {
+                link.style.color = '#fff';
+                link.style.backgroundColor = '#353746';
+                link.style.borderColor = 'cyan';
+            });
+        });
+
+        // Change the style of the item slice text
+        var itemSliceText = document.querySelector('.item-slice-text');
+        itemSliceText.style.color = 'cyan';
+        itemSliceText.style.fontSize = '20px';
+        itemSliceText.style.border = '2px solid cyan';
+
+        // Change the style of the write post title
+        var writePostTitle = document.querySelector('.write-post-title');
+        writePostTitle.style.fontSize = '25px';
+        writePostTitle.style.color = 'lightblue';
+
+        $(document).ready(function () {
+            // Change the style of the item slice text
+            $('.item-slice-text').css({
+                'color': 'cyan',
+                'font-size': '20px',
+                'border': '2px solid cyan'
+            });
+        });
     </script>
 }
+
+<div style="text-align: center; margin-top: 20px;">
+    <a href="@Url.Action("AddTheme", "Forum")" class="btn btn-primary" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px;">Add Theme</a>
+</div>
 
