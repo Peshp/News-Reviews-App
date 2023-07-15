@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using News_Reviews.DataModels;
 using News_Reviews.Models.Models.News;
 using News_Reviews.Services.Interfaces;
 using News_Reviews.Services.Services;
+
+using X.PagedList;
 
 namespace News_Reviews.Controllers
 {
@@ -14,46 +18,81 @@ namespace News_Reviews.Controllers
             this.service = service;
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int? page)
         {
+            var pageNumber = page ?? 1;
+            int pageSize = 8;
+
             var news = await service.GetNewsAsync();
 
-            return View(news);
+            var onePageOfNews = news.ToPagedList(pageNumber, pageSize);
+
+            return View(onePageOfNews);
         }
 
-        public async Task<IActionResult> AllPc()
+        public async Task<IActionResult> AllPc(int? page)
         {
-            var news = await service.GetNewsAsync();
+            var pageNumber = page ?? 1;
+            int pageSize = 8;
 
-            return View(news.Where(n => n.Platform == "PC"));
+            var news = await service.GetNewsAsync();
+            var pcNews = news.Where(n => n.Platform == "PC");
+
+            var onePageOfNews = pcNews.ToPagedList(pageNumber, pageSize);
+
+            return View(onePageOfNews);
         }
 
-        public async Task<IActionResult> AllPlaystation()
+        public async Task<IActionResult> AllPlaystation(int? page)
         {
-            var news = await service.GetNewsAsync();
+            var pageNumber = page ?? 1;
+            int pageSize = 8;
 
-            return View(news.Where(n => n.Platform == "Playstation"));
+            var news = await service.GetNewsAsync();
+            var psNews = news.Where(n => n.Platform == "Playstation");
+
+            var onePageOfNews = psNews.ToPagedList(pageNumber, pageSize);
+
+            return View(onePageOfNews);
         }
 
-        public async Task<IActionResult> AllXbox()
+        public async Task<IActionResult> AllXbox(int? page)
         {
-            var news = await service.GetNewsAsync();
+            var pageNumber = page ?? 1;
+            int pageSize = 8;
 
-            return View(news.Where(n => n.Platform == "Xbox"));
+            var news = await service.GetNewsAsync();
+            var xboxNews = news.Where(n => n.Platform == "Xbox");
+
+            var onePageOfNews = xboxNews.ToPagedList(pageNumber, pageSize);
+
+            return View(onePageOfNews);
         }
 
-        public async Task<IActionResult> AllNintendo()
+        public async Task<IActionResult> AllNintendo(int? page)
         {
-            var news = await service.GetNewsAsync();
+            var pageNumber = page ?? 1;
+            int pageSize = 8;
 
-            return View(news.Where(n => n.Platform == "Nintendo"));
+            var news = await service.GetNewsAsync();
+            var nintendoNews = news.Where(n => n.Platform == "Nintendo");
+
+            var onePageOfNews = nintendoNews.ToPagedList(pageNumber, pageSize);
+
+            return View(onePageOfNews);
         }
 
-        public async Task<IActionResult> AllMobile()
+        public async Task<IActionResult> AllMobile(int? page)
         {
-            var news = await service.GetNewsAsync();
+            var pageNumber = page ?? 1;
+            int pageSize = 8;
 
-            return View(news.Where(n => n.Platform == "Mobile"));
+            var news = await service.GetNewsAsync();
+            var mobNews = news.Where(n => n.Platform == "Mobile");
+
+            var onePageOfNews = mobNews.ToPagedList(pageNumber, pageSize);
+
+            return View(onePageOfNews);
         }
 
         [HttpGet]
