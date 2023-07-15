@@ -43,7 +43,7 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="AllPlaystation">Playstation</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="AllXbox">Xbox</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="AllNintendo">Nintendo</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="AllMobile">PC</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="AllMobile">Mobile</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -57,12 +57,16 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Forum" asp-action="All">Forum</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Quiz" asp-action="All">Quiz</a>
+                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
-        </```html
+      </header>
         <div class="container">
             <main role="main" class="pb-3">
                 @RenderBody()
