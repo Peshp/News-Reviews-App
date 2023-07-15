@@ -7,6 +7,8 @@ using News_Reviews.Models.Models.Reviews;
 using News_Reviews.Services.Interfaces;
 using System.Security.Claims;
 
+using X.PagedList;
+
 namespace News_Reviews.Controllers
 {
     [Authorize]
@@ -19,46 +21,81 @@ namespace News_Reviews.Controllers
             this.service = service;
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int? page)
         {
+            var pageNumber = page ?? 1;
+            int pageSize = 8;
+
             var reviews = await service.GetReviewsAsync();
 
-            return View(reviews);
+            var onePageOfReviews = reviews.ToPagedList(pageNumber, pageSize);
+
+            return View(onePageOfReviews);
         }
 
-        public async Task<IActionResult> AllPc()
+        public async Task<IActionResult> AllPc(int? page)
         {
-            var reviews = await service.GetReviewsAsync();
+            var pageNumber = page ?? 1;
+            int pageSize = 8;
 
-            return View(reviews.Where(r => r.Platform == "PC"));
+            var reviews = await service.GetReviewsAsync();
+            var pcReviews = reviews.Where(r => r.Platform == "PC");
+
+            var onePageOfReviews = pcReviews.ToPagedList(pageNumber, pageSize);
+
+            return View(onePageOfReviews);
         }
 
-        public async Task<IActionResult> AllPlaystation()
+        public async Task<IActionResult> AllPlaystation(int? page)
         {
-            var reviews = await service.GetReviewsAsync();
+            var pageNumber = page ?? 1;
+            int pageSize = 8;
 
-            return View(reviews.Where(r => r.Platform == "Playstation"));
+            var reviews = await service.GetReviewsAsync();
+            var psReviews = reviews.Where(r => r.Platform == "Playstation");
+
+            var onePageOfReviews = psReviews.ToPagedList(pageNumber, pageSize);
+
+            return View(onePageOfReviews);
         }
 
-        public async Task<IActionResult> AllXbox()
+        public async Task<IActionResult> AllXbox(int? page)
         {
-            var reviews = await service.GetReviewsAsync();
+            var pageNumber = page ?? 1;
+            int pageSize = 8;
 
-            return View(reviews.Where(r => r.Platform == "Xbox"));
+            var reviews = await service.GetReviewsAsync();
+            var xboxReviews = reviews.Where(r => r.Platform == "Xbox");
+
+            var onePageOfReviews = xboxReviews.ToPagedList(pageNumber, pageSize);
+
+            return View(onePageOfReviews);
         }
 
-        public async Task<IActionResult> AllNintendo()
+        public async Task<IActionResult> AllNintendo(int? page)
         {
-            var reviews = await service.GetReviewsAsync();
+            var pageNumber = page ?? 1;
+            int pageSize = 8;
 
-            return View(reviews.Where(r => r.Platform == "Nintendo"));
+            var reviews = await service.GetReviewsAsync();
+            var nintendoxReviews = reviews.Where(r => r.Platform == "Nintendo");
+
+            var onePageOfReviews = nintendoxReviews.ToPagedList(pageNumber, pageSize);
+
+            return View(onePageOfReviews);
         }
 
-        public async Task<IActionResult> AllMobile()
+        public async Task<IActionResult> AllMobile(int? page)
         {
-            var reviews = await service.GetReviewsAsync();
+            var pageNumber = page ?? 1;
+            int pageSize = 8;
 
-            return View(reviews.Where(r => r.Platform == "Mobile"));
+            var reviews = await service.GetReviewsAsync();
+            var mobReviews = reviews.Where(r => r.Platform == "Mobile");
+
+            var onePageOfReviews = mobReviews.ToPagedList(pageNumber, pageSize);
+
+            return View(onePageOfReviews);
         }
 
         [HttpGet]
