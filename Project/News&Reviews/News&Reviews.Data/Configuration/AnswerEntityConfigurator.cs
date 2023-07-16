@@ -87,7 +87,7 @@ namespace News_Reviews.Data.Configuration
             answer = new Answer()
             {
                 Id = 8,
-                Title = "A good balance of both",
+                Title = "Mostly action, I guess.",                
                 Points = 2,
                 QuestionId = 2,
             };
@@ -96,7 +96,7 @@ namespace News_Reviews.Data.Configuration
             answer = new Answer()
             {
                 Id = 9,
-                Title = "Mostly action, I guess.",
+                Title = "I like logic, such as simple puzzles.",                
                 Points = 3,
                 QuestionId = 2,
             };
@@ -105,7 +105,7 @@ namespace News_Reviews.Data.Configuration
             answer = new Answer()
             {
                 Id = 10,
-                Title = "I like logic, such as simple puzzles.",
+                Title = "A good balance of both",
                 Points = 4,
                 QuestionId = 2,
             };
@@ -434,7 +434,7 @@ namespace News_Reviews.Data.Configuration
             answer = new Answer()
             {
                 Id = 45,
-                Title = "Only Pc",
+                Title = "I have plenty of consoles. ",
                 Points = 1,
                 QuestionId = 9,
             };
@@ -479,7 +479,7 @@ namespace News_Reviews.Data.Configuration
             answer = new Answer()
             {
                 Id = 50,
-                Title = "I have plenty of consoles. ",
+                Title = "Only Pc",
                 Points = 6,
                 QuestionId = 9,
             };
@@ -526,7 +526,7 @@ namespace News_Reviews.Data.Configuration
             answer = new Answer()
             {
                 Id = 55,
-                Title = "Lord Of The Rings",
+                Title = "The Butterfly Effect",
                 Points = 5,
                 QuestionId = 10,
             };
@@ -535,7 +535,7 @@ namespace News_Reviews.Data.Configuration
             answer = new Answer()
             {
                 Id = 56,
-                Title = "The Butterfly Effect",
+                Title = "Lord Of The Rings",
                 Points = 6,
                 QuestionId = 10,
             };
