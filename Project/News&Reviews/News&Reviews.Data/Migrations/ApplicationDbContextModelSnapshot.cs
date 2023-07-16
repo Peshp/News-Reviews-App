@@ -238,21 +238,21 @@ namespace News_Reviews.Data.Migrations
                             Id = 8,
                             Points = 2,
                             QuestionId = 2,
-                            Title = "A good balance of both"
+                            Title = "Mostly action, I guess."
                         },
                         new
                         {
                             Id = 9,
                             Points = 3,
                             QuestionId = 2,
-                            Title = "Mostly action, I guess."
+                            Title = "I like logic, such as simple puzzles."
                         },
                         new
                         {
                             Id = 10,
                             Points = 4,
                             QuestionId = 2,
-                            Title = "I like logic, such as simple puzzles."
+                            Title = "A good balance of both"
                         },
                         new
                         {
@@ -497,7 +497,7 @@ namespace News_Reviews.Data.Migrations
                             Id = 45,
                             Points = 1,
                             QuestionId = 9,
-                            Title = "Only Pc"
+                            Title = "I have plenty of consoles. "
                         },
                         new
                         {
@@ -532,7 +532,7 @@ namespace News_Reviews.Data.Migrations
                             Id = 50,
                             Points = 6,
                             QuestionId = 9,
-                            Title = "I have plenty of consoles. "
+                            Title = "Only Pc"
                         },
                         new
                         {
@@ -567,14 +567,14 @@ namespace News_Reviews.Data.Migrations
                             Id = 55,
                             Points = 5,
                             QuestionId = 10,
-                            Title = "Lord Of The Rings"
+                            Title = "The Butterfly Effect"
                         },
                         new
                         {
                             Id = 56,
                             Points = 6,
                             QuestionId = 10,
-                            Title = "The Butterfly Effect"
+                            Title = "Lord Of The Rings"
                         });
                 });
 
