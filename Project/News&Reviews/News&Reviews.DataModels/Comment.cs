@@ -15,6 +15,8 @@ namespace News_Reviews.DataModels
         [MaxLength(ContentMaxLength)]
         public string Content { get; set; }
 
+        public string Username { get; set; }
+
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
 
