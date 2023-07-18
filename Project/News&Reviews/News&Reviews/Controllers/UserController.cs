@@ -80,14 +80,25 @@ namespace News_Reviews.Controllers
             }
 
             var user = await userManager.FindByNameAsync(model.Username);
-            var result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
 
-            if (result.Succeeded)
+            if (user != null)
             {
-                return RedirectToAction("Index", "Home");
+                var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, false, lockoutOnFailure: false);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+
+                    return View(model);
+                }
+
             }
 
-            ModelState.AddModelError(string.Empty, "Username or password is incorrect");
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             return View(model);
         }
 
