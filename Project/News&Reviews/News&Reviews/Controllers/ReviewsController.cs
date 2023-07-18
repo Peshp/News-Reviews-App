@@ -127,9 +127,8 @@ namespace News_Reviews.Controllers
         }
 
         public async Task<IActionResult> Read(int id)
-        {
-            var username = User.FindFirstValue(ClaimTypes.Name);
-            var comments = service.GetCommendsAsync(id, username);
+        {            
+            var comments = service.GetCommendsAsync(id);
 
             ReadReviewModel review = await service.ReadReview(id, comments.Result);
             
@@ -196,7 +195,7 @@ namespace News_Reviews.Controllers
         {
             try
             {
-                await service.DeleteReview(id);
+                await service.RemoveCommentAsync(id);
             }
             catch (Exception)
             {
