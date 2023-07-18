@@ -23,9 +23,12 @@ namespace News_Reviews.Services.Services
 
         public async Task AddNewCommentAsync(CommentsFormModel model, string userId)
         {
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
             Comment comment = new Comment()
             {
                 ReviewId = model.ReviewId,  
+                Username = user.UserName,
                 Content = model.Content,
                 UserId = userId,
             };
@@ -101,7 +104,7 @@ namespace News_Reviews.Services.Services
             return null;
         }
 
-        public async Task<IEnumerable<CommentsViewModel>> GetCommendsAsync(int id, string username)
+        public async Task<IEnumerable<CommentsViewModel>> GetCommendsAsync(int id)
         {
             var models = await context.Comments
                 .Where(r => r.ReviewId == id)
@@ -111,7 +114,7 @@ namespace News_Reviews.Services.Services
                 .Select(r => new CommentsViewModel()
                 {
                     Id = r.Id,
-                    Username = username,
+                    Username = r.Username,
                     Content = r.Content,
                 });
 
