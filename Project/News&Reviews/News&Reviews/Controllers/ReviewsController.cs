@@ -21,6 +21,7 @@ namespace News_Reviews.Controllers
             this.service = service;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> All(int? page)
         {
             var pageNumber = page ?? 1;
@@ -33,6 +34,7 @@ namespace News_Reviews.Controllers
             return View(onePageOfReviews);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> AllPc(int? page)
         {
             var pageNumber = page ?? 1;
@@ -46,6 +48,7 @@ namespace News_Reviews.Controllers
             return View(onePageOfReviews);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> AllPlaystation(int? page)
         {
             var pageNumber = page ?? 1;
@@ -59,6 +62,7 @@ namespace News_Reviews.Controllers
             return View(onePageOfReviews);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> AllXbox(int? page)
         {
             var pageNumber = page ?? 1;
@@ -72,6 +76,7 @@ namespace News_Reviews.Controllers
             return View(onePageOfReviews);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> AllNintendo(int? page)
         {
             var pageNumber = page ?? 1;
@@ -85,6 +90,7 @@ namespace News_Reviews.Controllers
             return View(onePageOfReviews);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> AllMobile(int? page)
         {
             var pageNumber = page ?? 1;
@@ -126,6 +132,7 @@ namespace News_Reviews.Controllers
             return RedirectToAction(nameof(All));
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Read(int id)
         {            
             var comments = service.GetCommendsAsync(id);
