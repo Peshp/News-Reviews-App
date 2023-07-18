@@ -19,6 +19,7 @@ namespace News_Reviews.Controllers
             service = _service;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> All(int id, int? page)
         {
             var pageNumber = page ?? 1;
@@ -68,6 +69,7 @@ namespace News_Reviews.Controllers
             return RedirectToAction(nameof(All));
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> AllPosts(int id, int? page)
         {
             var pageNumber = page ?? 1;
