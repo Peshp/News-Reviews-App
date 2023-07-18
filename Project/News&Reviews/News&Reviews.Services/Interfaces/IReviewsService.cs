@@ -20,7 +20,7 @@ namespace News_Reviews.Services.Interfaces
 
         public Task<ReviewEditModel> FindReviewById(int id);
 
-        public Task<IEnumerable<CommentsViewModel>> GetCommendsAsync(int id, string username);
+        public Task<IEnumerable<CommentsViewModel>> GetCommendsAsync(int id);
 
         public Task AddNewCommentAsync(CommentsFormModel model, string userId);
 
