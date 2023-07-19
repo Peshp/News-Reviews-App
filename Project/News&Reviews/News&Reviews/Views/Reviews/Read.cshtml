@@ -2,6 +2,10 @@
 @using News_Reviews.Models.Models.Reviews;
 @model ReadReviewModel
 
+@{
+    var themeId = ViewContext.RouteData.Values["id"] as string;
+}
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6 text-center">
@@ -22,9 +26,13 @@
                             <p>@comment.Content</p>
                         </div>
                     </div>
-                    <form class="input-group-sm" asp-controller="Reviews" asp-action="RemoveComment" asp-route-id="@comment.Id">
-                    <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
-                </form>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                    {
+                        <form class="input-group-sm" asp-controller="Reviews" asp-action="RemoveComment" asp-route-id="@comment.Id">
+                            <input type="hidden" name="themeId" value="@themeId" />
+                        <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
+                        </form>
+                    }                                    
                 }
             }
             else
@@ -34,18 +42,32 @@
             
         </div>
     </div>
-    <div class="row justify-content-center mt-4">
-        <div class="col-md-6">
-            <h3>Write a Comment</h3>
-            <form method="post" id="@Model.Id" asp-controller="Reviews" asp-action="AddComment">
-                <input type="hidden" name="reviewId" value="@Model.Id" />
-                <div class="form-group">
-                    <textarea class="form-control" name="content" rows="3" placeholder="Enter your comment"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+    @if (User?.Identity?.IsAuthenticated ?? false)
+    {
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6">
+                <h3>Write a Comment</h3>
+                <form method="post" id="@Model.Id" asp-controller="Reviews" asp-action="AddComment">
+                    <input type="hidden" name="themeId" value="@themeId" />
+                    <input type="hidden" name="reviewId" value="@Model.Id" />
+                    <div class="form-group">
+                        <textarea class="form-control" name="content" rows="3" placeholder="Enter your comment"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6">
+                <div class="alert alert-secondary text-white border-2 bg-transparent">
+                    You need a profile to write comments.
+                </div>
+            </div>
+        </div>
+    }
 </div
 
 
