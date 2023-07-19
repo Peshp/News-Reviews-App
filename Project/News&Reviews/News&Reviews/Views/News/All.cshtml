@@ -15,10 +15,13 @@
                 <p>@Html.Raw(System.Web.HttpUtility.HtmlDecode(news.Content.Substring(0, news.Content.IndexOf('.') + 1)))</p>
                 <p>Date: @news.Data</p>
                 <a asp-controller="News" asp-action="Read" asp-route-id="@news.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Read</a>
-                <form class="input-group-sm" asp-controller="News" asp-action="Remove" asp-route-id="@news.Id">
-                    <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
-                </form>
-                <a asp-controller="News" asp-action="Edit" asp-route-id="@news.Id" class="btn btn-primary w-50 mb-2">Edit</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <form class="input-group-sm" asp-controller="News" asp-action="Remove" asp-route-id="@news.Id">
+                        <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
+                    </form>
+                    <a asp-controller="News" asp-action="Edit" asp-route-id="@news.Id" class="btn btn-primary w-50 mb-2">Edit</a>
+                }               
             </div>
         </div>
     }
