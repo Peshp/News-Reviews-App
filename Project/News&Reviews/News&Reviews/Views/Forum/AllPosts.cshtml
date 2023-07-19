@@ -17,6 +17,7 @@
         </div>
     </div>
     <form class="input-group-sm" asp-controller="Forum" asp-action="RemovePost" asp-route-id="@post.Id" style="display: inline;">
+        <input type="hidden" name="themeId" value="@themeId" />
         <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" style="background-color: #007bff; color: #fff; border: none; border-radius: 5px; font-size: 14px; cursor: pointer;" />
     </form>
 }
