@@ -46,13 +46,16 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="AllMobile">Mobile</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-light" href="#" id="newsreviewsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Add</a>
-                            <ul class="dropdown-menu" aria-labelledby="reviewsDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="Add">Add Reviews</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="Add">Add News</a></li>
-                            </ul>
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light" href="#" id="newsreviewsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Add</a>
+                                <ul class="dropdown-menu" aria-labelledby="reviewsDropdown">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="Add">Add Reviews</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="Add">Add News</a></li>
+                                </ul>
+                            </li>
+                        }                       
 
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Forum" asp-action="All">Forum</a>
@@ -68,9 +71,7 @@
         </nav>
       </header>
         <div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
+            @RenderBody()
         </div>
 
         <footer class="border-top footer text-muted">
