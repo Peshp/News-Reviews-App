@@ -107,12 +107,15 @@
                             <h1 class="card-title" style="color: cyan;"><a asp-controller="Reviews" asp-action="Read" asp-route-id="@review.Id">@review.Title</a></h1>
                             <p class="card-text" style="color: white;">@firstTwoSentences</p>
                         </div>
-                        <div class="d-flex justify-content-end">
-                            <form class="input-group-sm" asp-controller="Reviews" asp-action="Remove" asp-route-id="@review.Id">
-                                <input type="submit" value="Remove" class="fs-6 btn btn-danger" />
-                            </form>
-                            <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-primary ml-2">Edit</a>
-                        </div>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="d-flex justify-content-end">
+                                <form class="input-group-sm" asp-controller="Reviews" asp-action="Remove" asp-route-id="@review.Id">
+                                    <input type="submit" value="Remove" class="fs-6 btn btn-danger" />
+                                </form>
+                                <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-primary ml-2">Edit</a>
+                            </div>
+                        }                        
                     </div>
                 </div>
             </div>
@@ -136,12 +139,15 @@
                         <div class="card-body">
                             <h2 class="card-title"><a asp-controller="Reviews" asp-action="Read" asp-route-id="@review.Id">@review.Title</a></h2>
                             <h5 class="card-text" style="width: 350px; text-align: justify;">@firstTwoSentences</h5>
-                            <div class="d-flex justify-content-end">
-                                <form class="input-group-sm" asp-controller="Reviews" asp-action="Remove" asp-route-id="@review.Id">
-                                    <input type="submit" value="Remove" class="fs-6 btn btn-danger" />
-                                </form>
-                                <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-primary ml-2">Edit</a>
-                            </div>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <div class="d-flex justify-content-end">
+                                    <form class="input-group-sm" asp-controller="Reviews" asp-action="Remove" asp-route-id="@review.Id">
+                                        <input type="submit" value="Remove" class="fs-6 btn btn-danger" />
+                                    </form>
+                                    <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-primary ml-2">Edit</a>
+                                </div>
+                            }                           
                         </div>
                     </div>
                 </div>
