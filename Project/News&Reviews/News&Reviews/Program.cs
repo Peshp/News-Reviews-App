@@ -25,6 +25,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequiredLength =
         builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
 })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.ConfigureApplicationCookie(options =>
@@ -63,5 +64,38 @@ app.UseAuthorization();
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
+
+using(var scoped = app.Services.CreateScope())
+{
+    var roleManager =
+        scoped.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    var roles = new[] { "Admin", "Moderator", "User" };
+
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+            await roleManager.CreateAsync(new IdentityRole(role));
+    }
+}
+
+using (var scoped = app.Services.CreateScope())
+{
+    var userManager =
+        scoped.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+    string userName = "Tonkata";
+    string password = "v2l)M@LWfpMS";
+
+    if(await userManager.FindByNameAsync(userName) == null)
+    {
+        var user = new ApplicationUser();
+        user.UserName = userName;
+
+        await userManager.CreateAsync(user, password);
+
+        await userManager.AddToRoleAsync(user, "Admin");
+    }   
+}
 
 app.Run();
