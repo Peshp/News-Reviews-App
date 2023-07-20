@@ -1157,6 +1157,10 @@ namespace News_Reviews.Data.Migrations
                     b.Property<int>("ThemeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
