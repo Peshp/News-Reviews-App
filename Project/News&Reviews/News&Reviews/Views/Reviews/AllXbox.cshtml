@@ -5,12 +5,7 @@
 @using X.PagedList.Mvc.Core;
 @using X.PagedList;
 
-<div class="text-center row">
-    @foreach (var review in Model)
-    {
-        <partial name="_ReviewsPartial" model="review" />
-    }
-</div>
+<partial name="_ReviewsPartial" model="Model" />
 
 <!-- paging control for navigation to the previous page, next page, etc -->
 @Html.PagedListPager((IPagedList)Model, page => Url.Action("AllXbox", new { page = page }),
