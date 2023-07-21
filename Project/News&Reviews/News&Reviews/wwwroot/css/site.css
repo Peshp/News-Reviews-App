@@ -30,6 +30,8 @@ header {
 
 .navbar-light .navbar-nav .dropdown-menu {
     background-color: #36013f;
+    z-index: 9999;
+    overflow: visible;
 }
 
     .navbar-light .navbar-nav .dropdown-menu .dropdown-item {
@@ -43,4 +45,6 @@ header {
 .navbar {
     background-color: #262B38;
     filter: brightness(90%) contrast(110%) saturate(120%) hue-rotate(10deg);
+    position: relative;
+    z-index: 1;
 }
