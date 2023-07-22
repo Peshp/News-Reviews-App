@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using News_Reviews.Data;
 using News_Reviews.DataModels;
@@ -33,7 +34,12 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LoginPath = "/User/Login";
 });
 
-builder.Services.AddControllersWithViews();
+builder.Services
+    .AddControllersWithViews()
+    .AddMvcOptions(options =>
+    {
+        options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+    });
 
 builder.Services.AddScoped<IReviewsService, ReviewsService>();
 builder.Services.AddScoped<INewsService, NewsService>();
@@ -62,7 +68,10 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapDefaultControllerRoute();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 
 using(var scoped = app.Services.CreateScope())
@@ -79,23 +88,5 @@ using(var scoped = app.Services.CreateScope())
     }
 }
 
-using (var scoped = app.Services.CreateScope())
-{
-    var userManager =
-        scoped.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-
-    string userName = "Tonkata";
-    string password = "v2l)M@LWfpMS";
-
-    if(await userManager.FindByNameAsync(userName) == null)
-    {
-        var user = new ApplicationUser();
-        user.UserName = userName;
-
-        await userManager.CreateAsync(user, password);
-
-        await userManager.AddToRoleAsync(user, "Admin");
-    }   
-}
 
 app.Run();
