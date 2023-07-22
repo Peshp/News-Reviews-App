@@ -15,9 +15,12 @@
                         <a asp-controller="Forum" asp-action="AllPosts" asp-route-id="@theme.Id" style="text-decoration: none; color: white;">@theme.Title</a>
                     </h3>
                     <h3 style="font-size: 20px; color: #333; margin-bottom: 10px;">
-                        <form class="input-group-sm" asp-controller="Forum" asp-action="RemoveTheme" asp-route-id="@theme.Id">
-                            <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
-                        </form>
+                        @if(User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                        {
+                            <form class="input-group-sm" asp-controller="Forum" asp-action="RemoveTheme" asp-route-id="@theme.Id">
+                                <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
+                            </form>                           
+                        }                       
                     </h3>
                 </div>
             }
@@ -77,7 +80,11 @@
     </script>
 }
 
-<div style="text-align: center; margin-top: 20px;">
-    <a href="@Url.Action("AddTheme", "Forum")" class="btn btn-primary" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px;">Add Theme</a>
-</div>
+@if(User?.Identity?.IsAuthenticated ?? false)
+{
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="@Url.Action("AddTheme", "Forum")" class="btn btn-primary" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px;">Add Theme</a>
+    </div>
+}
+
 
