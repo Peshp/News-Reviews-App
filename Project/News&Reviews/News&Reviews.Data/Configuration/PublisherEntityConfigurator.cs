@@ -21,8 +21,6 @@ namespace News_Reviews.Data.Configuration
             {
                 Id = 1,
                 Name = "Ubisoft",
-                CountryId = 1,
-                CityId = 1,
             };
             publishers.Add(publisher);
 
@@ -30,8 +28,6 @@ namespace News_Reviews.Data.Configuration
             {
                 Id = 2,
                 Name = "EA",
-                CountryId = 4,
-                CityId = 4,
             };
             publishers.Add(publisher);
 
@@ -39,8 +35,6 @@ namespace News_Reviews.Data.Configuration
             {
                 Id = 3,
                 Name = "Sony",
-                CountryId = 2,
-                CityId = 2,
             };
             publishers.Add(publisher);
 
@@ -48,8 +42,6 @@ namespace News_Reviews.Data.Configuration
             {
                 Id = 4,
                 Name = "From software",
-                CountryId = 2,
-                CityId = 2,
             };
             publishers.Add(publisher);
 
@@ -57,8 +49,6 @@ namespace News_Reviews.Data.Configuration
             {
                 Id = 5,
                 Name = "CDPR",
-                CountryId = 5,
-                CityId = 5,
             };
             publishers.Add(publisher);
 
