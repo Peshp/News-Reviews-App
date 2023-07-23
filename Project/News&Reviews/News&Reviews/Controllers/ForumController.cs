@@ -26,22 +26,23 @@ namespace News_Reviews.Controllers
             int pageSize = 8;          
 
             var username = User.FindFirstValue(ClaimTypes.Name);
+            var posts = await service.GetPostsAsync(id);
 
-            var posts = await service.GetPostsAsync(id, username);
             var themes = await service.GetThemesAsync(posts);
-
             var onePageOfThemes = themes.ToPagedList(pageNumber, pageSize);
 
             return View(onePageOfThemes);
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddTheme()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddTheme(ThemesFormModel model)
         {
             if (!ModelState.IsValid)
@@ -55,16 +56,10 @@ namespace News_Reviews.Controllers
             return RedirectToAction(nameof(All));
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> RemoveTheme(int id)
         {
-            try
-            {
-                await service.RemoveThemeAsync(id);
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
+            await service.RemoveThemeAsync(id);
 
             return RedirectToAction(nameof(All));
         }
@@ -75,35 +70,29 @@ namespace News_Reviews.Controllers
             var pageNumber = page ?? 1;
             int pageSize = 8;
 
-            var username = User.FindFirstValue(ClaimTypes.Name);
-            var posts = await service.GetPostsAsync(id, username);
+            var posts = await service.GetPostsAsync(id);
 
             var onePageOfThemes = posts.ToPagedList(pageNumber, pageSize);
 
             return View(onePageOfThemes);
         }
 
+        [Authorize]
         public async Task<IActionResult> AddPost(PostViewModel model, int themeId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             await service.AddNewPostAsync(model, userId, themeId);
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction("AllPosts", new { id = themeId });
         }
 
-        public async Task<IActionResult> RemovePost(int id)
+        [Authorize(Roles = "Admin, Moderator")]
+        public async Task<IActionResult> RemovePost(int id, int themeId)
         {
-            try
-            {
-                await service.RemovePostAsync(id);
-            }
-            catch (Exception)
-            {
-                BadRequest();
-            }
+            await service.RemovePostAsync(id);
 
-            return RedirectToAction(nameof(AllPosts));
+            return RedirectToAction("AllPosts", new { id = themeId });
         }
     }
 }
