@@ -97,13 +97,14 @@ namespace News_Reviews.Controllers
             int pageSize = 8;
 
             var reviews = await service.GetReviewsAsync();
-            var mobReviews = reviews.Where(r => r.Platform == "Mobile");
+            var mobReviews = reviews.Where(r => r.Platform == "Phone");
 
             var onePageOfReviews = mobReviews.ToPagedList(pageNumber, pageSize);
 
             return View(onePageOfReviews);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Add()
         {
@@ -117,6 +118,7 @@ namespace News_Reviews.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Add(ReviewFormModel model)
         {
@@ -132,6 +134,7 @@ namespace News_Reviews.Controllers
             return RedirectToAction(nameof(All));
         }
 
+
         [AllowAnonymous]
         public async Task<IActionResult> Read(int id)
         {            
@@ -142,33 +145,24 @@ namespace News_Reviews.Controllers
             return View(review);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int id)
         {
-            try
-            {
-                await service.DeleteReview(id);
-            }
-            catch
-            {
-                return BadRequest();
-            }
+            await service.DeleteReview(id);
 
             return RedirectToAction(nameof(All));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var review = await service.FindReviewById(id);
 
-            if (review == null)
-            {
-                return NotFound();
-            }
-
             return View(review);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(int id, ReviewEditModel model)
         {
@@ -177,39 +171,26 @@ namespace News_Reviews.Controllers
                 return View(model);
             }
 
-            try
-            {
-                await service.EditReviewAsync(id, model);
-            }
-            catch (Exception)
-            {
-                return RedirectToAction(nameof(All));
-            }
+            await service.EditReviewAsync(id, model);
 
             return RedirectToAction($"{nameof(All)}");
         }
-
-        public async Task<IActionResult> AddComment(CommentsFormModel model)
+        
+        public async Task<IActionResult> AddComment(CommentsFormModel model, int themeId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             await service.AddNewCommentAsync(model, userId);
 
-            return RedirectToAction("All", "Reviews");
+            return RedirectToAction("Read", new { id = themeId });
         }
 
-        public async Task<IActionResult> RemoveComment(int id)
+        [Authorize(Roles = "Admin, Moderator")]
+        public async Task<IActionResult> RemoveComment(int id, int themeId)
         {
-            try
-            {
-                await service.RemoveCommentAsync(id);
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
+            await service.RemoveCommentAsync(id);
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction("Read", new { id = themeId });
         }
     }
 }
