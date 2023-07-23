@@ -96,13 +96,14 @@ namespace News_Reviews.Controllers
             int pageSize = 8;
 
             var news = await service.GetNewsAsync();
-            var mobNews = news.Where(n => n.Platform == "Mobile");
+            var mobNews = news.Where(n => n.Platform == "Phone");
 
             var onePageOfNews = mobNews.ToPagedList(pageNumber, pageSize);
 
             return View(onePageOfNews);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Add()
         {
@@ -116,6 +117,7 @@ namespace News_Reviews.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Add(NewsFormModel model)
         {
@@ -148,14 +150,7 @@ namespace News_Reviews.Controllers
 
         public async Task<IActionResult> Remove(int id)
         {
-            try
-            {
-                await service.DeleteNews(id);
-            }
-            catch (Exception)
-            {
-                return BadRequest();              
-            }
+            await service.DeleteNews(id);
 
             return RedirectToAction(nameof(All));
         }
@@ -181,14 +176,7 @@ namespace News_Reviews.Controllers
                 return View(model);
             }
 
-            try
-            {
-                await service.EditNewsAsync(id, model);
-            }
-            catch (Exception)
-            {
-                return RedirectToAction(nameof(All));
-            }
+            await service.EditNewsAsync(id, model);
 
             return RedirectToAction(nameof(All));
         }
