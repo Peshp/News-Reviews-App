@@ -10,10 +10,12 @@ namespace News_Reviews.Services.Services
     public class NewsService : INewsService
     {
         private readonly ApplicationDbContext context;
+        private IReviewsService reviewsService;
 
-        public NewsService(ApplicationDbContext context)
+        public NewsService(ApplicationDbContext context, IReviewsService reviewsService)
         {
             this.context = context;
+            this.reviewsService = reviewsService;
         }
 
         public async Task AddNews(NewsFormModel model)
@@ -101,16 +103,18 @@ namespace News_Reviews.Services.Services
 
         public async Task<IEnumerable<PlatformViewModel>> GetPlatformAsync()
         {
-            var models = await context.Platforms.ToArrayAsync();
+            var platforms = await reviewsService.GetPlatformAsync();
 
-            var platform = models
-                .Select(p => new PlatformViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                });
+           // var models = await context.Platforms.ToArrayAsync();
+           //
+           // var platform = models
+           //     .Select(p => new PlatformViewModel
+           //     {
+           //         Id = p.Id,
+           //         Name = p.Name,
+           //     });
 
-            return platform;
+            return platforms;
         }
 
         public async Task<ReadNewsModel> ReadNews(int id)
