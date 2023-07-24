@@ -6,26 +6,41 @@
 
 @model IEnumerable<NewsViewModel>
 
-<div class="text-center row">
-    @foreach (var news in Model)
-    {
-        <div class="card" style="width:400px">
-            <div class="card-body">
-                <h4 class="card-title">@news.Title</h4>
-                <p>@Html.Raw(System.Web.HttpUtility.HtmlDecode(news.Content.Substring(0, news.Content.IndexOf('.') + 1)))</p>
-                <p>Date: @news.Data</p>
-                <a asp-controller="News" asp-action="Read" asp-route-id="@news.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Read</a>
-                @if (User.IsInRole("Admin"))
-                {
-                    <form class="input-group-sm" asp-controller="News" asp-action="Remove" asp-route-id="@news.Id">
-                        <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
-                    </form>
-                    <a asp-controller="News" asp-action="Edit" asp-route-id="@news.Id" class="btn btn-primary w-50 mb-2">Edit</a>
-                }               
-            </div>
-        </div>
+@{
+    var sortedNews = Model.OrderBy(news => news.Data).Take(5);
+}
+
+<style>
+    .card{
+        background-color: transparent;
+        color: cyan;
     }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <h1>Recently News</h1>
+        @foreach (var news in sortedNews)
+        {
+            <div class="card" style="width: 300px;">
+                <div class="card-body">
+                    <h4 class="card-title">@news.Title</h4>
+                    <p>@Html.Raw(System.Web.HttpUtility.HtmlDecode(news.Content.Substring(0, news.Content.IndexOf('.') + 1)))</p>
+                    <p>Date: @news.Data</p>
+                    <a asp-controller="News" asp-action="Read" asp-route-id="@news.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Read</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <form class="input-group-sm" asp-controller="News" asp-action="Remove" asp-route-id="@news.Id">
+                            <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
+                        </form>
+                        <a asp-controller="News" asp-action="Edit" asp-route-id="@news.Id" class="btn btn-primary w-50 mb-2">Edit</a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
 </div>
+
 
 <!-- paging control for navigation to the previous page, next page, etc -->
 @Html.PagedListPager((IPagedList)Model, page => Url.Action("All", new { page = page }),
