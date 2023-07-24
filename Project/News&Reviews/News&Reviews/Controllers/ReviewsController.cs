@@ -109,10 +109,14 @@ namespace News_Reviews.Controllers
         public async Task<IActionResult> Add()
         {
             var platforms = await service.GetPlatformAsync();
+            var genres = await service.GetGenresAsync();
+            var publishers = await service.GetPublishersAsync();
 
             var model = new ReviewFormModel
             {
-                Platforms = platforms
+                Platforms = platforms,
+                Genres = genres,
+                Publishers = publishers
             };
 
             return View(model);
@@ -127,7 +131,7 @@ namespace News_Reviews.Controllers
             if (!validPlatforms.Any(p => p.Id == model.PlatformId))
             {
                 ModelState.AddModelError(nameof(model.PlatformId), "Invalid platform");
-            }
+            }           
 
             await service.AddNewReview(model);
 
