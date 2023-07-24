@@ -3,14 +3,37 @@
 @model ReadReviewModel
 
 @{
+    // Get id value from the http address
     var themeId = ViewContext.RouteData.Values["id"] as string;
 }
+
+<style>
+    body {
+        background-color: black;            
+        color: cyan;
+        font-family: Calibri, sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    h1 {
+        padding: 25px;
+        padding-bottom: 10px;
+        font-weight: bold;
+    }
+
+    h4 {
+        text-align: justify;      
+        line-height: 1.5;
+    }
+</style>
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6 text-center">
+            <img src="@Model.ImageUrl" class="img-fluid" alt="@Model.ImageUrl" style="margin-top: 45px; height: 350px; width: 100%;">
             <h1>@Model.Title</h1>
-            <p>@Model.Content</p>
+            <h4>@Html.Raw(SplitContent(Model.Content, 105))</h4>
         </div>
     </div>
      <div class="row justify-content-center mt-4">
@@ -69,5 +92,38 @@
         </div>
     }
 </div
+
+@* Helper function to split content into parts with a certain number of words *@
+@functions
+{
+    public static string SplitContent(string content, int wordsPerPart)
+    {
+        string[] words = content.Split(' ');
+        int totalWords = words.Length;
+
+        int currentIndex = 0;
+        string result = "";
+
+        while (currentIndex < totalWords)
+        {
+            int wordsRemaining = totalWords - currentIndex;
+            int wordsToTake = Math.Min(wordsPerPart, wordsRemaining);
+
+            string[] partWords = new string[wordsToTake];
+            Array.Copy(words, currentIndex, partWords, 0, wordsToTake);
+
+            result += string.Join(" ", partWords) + " ";
+            currentIndex += wordsToTake;
+
+            // Add a space between parts except for the last one
+            if (currentIndex < totalWords)
+            {
+                result += "<br /><br />";
+            }
+        }
+
+        return result;
+    }
+}
 
 
