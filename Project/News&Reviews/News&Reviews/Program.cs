@@ -88,5 +88,24 @@ using(var scoped = app.Services.CreateScope())
     }
 }
 
+using (var scoped = app.Services.CreateScope())
+{
+    var userManager =
+        scoped.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+    var username = "Tonkata";
+    var password = "v2l)M@LWfpMS";
+
+    if(await userManager.FindByNameAsync(username) == null)
+    {
+        var user = new ApplicationUser();
+        user.UserName = username;
+
+        await userManager.CreateAsync(user, password);
+
+        await userManager.AddToRoleAsync(user, "Admin");
+    }
+}
+
 
 app.Run();
