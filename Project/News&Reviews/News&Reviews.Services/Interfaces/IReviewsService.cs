@@ -10,6 +10,10 @@ namespace News_Reviews.Services.Interfaces
 
         public Task<IEnumerable<PlatformViewModel>> GetPlatformAsync();
 
+        public Task<IEnumerable<GenresViewModel>> GetGenresAsync();
+
+        public Task<IEnumerable<PublishersViewModel>> GetPublishersAsync();
+
         public Task AddNewReview(ReviewFormModel model);
 
         public Task<ReadReviewModel> ReadReview(int id, IEnumerable<CommentsViewModel> comments);
