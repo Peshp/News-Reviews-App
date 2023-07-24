@@ -29,7 +29,7 @@ namespace News_Reviews.Services.Services
             {
                 ReviewId = model.ReviewId,  
                 Username = user.UserName,
-                Content = model.Content,
+                Content = WebUtility.HtmlEncode(model.Content),
                 UserId = userId,
             };
 
@@ -46,6 +46,8 @@ namespace News_Reviews.Services.Services
                 Content = model.Content,
                 ImageURL = model.ImageURL,
                 PlatformId = model.PlatformId,
+                GenreId = model.GenreId,
+                PublisherId = model.PublisherId,
             };
 
             context.Reviews.Add(review);
@@ -121,6 +123,20 @@ namespace News_Reviews.Services.Services
             return reviews;
         }
 
+        public async Task<IEnumerable<GenresViewModel>> GetGenresAsync()
+        {
+            var models = await context.Genres.ToArrayAsync();
+
+            var genres = models
+                .Select(g => new GenresViewModel()
+                {
+                    Id = g.Id,
+                    Name = g.Name,
+                });
+
+            return genres;
+        }
+
         public async Task<IEnumerable<PlatformViewModel>> GetPlatformAsync()
         {
             var models = await context.Platforms.ToArrayAsync();
@@ -135,10 +151,26 @@ namespace News_Reviews.Services.Services
             return platform;
         }
 
+        public async Task<IEnumerable<PublishersViewModel>> GetPublishersAsync()
+        {
+            var models = await context.Publishers.ToArrayAsync();
+
+            var publishers = models
+                .Select(p => new PublishersViewModel()
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                });
+
+            return publishers;
+        }
+
         public async Task<IEnumerable<ReviewsViewModel>> GetReviewsAsync()
         {
             var models = await context.Reviews
                 .Include(r => r.Platform)
+                .Include(r => r.Genre)
+                .Include(r => r.Publisher)
                 .ToArrayAsync();
 
             var reviews = models
@@ -149,6 +181,8 @@ namespace News_Reviews.Services.Services
                     Content = r.Content,
                     ImageURL = r.ImageURL,
                     Platform = r.Platform.Name,
+                    Genre = r.Genre.Name,
+                    Publisher = r.Publisher.Name,
                 });
 
             return reviews;
@@ -161,6 +195,7 @@ namespace News_Reviews.Services.Services
                 .Select(r => new ReadReviewModel
                 {
                     Id = r.Id,
+                    ImageUrl = r.ImageURL,
                     Title = r.Title,
                     Content = r.Content,
                     Comments = comments.ToList(),
