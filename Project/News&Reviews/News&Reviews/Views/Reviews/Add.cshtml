@@ -32,6 +32,26 @@
                 <span asp-validation-for="@Model.PlatformId" class="text-danger"></span>
             </div>
             <div class="mb-3">
+                <label asp-for="@Model.GenreId" class="form-label">Genre</label>
+                <select asp-for="@Model.GenreId" class="form-control">
+                    @foreach (var genre in @Model.Genres)
+                    {
+                        <option value="@genre.Id">@genre.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.GenreId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.PublisherId" class="form-label">Publisher</label>
+                <select asp-for="@Model.PublisherId" class="form-control">
+                    @foreach (var publisher in @Model.Publishers)
+                    {
+                        <option value="@publisher.Id">@publisher.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.PublisherId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
                 <input class="btn btn-primary" type="submit" value="Add" />
             </div>
         </form>
