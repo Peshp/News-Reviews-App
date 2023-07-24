@@ -6,7 +6,7 @@ namespace News_Reviews.Services.Interfaces
     {
         Task<IEnumerable<ThemesViewModel>> GetThemesAsync(IEnumerable<PostViewModel> posts);
 
-        Task<IEnumerable<PostViewModel>> GetPostsAsync(int themeId, string username);
+        Task<IEnumerable<PostViewModel>> GetPostsAsync(int themeId);
 
         Task AddNewThemeAsync(ThemesFormModel model);
 
