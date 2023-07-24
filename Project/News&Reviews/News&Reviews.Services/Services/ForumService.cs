@@ -4,6 +4,7 @@ using News_Reviews.DataModels;
 using News_Reviews.Models.Models.Comments;
 using News_Reviews.Models.Models.Forum;
 using News_Reviews.Services.Interfaces;
+using System.Net;
 
 namespace News_Reviews.Services.Services
 {
@@ -18,10 +19,13 @@ namespace News_Reviews.Services.Services
 
         public async Task AddNewPostAsync(PostViewModel model, string userId, int themeId)
         {
+            var usser = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
             Post post = new Post()
             {
-                Content = model.Content,
+                Content = WebUtility.HtmlEncode(model.Content),
                 ThemeId = model.ThemeId,
+                Username = usser.UserName,
                 ApplicationUserId = userId,
             };
 
@@ -34,14 +38,14 @@ namespace News_Reviews.Services.Services
             Theme theme = new Theme()
             {
                 Id = model.Id,
-                Title = model.Title,
+                Title = WebUtility.HtmlEncode(model.Title),
             };
 
             await context.AddAsync(theme);
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<PostViewModel>> GetPostsAsync(int themeId, string username)
+        public async Task<IEnumerable<PostViewModel>> GetPostsAsync(int themeId)
         {
             var models = await context.Posts
                 .Where(p => p.ThemeId == themeId)
@@ -52,7 +56,7 @@ namespace News_Reviews.Services.Services
                 {
                     Id = p.Id,
                     Content = p.Content,
-                    Username = username,
+                    Username = p.Username,
                     ThemeId = themeId,
                 });
 
