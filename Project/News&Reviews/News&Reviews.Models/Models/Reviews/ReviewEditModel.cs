@@ -10,9 +10,6 @@ namespace News_Reviews.Models.Models.Reviews
         public int Id { get; set; }
 
         [Required]
-        public string Game { get; set; }
-
-        [Required]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
         public string Title { get; set; }
 
@@ -22,5 +19,21 @@ namespace News_Reviews.Models.Models.Reviews
 
         [Required]
         public string ImageURL { get; set; }
+
+        [Required]
+        public int PlatformId { get; set; }
+
+        [Required]
+        public int GenreId { get; set; }
+
+        [Required]
+        public int PublisherId { get; set; }
+
+
+        public IEnumerable<PlatformViewModel> Platforms { get; set; }
+
+        public IEnumerable<GenresViewModel> Genres { get; set; }
+
+        public IEnumerable<PublishersViewModel> Publishers { get; set; }
     }
 }
