@@ -14,13 +14,8 @@ namespace News_Reviews.Data
         {
         }
 
-        public DbSet<Game> Games { get; set; } = null!;
 
         public DbSet<Genre> Genres { get; set; } = null!;
-
-        public DbSet<City> Cities { get; set; } = null!;
-
-        public DbSet<Country> Countries { get; set; } = null!;
 
         public DbSet<News> News { get; set; } = null!;
 
