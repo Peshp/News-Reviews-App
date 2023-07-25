@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static News_Reviews.Common.Constants.GenreConstants;
 
 namespace News_Reviews.DataModels.DataModels
@@ -11,7 +12,5 @@ namespace News_Reviews.DataModels.DataModels
         [Required]
         [MaxLength(GenreMaxLength)]
         public string Name { get; set; }
-
-        public virtual IEnumerable<Game> Games { get; set; } = new List<Game>();
     }
 }
