@@ -28,6 +28,20 @@ namespace News_Reviews.DataModels.DataModels
         [Required]
         public Platform Platform { get; set; }
 
+        [Required]
+        [ForeignKey(nameof(Publisher))]
+        public int PublisherId { get; set; }
+
+        [Required]
+        public Publisher Publisher { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(Genre))]
+        public int GenreId { get; set; }
+
+        [Required]
+        public Genre Genre { get; set; }
+
         public IEnumerable<Comment> Comments { get; set; } = new Stack<Comment>();
     }
 }
