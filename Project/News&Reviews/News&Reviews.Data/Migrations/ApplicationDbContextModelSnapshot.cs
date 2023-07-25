@@ -677,243 +677,6 @@ namespace News_Reviews.Data.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("News_Reviews.DataModels.DataModels.City", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("Cities");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CountryId = 1,
-                            Name = "Paris"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CountryId = 2,
-                            Name = "Tokio"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CountryId = 3,
-                            Name = "London"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CountryId = 4,
-                            Name = "Washington"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CountryId = 5,
-                            Name = "Warsaw"
-                        });
-                });
-
-            modelBuilder.Entity("News_Reviews.DataModels.DataModels.Country", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Countries");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "France"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Japan"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "England"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "USA"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Poland"
-                        });
-                });
-
-            modelBuilder.Entity("News_Reviews.DataModels.DataModels.Game", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("GenreId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("PlatformId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PublishDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PublisherId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GenreId");
-
-                    b.HasIndex("PlatformId");
-
-                    b.HasIndex("PublisherId");
-
-                    b.ToTable("Games");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            GenreId = 2,
-                            Name = "Call of Duty",
-                            PlatformId = 1,
-                            PublishDate = new DateTime(2019, 10, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PublisherId = 2
-                        },
-                        new
-                        {
-                            Id = 2,
-                            GenreId = 5,
-                            Name = "Assansin's creed",
-                            PlatformId = 1,
-                            PublishDate = new DateTime(2007, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PublisherId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            GenreId = 6,
-                            Name = "God of War",
-                            PlatformId = 2,
-                            PublishDate = new DateTime(2005, 3, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PublisherId = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            GenreId = 1,
-                            Name = "Elden ring",
-                            PlatformId = 3,
-                            PublishDate = new DateTime(2022, 2, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PublisherId = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            GenreId = 1,
-                            Name = "Bloodborn",
-                            PlatformId = 2,
-                            PublishDate = new DateTime(2015, 3, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PublisherId = 4
-                        },
-                        new
-                        {
-                            Id = 6,
-                            GenreId = 1,
-                            Name = "The witcher 3",
-                            PlatformId = 1,
-                            PublishDate = new DateTime(2015, 5, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PublisherId = 5
-                        },
-                        new
-                        {
-                            Id = 7,
-                            GenreId = 3,
-                            Name = "Super Mario",
-                            PlatformId = 5,
-                            PublishDate = new DateTime(2017, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PublisherId = 3
-                        },
-                        new
-                        {
-                            Id = 8,
-                            GenreId = 2,
-                            Name = "Call of Duty: Mobile",
-                            PlatformId = 4,
-                            PublishDate = new DateTime(2019, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PublisherId = 2
-                        },
-                        new
-                        {
-                            Id = 9,
-                            GenreId = 3,
-                            Name = "Among us",
-                            PlatformId = 4,
-                            PublishDate = new DateTime(2018, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PublisherId = 3
-                        },
-                        new
-                        {
-                            Id = 10,
-                            GenreId = 3,
-                            Name = "Far Cry 6",
-                            PlatformId = 1,
-                            PublishDate = new DateTime(2021, 10, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PublisherId = 1
-                        },
-                        new
-                        {
-                            Id = 11,
-                            GenreId = 1,
-                            Name = "Dark Souls",
-                            PlatformId = 1,
-                            PublishDate = new DateTime(2016, 3, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PublisherId = 4
-                        });
-                });
-
             modelBuilder.Entity("News_Reviews.DataModels.DataModels.Genre", b =>
                 {
                     b.Property<int>("Id")
@@ -961,6 +724,56 @@ namespace News_Reviews.Data.Migrations
                         {
                             Id = 6,
                             Name = "Action"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Platform"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Fighting"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Survival"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Battle Royale"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Action-adventure"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Visual novels"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Simulator"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Racing"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "Strategy"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "Sports"
                         });
                 });
 
@@ -1048,12 +861,6 @@ namespace News_Reviews.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -1061,47 +868,63 @@ namespace News_Reviews.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("CountryId");
-
                     b.ToTable("Publishers");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CityId = 1,
-                            CountryId = 1,
                             Name = "Ubisoft"
                         },
                         new
                         {
                             Id = 2,
-                            CityId = 4,
-                            CountryId = 4,
                             Name = "EA"
                         },
                         new
                         {
                             Id = 3,
-                            CityId = 2,
-                            CountryId = 2,
                             Name = "Sony"
                         },
                         new
                         {
                             Id = 4,
-                            CityId = 2,
-                            CountryId = 2,
                             Name = "From software"
                         },
                         new
                         {
                             Id = 5,
-                            CityId = 5,
-                            CountryId = 5,
                             Name = "CDPR"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Techland"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Blizzard"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Rockstar"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Capcom"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Microsoft"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Square Enix"
                         });
                 });
 
@@ -1118,11 +941,17 @@ namespace News_Reviews.Data.Migrations
                         .HasMaxLength(10000)
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImageURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PlatformId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PublisherId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -1132,7 +961,11 @@ namespace News_Reviews.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GenreId");
+
                     b.HasIndex("PlatformId");
+
+                    b.HasIndex("PublisherId");
 
                     b.ToTable("Reviews");
                 });
@@ -1369,21 +1202,21 @@ namespace News_Reviews.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("News_Reviews.DataModels.DataModels.City", b =>
+            modelBuilder.Entity("News_Reviews.DataModels.DataModels.News", b =>
                 {
-                    b.HasOne("News_Reviews.DataModels.DataModels.Country", "Country")
-                        .WithMany("Cities")
-                        .HasForeignKey("CountryId")
+                    b.HasOne("News_Reviews.DataModels.DataModels.Platform", "Platform")
+                        .WithMany()
+                        .HasForeignKey("PlatformId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Country");
+                    b.Navigation("Platform");
                 });
 
-            modelBuilder.Entity("News_Reviews.DataModels.DataModels.Game", b =>
+            modelBuilder.Entity("News_Reviews.DataModels.DataModels.Review", b =>
                 {
                     b.HasOne("News_Reviews.DataModels.DataModels.Genre", "Genre")
-                        .WithMany("Games")
+                        .WithMany()
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1405,47 +1238,6 @@ namespace News_Reviews.Data.Migrations
                     b.Navigation("Platform");
 
                     b.Navigation("Publisher");
-                });
-
-            modelBuilder.Entity("News_Reviews.DataModels.DataModels.News", b =>
-                {
-                    b.HasOne("News_Reviews.DataModels.DataModels.Platform", "Platform")
-                        .WithMany()
-                        .HasForeignKey("PlatformId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Platform");
-                });
-
-            modelBuilder.Entity("News_Reviews.DataModels.DataModels.Publisher", b =>
-                {
-                    b.HasOne("News_Reviews.DataModels.DataModels.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("News_Reviews.DataModels.DataModels.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("City");
-
-                    b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("News_Reviews.DataModels.DataModels.Review", b =>
-                {
-                    b.HasOne("News_Reviews.DataModels.DataModels.Platform", "Platform")
-                        .WithMany()
-                        .HasForeignKey("PlatformId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Platform");
                 });
 
             modelBuilder.Entity("News_Reviews.DataModels.Post", b =>
@@ -1502,16 +1294,6 @@ namespace News_Reviews.Data.Migrations
             modelBuilder.Entity("News_Reviews.DataModels.ApplicationUser", b =>
                 {
                     b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("News_Reviews.DataModels.DataModels.Country", b =>
-                {
-                    b.Navigation("Cities");
-                });
-
-            modelBuilder.Entity("News_Reviews.DataModels.DataModels.Genre", b =>
-                {
-                    b.Navigation("Games");
                 });
 
             modelBuilder.Entity("News_Reviews.DataModels.DataModels.Review", b =>
