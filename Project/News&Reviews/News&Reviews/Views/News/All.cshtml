@@ -7,8 +7,7 @@
 @model IEnumerable<NewsViewModel>
 
 @{
-    var sortedNews = Model.OrderBy(news => news.Data).Take(4);
-    
+    var sortedNews = Model.OrderBy(news => news.Data);    
 }
 
 <style>
@@ -32,7 +31,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <h1>Recently News</h1>
-        @foreach (var news in sortedNews)
+        @foreach (var news in sortedNews.Take(4))
         {
             string[] words = news.Content.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             string firstTwentyOneWords = string.Join(" ", words.Take(15));
@@ -55,6 +54,30 @@
                 </a>
             </div>          
         }
+        <h1>News</h1>
+        @foreach (var news in sortedNews.Skip(4))
+        {
+            string[] words = news.Content.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            string firstTwentyOneWords = string.Join(" ", words.Take(15));
+            <div class="col-md-3">
+                <a asp-controller="News" asp-action="Read" asp-route-id="@news.Id" class="card-link">
+                    <div class="card" style="width: 300px;">
+                        <div class="card-body">
+                            <h4 class="card-title" style="padding-bottom: 16px;">@news.Title</h4>
+                            <p class="card-text" style="color: white;">@firstTwentyOneWords</p>
+                            <p>Date: @news.Data</p>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <form class="input-group-sm" asp-controller="News" asp-action="Remove" asp-route-id="@news.Id">
+                                    <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
+                                </form>
+                                <a asp-controller="News" asp-action="Edit" asp-route-id="@news.Id" class="btn btn-primary w-50 mb-2">Edit</a>
+                            }
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
     </div>
 </div>
 
@@ -71,44 +94,6 @@
     })
 
 @section Scripts{
-    <script>
-        // Workaround to fix style of text for showing items .. through ..
-        // Problem related to Bootstrap 4 according to issue in link below
-        $(document).ready(function () {
-            $('ul.pagination > li.disabled > a').addClass('page-link');
-        });
-
-        $(document).ready(function () {
-            // Get all the pagination links
-            var paginationLinks = document.querySelectorAll('.pagination .page-link');
-
-            // Change the colors
-            paginationLinks.forEach(function (link) {
-                link.style.color = '#fff';
-                link.style.backgroundColor = '#353746';
-                link.style.borderColor = 'cyan';
-            });
-        });
-
-        // Change the style of the item slice text
-        var itemSliceText = document.querySelector('.item-slice-text');
-        itemSliceText.style.color = 'cyan';
-        itemSliceText.style.fontSize = '20px';
-        itemSliceText.style.border = '2px solid cyan';
-
-        // Change the style of the write post title
-        var writePostTitle = document.querySelector('.write-post-title');
-        writePostTitle.style.fontSize = '25px';
-        writePostTitle.style.color = 'lightblue';
-
-        $(document).ready(function () {
-            // Change the style of the item slice text
-            $('.item-slice-text').css({
-                'color': 'cyan',
-                'font-size': '20px',
-                'border': '2px solid cyan'
-            });
-        });
-    </script>
+    <partial name="_PaginationDesignCriptPartial" />
 }
 
