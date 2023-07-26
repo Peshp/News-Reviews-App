@@ -59,6 +59,76 @@ namespace News_Reviews.Data.Configuration
             };
             genres.Add(genre);
 
+            genre = new Genre()
+            {
+                Id = 7,
+                Name = "Platform",
+            };
+            genres.Add(genre);
+
+            genre = new Genre()
+            {
+                Id = 8,
+                Name = "Fighting",
+            };
+            genres.Add(genre);
+
+            genre = new Genre()
+            {
+                Id = 9,
+                Name = "Survival",
+            };
+            genres.Add(genre);
+
+            genre = new Genre()
+            {
+                Id = 10,
+                Name = "Battle Royale",
+            };
+            genres.Add(genre);
+
+            genre = new Genre()
+            {
+                Id = 11,
+                Name = "Action-adventure",
+            };
+            genres.Add(genre);
+
+            genre = new Genre()
+            {
+                Id = 12,
+                Name = "Visual novels",
+            };
+            genres.Add(genre);
+
+            genre = new Genre()
+            {
+                Id = 13,
+                Name = "Simulator",
+            };
+            genres.Add(genre);
+
+            genre = new Genre()
+            {
+                Id = 14,
+                Name = "Racing",
+            };
+            genres.Add(genre);
+
+            genre = new Genre()
+            {
+                Id = 15,
+                Name = "Strategy",
+            };
+            genres.Add(genre);
+
+            genre = new Genre()
+            {
+                Id = 16,
+                Name = "Sports",
+            };
+            genres.Add(genre);
+
             return genres.ToArray();
         }
     }
