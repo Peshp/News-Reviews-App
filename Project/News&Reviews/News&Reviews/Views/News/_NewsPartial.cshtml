@@ -1,11 +1,76 @@
-﻿<div class="card col-4" style="width: 20rem; ">
-    <div class="card-body">
-        <h5 class="card-title mt-1">@Model.Title</h5>
-    </div>
-    <div class="card-body">
-        <h5 class="card-title mt-1">@Model.Content</h5>
-    </div>
-    <div class="card-body">
-        <h5 class="card-title mt-1">@Model.Data</h5>
+﻿@model IEnumerable<dynamic>
+
+@{
+    var sortedNews = Model.OrderBy(news => news.Data);
+}
+
+<style>
+    .card {
+        background-color: transparent;
+        color: cyan;
+        border: 2px solid #6693F5;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: inset 0 0 25px #6693F5;
+        }
+
+    .card-link {
+        text-decoration: none;
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <h1>Recently News</h1>
+        @foreach (var news in sortedNews.Take(4))
+        {
+            string[] words = news.Content.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            string firstTwentyOneWords = string.Join(" ", words.Take(15));
+            <div class="col-md-3">
+                <a asp-controller="News" asp-action="Read" asp-route-id="@news.Id" class="card-link">
+                    <div class="card" style="width: 300px;">
+                        <div class="card-body">
+                            <h4 class="card-title" style="padding-bottom: 16px;">@news.Title</h4>
+                            <p class="card-text" style="color: white;">@firstTwentyOneWords</p>
+                            <p>Date: @news.Data</p>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <form class="input-group-sm" asp-controller="News" asp-action="Remove" asp-route-id="@news.Id">
+                                    <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
+                                </form>
+                                <a asp-controller="News" asp-action="Edit" asp-route-id="@news.Id" class="btn btn-primary w-50 mb-2">Edit</a>
+                            }
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        <h1>News</h1>
+        @foreach (var news in sortedNews.Skip(4))
+        {
+            string[] words = news.Content.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            string firstTwentyOneWords = string.Join(" ", words.Take(15));
+            <div class="col-md-3">
+                <a asp-controller="News" asp-action="Read" asp-route-id="@news.Id" class="card-link">
+                    <div class="card" style="width: 300px;">
+                        <div class="card-body">
+                            <h4 class="card-title" style="padding-bottom: 16px;">@news.Title</h4>
+                            <p class="card-text" style="color: white;">@firstTwentyOneWords</p>
+                            <p>Date: @news.Data</p>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <form class="input-group-sm" asp-controller="News" asp-action="Remove" asp-route-id="@news.Id">
+                                    <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
+                                </form>
+                                <a asp-controller="News" asp-action="Edit" asp-route-id="@news.Id" class="btn btn-primary w-50 mb-2">Edit</a>
+                            }
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
     </div>
 </div>
