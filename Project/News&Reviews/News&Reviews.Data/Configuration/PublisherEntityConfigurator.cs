@@ -52,6 +52,48 @@ namespace News_Reviews.Data.Configuration
             };
             publishers.Add(publisher);
 
+            publisher = new Publisher()
+            {
+                Id = 6,
+                Name = "Techland",
+            };
+            publishers.Add(publisher);
+
+            publisher = new Publisher()
+            {
+                Id = 7,
+                Name = "Blizzard",
+            };
+            publishers.Add(publisher);
+
+            publisher = new Publisher()
+            {
+                Id = 8,
+                Name = "Rockstar",
+            };
+            publishers.Add(publisher);
+
+            publisher = new Publisher()
+            {
+                Id = 9,
+                Name = "Capcom",
+            };
+            publishers.Add(publisher);
+
+            publisher = new Publisher()
+            {
+                Id = 10,
+                Name = "Microsoft",
+            };
+            publishers.Add(publisher);
+
+            publisher = new Publisher()
+            {
+                Id = 11,
+                Name = "Square Enix",
+            };
+            publishers.Add(publisher);
+
             return publishers.ToArray();
         }
     }
