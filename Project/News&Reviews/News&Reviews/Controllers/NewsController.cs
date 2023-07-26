@@ -24,7 +24,7 @@ namespace News_Reviews.Controllers
         public async Task<IActionResult> All(int? page)
         {
             var pageNumber = page ?? 1;
-            int pageSize = 8;
+            int pageSize = 16;
 
             var news = await service.GetNewsAsync();
 
