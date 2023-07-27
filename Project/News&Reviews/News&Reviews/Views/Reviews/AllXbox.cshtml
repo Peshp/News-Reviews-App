@@ -5,7 +5,19 @@
 @using X.PagedList.Mvc.Core;
 @using X.PagedList;
 
-<partial name="_ReviewsPartial" model="Model" />
+<div class="text-center">
+    <h1 style="color: white;">Xbox game Reviews</h1>
+</div>
+
+<div class="d-flex justify-content-center mb-4">
+    <img src="https://s.yimg.com/uu/api/res/1.2/E_K..Xy7MNzfPaXrqCN5tg--~B/aD0xMjAwO3c9MTgwMDthcHBpZD15dGFjaHlvbg--/https://media-mbst-pub-ue1.s3.amazonaws.com/creatr-uploaded-images/2020-11/00ab1e70-1f19-11eb-bbfb-6d1c65d2b15f.cf.jpg"
+         alt="Xbox reviews" style="width: 50%; height: 50%;" />
+</div>
+
+<div class="text-center row">
+    <partial name="_ReviewsPartial" model="Model" />
+</div>
+
 
 <!-- paging control for navigation to the previous page, next page, etc -->
 @Html.PagedListPager((IPagedList)Model, page => Url.Action("AllXbox", new { page = page }),
