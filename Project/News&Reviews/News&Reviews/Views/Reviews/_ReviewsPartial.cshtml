@@ -1,65 +1,67 @@
 ﻿@model IEnumerable<dynamic>
 
 <style>
-        body {
-            background-color: black;
+    body {
+        background-color: black;
+    }
+
+    .card {
+        background-color: transparent;
+        border: none;
+        margin-bottom: 30px;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: inset 0 0 30px blue;
         }
 
-        .card {
-            background-color: transparent;
-            border: none;
-            margin-bottom: 30px;
-            border-bottom: 2px solid blue;
-        }
+    h1 {
+        color: cyan;
+        padding: 25px;
+        padding-bottom: 25px;
+        font-family: Calibri, sans-serif;
+        font-weight: bold;
+    }
 
-        h1 {
-            color: cyan;
-            padding: 25px;
-            padding-bottom: 25px;
-            font-family: Calibri, sans-serif;
-        }
+    .card .card-body .card-title a {
+        color: inherit;
+        text-decoration: none;
+    }
 
-        .card .card-body .card-title a {
-            color: inherit;
-            text-decoration: none;
-        }
+    .card .card-body .card-title {
+        color: cyan;
+        padding: 10px;
+        position: relative;
+        bottom: 36px;
+    }
 
-        .card .card-body .card-title {
-            color: cyan;
-            padding: 10px;
-            position: relative;
-            bottom: 36px;
-        }
+    .card .card-body .card-text {
+        color: white;
+        white-space: normal;
+        margin-left: 10px;
+        position: relative;
+        bottom: 34px;
+    }
 
-        .card .card-body .card-text {
-            color: white;
-            white-space: normal;
-            margin-left: 10px;
-            position: relative;
-            bottom: 34px;
-        }
+    .card .card-body img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        background-color: transparent;
+        opacity: 0.8;
+    }
 
-        .card .card-body img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
+    .big-card {
+        background-color: transparent;
+        border: none;
+        margin-bottom: 30px;
+        position: relative;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        .card-buttons {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .card-buttons button {
-            margin-left: 10px;
-        }
-
-        .big-card {
-            background-color: transparent;
-            border: none;
-            margin-bottom: 30px;
+        .big-card:hover {
+            transform: scale(1.05);
         }
 
         .big-card .card-body {
@@ -75,54 +77,68 @@
         .big-card .card-title a {
             color: inherit;
             text-decoration: none;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
         }
 
-        .big-card {
-            display: inline-block;
-            margin-right: 20px;
+        .big-card::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: blue;
+            box-shadow: 0 0 25px blue;
+            z-index: -1;
         }
+
+    .card-link,
+    .big-card-link {
+        text-decoration: none;
+    }
 </style>
 
-<div class="container mt-4">
-    <h1>Editor's Choice</h1>
+<div>
     <div class="row">
-        @foreach (var review in Model.Take(3))
+        @foreach (var review in Model.Take(6))
         {
-            string[] sentences = review.Content.Split('.'); // Split the content into sentences
-            string firstTwoSentences = string.Join(".", sentences.Take(1)); // Take the first sentence
+            string[] sentences = review.Content.Split('.');
+            string firstTwoSentences = string.Join(".", sentences.Take(2));
 
             <div class="col-md-4">
-                <div class="big-card">
-                    <div class="card w-100">
-                        <img src="@review.ImageURL" class="img-fluid" alt="@review.ImageURL">
-                        <div class="card-body">
-                            <h1 class="card-title"><a href="#" style="color: cyan;">@review.Title</a></h1>
-                            <p class="card-text" style="color: white;">@firstTwoSentences</p>
-                        </div>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <div class="d-flex justify-content-end">
-                                <form class="input-group-sm" asp-controller="Reviews" asp-action="Remove" asp-route-id="@review.Id">
-                                    <input type="submit" value="Remove" class="fs-6 btn btn-danger" />
-                                </form>
-                                <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-primary ml-2">Edit</a>
+                <a asp-controller="Reviews" asp-action="Read" asp-route-id="@review.Id" class="card-link">
+                    <div class="big-card">
+                        <a asp-controller="Reviews" asp-action="Read" asp-route-id="@review.Id" class="big-card-link">
+                            <div class="card w-100">
+                                <img src="@review.ImageURL" class="img-fluid" alt="@review.ImageURL">
+                                <div class="card-body">
+                                    <h3 class="card-title" style="color: cyan; padding-top: 25px;">@review.Title</h3>
+                                    <p class="card-text" style="color: white;">@firstTwoSentences</p>
+                                    <p class="card-text">Publisher: @review.Publisher</p>
+                                    <p class="card-text">Genre: @review.Genre</p>
+                                </div>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <div class="d-flex justify-content-end">
+                                        <form class="input-group-sm" asp-controller="Reviews" asp-action="Remove" asp-route-id="@review.Id">
+                                            <input type="submit" value="Remove" class="fs-6 btn btn-danger" />
+                                        </form>
+                                        <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-primary ml-2">Edit</a>
+                                    </div>
+                                }
                             </div>
-                        }                      
+                        </a>
                     </div>
-                </div>
+                </a>
             </div>
         }
     </div>
-
-    <h1>Reviews</h1>
-
     <div class="row">
-        @foreach (var review in Model.Skip(3))
+        @foreach (var review in Model.Skip(6))
         {
-            string[] sentences = review.Content.Split('.'); // Split the content into sentences
-            string firstTwoSentences = string.Join(".", sentences.Take(1)); // Take the first sentence
+            string[] sentences = review.Content.Split('.');
+            string firstTwoSentences = string.Join(".", sentences.Take(1));
 
             <div class="card w-75">
                 <div class="row g-0">
@@ -131,8 +147,16 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h2 class="card-title"><a href="/Reviews/Read">@review.Title</a></h2>
+                            <h2 class="card-title" style="padding-top: 30px;">
+                                <a asp-controller="Reviews" asp-action="Read" asp-route-id="@review.Id">@review.Title</a>
+                            </h2>
                             <h5 class="card-text" style="width: 350px; text-align: justify;">@firstTwoSentences</h5>
+                            <p class="card-info" style="color: cyan; padding-left: 10px; padding-top: 5px;">
+                                Publisher: @review.Publisher
+                            </p>
+                            <p class="card-info" style="color: cyan; padding-left: 10px; padding-top: 10px;">
+                                Genre: @review.Genre
+                            </p>
                             @if (User.IsInRole("Admin"))
                             {
                                 <div class="d-flex justify-content-end">
@@ -141,7 +165,7 @@
                                     </form>
                                     <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-primary ml-2">Edit</a>
                                 </div>
-                            }                          
+                            }
                         </div>
                     </div>
                 </div>
