@@ -5,7 +5,18 @@
 @using X.PagedList.Mvc.Core;
 @using X.PagedList;
 
-<partial name="_ReviewsPartial" model="Model" />
+<div class="text-center">
+    <h1 style="color: white;">Mobile game Reviews</h1>
+</div>
+
+<div class="d-flex justify-content-center mb-4">
+    <img src="https://www.androidauthority.com/wp-content/uploads/2019/07/Vivo-Z1-Pro-with-PUBG-running-on-it.jpg"
+         alt="Xbox reviews" style="width: 50%; height: 50%;" />
+</div>
+
+<div class="text-center row">
+    <partial name="_ReviewsPartial" model="Model" />
+</div>
 
 <!-- paging control for navigation to the previous page, next page, etc -->
 @Html.PagedListPager((IPagedList)Model, page => Url.Action("AllMobile", new { page = page }),
