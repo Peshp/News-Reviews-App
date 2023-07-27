@@ -5,11 +5,17 @@
 @using X.PagedList.Mvc.Core;
 @using X.PagedList;
 
+<div class="text-center">
+    <h1 style="color: white;">Pc News</h1>
+</div>
+
+<div class="d-flex justify-content-center">
+    <img src="https://cdn4.vectorstock.com/i/1000x1000/20/53/computer-with-news-article-on-screen-vector-3882053.jpg"
+         alt="Mobile News" style="width: 50%; height: 50%;" />
+</div>
+
 <div class="text-center row">
-    @foreach (var news in Model)
-    {
-        <partial name="_NewsPartial" model="news" />
-    }
+    <partial name="_NewsPartial" model="Model" />
 </div>
 
 
