@@ -1,0 +1,87 @@
+﻿@using News_Reviews.Models.Models.Account;
+@model DisplayProfileViewModel
+
+@using Microsoft.AspNetCore.Identity
+@using System.IO;
+@using News_Reviews.DataModels;
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewBag.Title = "User Profile";
+}
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .register-container {
+        background-image: url('https://static.vecteezy.com/system/resources/previews/013/402/107/non_2x/moonlight-night-in-forest-dark-forest-sky-with-river-and-moon-landscape-background-illustration-free-vector.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .register-form {
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .field-label {
+        text-align: center;
+        font-weight: bold;
+        color: white;
+    }
+
+    .register-form {
+        margin: 0 auto;
+        max-width: 400px;
+    }
+
+    .card-footer {
+        background-color: rgba(0, 0, 0, 0.7);
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        padding: 10px;
+    }
+
+    p{
+        color: lightblue;
+    }
+</style>
+
+<div class="register-container">
+    <div class="register-form">
+        <div class="card-body">
+            <div class="row gutters" style="margin-bottom: 15px;">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mb-3 text-primary text-center" style="font-size: x-large">Personal Details</h6>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group" style="margin-bottom: 15px; color: cyan;">
+                        <label asp-for="@Model.UserId" class="fw-bold field-label"></label>
+                        <p>@Model.UserId</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label asp-for="@Model.Username" class="fw-bold field-label"></label>
+                        <p>@Model.Username</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-primary">Change Password</a>
+        </div>
+    </div>
+</div>
+                        
+
