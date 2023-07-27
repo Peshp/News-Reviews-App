@@ -5,11 +5,17 @@
 @using X.PagedList.Mvc.Core;
 @using X.PagedList;
 
+<div class="text-center">
+    <h1 style="color: white;">Nintendo News</h1>
+</div>
+
+<div class="d-flex justify-content-center">
+    <img src="https://nintendonews.com/static/images/banner.png"
+         alt="Mobile News" style="width: 50%; height: 50%;" />
+</div>
+
 <div class="text-center row">
-    @foreach (var review in Model)
-    {
-        <partial name="_NewsPartial" model="review" />
-    }
+    <partial name="_NewsPartial" model="Model" />
 </div>
 
 <!-- paging control for navigation to the previous page, next page, etc -->
