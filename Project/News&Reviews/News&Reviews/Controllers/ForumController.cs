@@ -35,14 +35,12 @@ namespace News_Reviews.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddTheme()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddTheme(ThemesFormModel model)
         {
             if (!ModelState.IsValid)
