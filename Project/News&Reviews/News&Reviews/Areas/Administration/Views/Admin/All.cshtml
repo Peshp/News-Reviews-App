@@ -1,0 +1,39 @@
+﻿@using News_Reviews.Areas.Administration.Models;
+@model IEnumerable<ApplicationUserModel>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Mods</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>  
+    <div class="d-flex flex-column align-items-center">
+        <h1>All Mods</h1>
+        <table class="table" style="width: 80%; max-width: 800px;">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var mod in Model)
+                {
+                    <tr>
+                        <td>@mod.Id</td>
+                        <td>@mod.Name</td>
+                        <td>
+                            <form class="input-group-sm" asp-area="Administration" asp-controller="Admin" asp-action="Remove" asp-route-id="@mod.Id">
+                                <input type="submit" value="Remove" class="fs-6 btn btn-danger mb-3 p-2" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
