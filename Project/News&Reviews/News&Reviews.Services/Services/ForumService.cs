@@ -45,6 +45,21 @@ namespace News_Reviews.Services.Services
             await context.SaveChangesAsync();
         }
 
+        public async Task EditPostAsync(PostFormModel model, int id, string userid)
+        {
+            var post = await context
+                .Posts.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (post != null) 
+            {
+                post.Id = id;
+                post.Content = model.Content;
+                post.ThemeId = model.ThemeId;
+            }
+
+            await context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<PostViewModel>> GetPostsAsync(int themeId)
         {
             var models = await context.Posts
