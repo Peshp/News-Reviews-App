@@ -109,6 +109,6 @@ namespace News_Reviews.Controllers
         }
 
         private bool UserIsLoggedIn()
-            => User?.Identity?.IsAuthenticated ?? false;       
+            => User?.Identity?.IsAuthenticated ?? false;
     }
 }
