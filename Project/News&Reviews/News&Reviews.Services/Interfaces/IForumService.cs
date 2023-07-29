@@ -15,5 +15,7 @@ namespace News_Reviews.Services.Interfaces
         Task AddNewPostAsync(PostViewModel model, string username, int themeId);
 
         Task RemovePostAsync(int postId);
+
+        Task EditPostAsync(PostFormModel model, int id, string userid);
     }
 }
