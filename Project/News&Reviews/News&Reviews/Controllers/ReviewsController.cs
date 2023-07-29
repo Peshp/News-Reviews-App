@@ -170,7 +170,7 @@ namespace News_Reviews.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, ReviewEditModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
