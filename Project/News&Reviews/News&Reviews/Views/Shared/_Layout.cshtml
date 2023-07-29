@@ -55,7 +55,7 @@
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="Add">Add Reviews</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="Add">Add News</a></li>
                                 </ul>
-                            </li>
+                            </li>                           
                         }                       
 
                         <li class="nav-item">
@@ -65,6 +65,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Quiz" asp-action="All">Quiz</a>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="Administration" asp-controller="Admin" asp-action="All">AllMods</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
