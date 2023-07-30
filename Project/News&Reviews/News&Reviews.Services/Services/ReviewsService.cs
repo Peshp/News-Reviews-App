@@ -67,7 +67,7 @@ namespace News_Reviews.Services.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task EditReviewAsync(int id, ReviewEditModel model)
+        public async Task EditReviewAsync(int id, ReviewFormModel model)
         {
             var review = await context.Reviews
                 .FirstOrDefaultAsync (r => r.Id == id);
@@ -78,27 +78,35 @@ namespace News_Reviews.Services.Services
                 review.Title = model.Title;
                 review.Content = model.Content;
                 review.ImageURL = model.ImageURL;
+                review.PlatformId = model.PlatformId;
+                review.GenreId = model.GenreId;
+                review.PublisherId = model.PublisherId;
             }
 
             await context.SaveChangesAsync();
         }
 
-        public async Task<ReviewEditModel> FindReviewById(int id)
+        public async Task<ReviewFormModel> FindReviewById(int id)
         {
             var review = await context.Reviews
                 .Include(r => r.Platform)
+                .Include(r => r.Genre)
+                .Include (r => r.Publisher)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
             var reviews = await context.Reviews.ToArrayAsync();
 
             if (review != null)
             {
-                ReviewEditModel reviewModel = new ReviewEditModel()
+                ReviewFormModel reviewModel = new ReviewFormModel()
                 {
                     Id = review.Id,
                     Title = review.Title,
                     Content = review.Content,
                     ImageURL = review.ImageURL,
+                    PlatformId = review.PlatformId,
+                    GenreId = review.GenreId,
+                    PublisherId = review.PublisherId,
                 };
 
                 return reviewModel;
