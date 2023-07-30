@@ -52,18 +52,40 @@ namespace News_Reviews.Areas.Administration.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> MakeMod(string username)
+        [HttpPost]
+        public async Task<IActionResult> Add(string username)
         {
             var user = await userManager.FindByNameAsync(username);
-
             if (user == null)
             {
-                return NotFound("User not found");
+                TempData["Message"] = "User not found";
+                return RedirectToAction(nameof(All));
             }
 
             var result = await userManager.AddToRoleAsync(user, "Moderator");
+            if (result.Succeeded)
+            {
+                TempData["Message"] = "Moderator role added successfully.";
+            }
+            else
+            {
+                TempData["Message"] = "Failed to add Moderator role to the user.";
+            }
 
-            return Ok($"Role moderator is successfull added to {"Tonkata2"}");
+            return RedirectToAction(nameof(All));
+        }
+
+        public async Task<IActionResult> Remove(string id)
+        {
+            var user = await context.Users
+                .FindAsync(id);
+
+            if (user != null)
+            {
+                var result = await userManager.RemoveFromRoleAsync(user, "Moderator");
+            }          
+
+            return RedirectToAction(nameof(All));
         }
     }
 }
