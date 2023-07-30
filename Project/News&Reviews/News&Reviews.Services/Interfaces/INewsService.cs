@@ -15,7 +15,7 @@ namespace News_Reviews.Services.Interfaces
 
         public Task DeleteNews(int id);
 
-        public Task<NewsEditModel> FindNewsById(int id);
+        public Task<NewsFormModel> FindNewsById(int id);
 
         public Task EditNewsAsync(int id, NewsFormModel model);
     }
