@@ -20,9 +20,9 @@ namespace News_Reviews.Services.Interfaces
 
         public Task DeleteReview(int id);
 
-        public Task EditReviewAsync(int id, ReviewEditModel model);
+        public Task EditReviewAsync(int id, ReviewFormModel model);
 
-        public Task<ReviewEditModel> FindReviewById(int id);
+        public Task<ReviewFormModel> FindReviewById(int id);
 
         public Task<IEnumerable<CommentsViewModel>> GetCommendsAsync(int id);
 
