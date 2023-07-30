@@ -56,11 +56,12 @@ namespace News_Reviews.Services.Services
                 news.Id = model.Id;
                 news.Title = model.Title;
                 news.Content = model.Content;
+                news.PlatformId = model.PlatformId;
             }
             await context.SaveChangesAsync();
         }
 
-        public async Task<NewsEditModel> FindNewsById(int id)
+        public async Task<NewsFormModel> FindNewsById(int id)
         {
             var news = await context.News
                 .Include(r => r.Platform)
@@ -70,11 +71,12 @@ namespace News_Reviews.Services.Services
 
             if (news != null)
             {
-                NewsEditModel newsModel = new NewsEditModel()
+                NewsFormModel newsModel = new NewsFormModel()
                 {
                     Id = news.Id,
                     Title = news.Title,
                     Content = news.Content,
+                    PlatformId = news.PlatformId,
                 };
 
                 return newsModel;
@@ -104,15 +106,6 @@ namespace News_Reviews.Services.Services
         public async Task<IEnumerable<PlatformViewModel>> GetPlatformAsync()
         {
             var platforms = await reviewsService.GetPlatformAsync();
-
-           // var models = await context.Platforms.ToArrayAsync();
-           //
-           // var platform = models
-           //     .Select(p => new PlatformViewModel
-           //     {
-           //         Id = p.Id,
-           //         Name = p.Name,
-           //     });
 
             return platforms;
         }
