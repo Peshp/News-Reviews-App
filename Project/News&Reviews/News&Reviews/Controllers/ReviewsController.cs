@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using News_Reviews.DataModels;
 using News_Reviews.DataModels.DataModels;
 using News_Reviews.Models.Models;
 using News_Reviews.Models.Models.Comments;
@@ -128,11 +130,6 @@ namespace News_Reviews.Controllers
         {
             var validPlatforms = await service.GetPlatformAsync();
 
-            if (!validPlatforms.Any(p => p.Id == model.PlatformId))
-            {
-                ModelState.AddModelError(nameof(model.PlatformId), "Invalid platform");
-            }           
-
             await service.AddNewReview(model);
 
             return RedirectToAction(nameof(All));
@@ -163,17 +160,22 @@ namespace News_Reviews.Controllers
         {
             var review = await service.FindReviewById(id);
 
+            var platforms = await service.GetPlatformAsync();
+            var genres = await service.GetGenresAsync();
+            var publishers = await service.GetPublishersAsync();
+
+            review.Platforms = platforms;
+            review.Genres = genres;
+            review.Publishers = publishers;
+
             return View(review);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, ReviewEditModel model)
+        public async Task<IActionResult> Edit(int id, ReviewFormModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+            var validPlatforms = await service.GetPlatformAsync();
 
             await service.EditReviewAsync(id, model);
 
