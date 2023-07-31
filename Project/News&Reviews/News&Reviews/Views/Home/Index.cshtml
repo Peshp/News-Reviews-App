@@ -1,1 +1,31 @@
-﻿<h1 style="color: white;">Welcome</h1>
+﻿@{
+    ViewData["Title"] = "News&Reviews";
+}
+
+<style>
+    .image {
+        background-image: url('/2128432.jpg');
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+        .image h1 {
+            color: black;
+            font-weight: 700;
+            font-size: 5rem;
+            padding-top: 30px;
+        }
+
+    .custom-img-container{
+        border: 2px solid cyan; 
+        height: 300px; 
+    }
+</style>
+
+<div class="image">
+    <h1>@ViewData["Title"]</h1>
+</div>
+
