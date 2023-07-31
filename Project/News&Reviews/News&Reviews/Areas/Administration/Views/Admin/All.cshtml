@@ -25,14 +25,36 @@
                         <td>@mod.Id</td>
                         <td>@mod.Name</td>
                         <td>
-                            <form class="input-group-sm" asp-area="Administration" asp-controller="Admin" asp-action="Remove" asp-route-id="@mod.Id">
-                                <input type="submit" value="Remove" class="fs-6 btn btn-danger mb-3 p-2" />
-                            </form>
+                            @*With razor syntax razor view redirect to action Remove in controller Admin*@
+                            @using (Html.BeginForm("Remove", "Admin", new { mod.Id }, FormMethod.Post))
+                            {
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            }
                         </td>
-                    </tr>
+                    </tr>                   
                 }
             </tbody>
         </table>
+        <div style="padding-top: 40px;">
+            <h4 style="padding-bottom: 10px;">Add Moderator</h4>
+            @if (!string.IsNullOrEmpty(TempData["Message"] as string))
+            {
+                <div class="alert alert-info">
+                    @TempData["Message"]
+                </div>
+            }
+
+            @* Begin the HTML form. When submitted, 
+            it will call the "Add" action in the "Admin" controller using the HTTP POST method. *@
+            @using (Html.BeginForm("Add", "Admin", FormMethod.Post))
+            {
+                <div class="form-group">
+                    @Html.Label("Username:")
+                    @Html.TextBox("username", null, new { @class = "form-control" })
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Add Moderator</button>
+            }
+        </div>     
     </div>
 </body>
 </html>
