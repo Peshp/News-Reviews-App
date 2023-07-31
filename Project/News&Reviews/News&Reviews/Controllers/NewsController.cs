@@ -123,11 +123,6 @@ namespace News_Reviews.Controllers
         {
             var validPlatforms = await service.GetPlatformAsync();
 
-            if (!validPlatforms.Any(p => p.Id == model.PlatformId))
-            {
-                ModelState.AddModelError(nameof(model.PlatformId), "Invalid platform");
-            }
-
             if (ModelState.IsValid)
             {
                 model.Platforms = validPlatforms;
@@ -160,10 +155,8 @@ namespace News_Reviews.Controllers
         {
             var news = await service.FindNewsById(id);
 
-            if(news == null)
-            {
-                return NotFound();
-            }
+            var platforms = await service.GetPlatformAsync();
+            news.Platforms = platforms;
 
             return View(news);
         }
@@ -171,11 +164,6 @@ namespace News_Reviews.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, NewsFormModel model)
         {
-            if(ModelState.IsValid)
-            {
-                return View(model);
-            }
-
             await service.EditNewsAsync(id, model);
 
             return RedirectToAction(nameof(All));
