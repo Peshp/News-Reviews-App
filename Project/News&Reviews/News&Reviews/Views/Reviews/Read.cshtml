@@ -43,10 +43,10 @@
             {
                 foreach (var comment in Model.Comments)
                 {
-                    <div class="card mb-3">
+                    <div class="card mb-3" style="background-color: transparent; border: 2px solid lightblue; padding: 10px;">
                         <div class="card-body">
-                            <small>@comment.Username</small>
-                            <p>@comment.Content</p>
+                            <small style="font-size: 25px; font-weight: bold;">@comment.Username</small>
+                            <p id="commentContent" style="font-size: 20px;">@comment.Content</p>
                         </div>
                     </div>
                     @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
