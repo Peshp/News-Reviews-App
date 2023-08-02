@@ -94,8 +94,6 @@ namespace News_Reviews.Services.Services
                 .Include (r => r.Publisher)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
-            var reviews = await context.Reviews.ToArrayAsync();
-
             if (review != null)
             {
                 ReviewFormModel reviewModel = new ReviewFormModel()
