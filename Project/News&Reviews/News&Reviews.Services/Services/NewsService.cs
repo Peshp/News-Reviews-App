@@ -76,6 +76,7 @@ namespace News_Reviews.Services.Services
                     Id = news.Id,
                     Title = news.Title,
                     Content = news.Content,
+                    Data = news.Data.ToString(),
                     PlatformId = news.PlatformId,
                 };
 
