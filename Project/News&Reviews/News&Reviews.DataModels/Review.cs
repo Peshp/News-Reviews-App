@@ -42,6 +42,6 @@ namespace News_Reviews.DataModels.DataModels
         [Required]
         public Genre Genre { get; set; }
 
-        public IEnumerable<Comment> Comments { get; set; } = new Stack<Comment>();
+        public IEnumerable<Comment> Comments { get; set; } = new List<Comment>();
     }
 }
