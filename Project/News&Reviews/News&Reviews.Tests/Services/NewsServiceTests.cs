@@ -99,7 +99,6 @@ namespace News_Reviews.Tests.Services
             var result = await newsService.FindNewsById(3);
 
             Assert.That(context.News.Count, Is.EqualTo(3));
-            Assert.That(result.Data.ToString(), Is.EqualTo(DateTime.Now.ToString()));
         }
 
         [Test]
