@@ -14,7 +14,7 @@ News&Reviews App is an game-related website, where users can read reviews and ne
 - Filtering and searhing functionalities to look up specific game reviews and news.
 - User-friendly and responsive design for seamless usage.
 - Full control of your user data.
-- Message System: Users can communicate with each other through a messaging system.
+- Forum: Users can communicate with each other through a forum.
 - Quiz functionality that allows users to find what game genre to play.
 
 ## Technologies used
@@ -30,6 +30,24 @@ News&Reviews App is an game-related website, where users can read reviews and ne
 
 ## Admin Panel
 News&Reviews app admin panel give to administrator extensive control. Administrator possess special privileges, allowing them to create and remove moderators.
+
+## Users
+There are 3 types of users with different access to the application's functionality:
+
+<ul>
+  <li>
+    <b>Guest</b> - logged off user. Guests can only view game news and reviews details and content.
+  </li>
+  <li>
+    <b>Member</b> - logged in user. Members can write comments below game reviews and communicate with other members in forum.
+  </li>
+  <li>
+    <b>Moderator</b> - Moderators control what members write in comments and forum. Can delete comments and posts. 
+  </li>
+  <li>
+    <b>Administrator</b> - The administrator can add new news and reviews, create and remove moderators and control what members post in comments and forum.
+  </li>
+</ul>
 
 ## Contributing
 
