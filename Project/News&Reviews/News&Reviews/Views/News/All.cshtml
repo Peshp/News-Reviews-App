@@ -29,6 +29,9 @@
 </style>
 
 <div class="container">
+    <<form method="get" action="@Url.Action("All", "News")" class="mb-4">
+        <partial name="_SearchPartial" />
+    </form>
     <div class="row justify-content-center">
         <h2 style="color: cyan; padding-bottom: 10px; padding-top: 10px;">Recently News</h2>
         @foreach (var news in sortedNews.Take(4))
