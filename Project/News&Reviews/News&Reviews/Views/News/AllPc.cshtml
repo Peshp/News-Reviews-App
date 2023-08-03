@@ -14,6 +14,10 @@
          alt="Mobile News" style="width: 50%; height: 50%;" />
 </div>
 
+<<form method="get" action="@Url.Action("AllPc", "News")" class="mb-4">
+    <partial name="_SearchPartial" />
+</form>
+
 <div class="text-center row">
     <partial name="_NewsPartial" model="Model" />
 </div>
