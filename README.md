@@ -36,7 +36,7 @@ There are 3 types of users with different access to the application's functional
 
 <ul>
   <li>
-    <b>Guest</b> - logged off user. Guests can only view game news and reviews details and content.
+    <b>User</b> - logged off user. Users can only view game news and reviews details and content.
   </li>
   <li>
     <b>Member</b> - logged in user. Members can write comments below game reviews and communicate with other members in forum.
