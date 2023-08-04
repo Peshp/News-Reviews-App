@@ -11,27 +11,15 @@ namespace News_Reviews.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IReviewsService reviewsService;
-        private readonly INewsService newsService;
 
-        public HomeController(ILogger<HomeController> logger,
-            IReviewsService reviewsService,
-            INewsService newsService)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            this.reviewsService = reviewsService;
-            this.newsService = newsService;
         }
 
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<ReviewsViewModel> reviews = await reviewsService.GetReviewsAsync();
-            IEnumerable<NewsViewModel> news = await newsService.GetNewsAsync();
-            
-            ViewBag.Reviews = reviews.Take(6); 
-            ViewBag.News = news.OrderBy(d => d.Data).Take(8);
-
             return View();
         }
 
