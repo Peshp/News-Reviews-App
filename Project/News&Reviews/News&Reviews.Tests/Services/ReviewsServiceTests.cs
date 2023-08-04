@@ -17,6 +17,7 @@ namespace News_Reviews.Tests.Services
     {
         private ApplicationDbContext context;
         private IReviewsService reviewsService;
+        private ICommentService commentsService;
 
         [SetUp]
         public async Task Setup()
@@ -107,6 +108,7 @@ namespace News_Reviews.Tests.Services
             await context.SaveChangesAsync();
             
             reviewsService = new ReviewsService(context);
+            commentsService = new CommentService(context);
         }
 
         [Test]
@@ -217,51 +219,12 @@ namespace News_Reviews.Tests.Services
             Assert.That(reviewToChange.PublisherId, Is.EqualTo(2));
         }
 
-        [Test]
-        public async Task AddNewComment_ShouldWorkProperly()
-        {
-            var user = await context.Users
-                .FirstOrDefaultAsync(u => u.Id == "40d45d54-4e27-4c4c-b751-0fff188c021d");
-
-            var comment = new CommentsFormModel()
-            {
-                ReviewId = 1,
-                Username = "pesho",
-                Content = "blah blah blah",
-            };
-            await reviewsService.AddNewCommentAsync(comment, user.Id);
-            
-            var review = await context.Reviews
-                .Where(r => r.Id == 1)
-                .FirstOrDefaultAsync();     
-            Assert.That(review.Comments.Count, Is.EqualTo(2));
-        }
-
-        [Test]
-        public async Task GetComments_ReturnCorrectResult()
-        {           
-            var result = await reviewsService.GetCommendsAsync(1);
-
-            Assert.That(result.Count, Is.EqualTo(1));
-        }
-
-        [Test]
-        public async Task RemoveComment_ShouldWorkProperly()
-        {            
-            await reviewsService.RemoveCommentAsync(1);
-
-            var review = await context.Reviews
-                .Where(r => r.Id == 1)
-                .FirstOrDefaultAsync();
-            Assert.That(review.Comments.Count, Is.EqualTo(0));    
-            
-            Assert.That(context.Comments.Count(), Is.EqualTo(0));
-        }
+        
 
         [Test]
         public async Task ReadReview_ReturnCorrectReviewWithComment()
         {
-            var comments = await reviewsService.GetCommendsAsync(1);
+            var comments = await commentsService.GetCommentsAsync(1);
             var result = await reviewsService.ReadReview(1, comments);
 
             Assert.That(result.Title, Is.EqualTo("Grand Theft Auto V"));
