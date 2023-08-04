@@ -9,6 +9,7 @@ using News_Reviews.Models.Models.Reviews;
 using News_Reviews.Services.Interfaces;
 using System.Net;
 using System.Security.Claims;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace News_Reviews.Services.Services
 {
@@ -19,22 +20,6 @@ namespace News_Reviews.Services.Services
         public ReviewsService(ApplicationDbContext context)
         {
             this.context = context;
-        }
-
-        public async Task AddNewCommentAsync(CommentsFormModel model, string userId)
-        {
-            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
-
-            Comment comment = new Comment()
-            {
-                ReviewId = model.ReviewId,  
-                Username = user.UserName,
-                Content = WebUtility.HtmlEncode(model.Content),
-                UserId = userId,
-            };
-
-            await context.Comments.AddAsync(comment);
-            await context.SaveChangesAsync();
         }
 
         public async Task AddNewReview(ReviewFormModel model)
@@ -112,22 +97,6 @@ namespace News_Reviews.Services.Services
             return null;
         }
 
-        public async Task<IEnumerable<CommentsViewModel>> GetCommendsAsync(int id)
-        {
-            var models = await context.Comments
-                .Where(r => r.ReviewId == id)
-                .ToArrayAsync();
-
-            var reviews = models
-                .Select(r => new CommentsViewModel()
-                {
-                    Id = r.Id,
-                    Username = r.Username,
-                    Content = r.Content,
-                });
-
-            return reviews;
-        }
 
         public async Task<IEnumerable<GenresViewModel>> GetGenresAsync()
         {
@@ -211,17 +180,6 @@ namespace News_Reviews.Services.Services
             return review;
         }
 
-        public async Task RemoveCommentAsync(int id)
-        {
-            var comment = await context.Comments
-                .FirstOrDefaultAsync(r => r.Id == id);
-
-            if(comment != null)
-            {
-                context.Comments.Remove(comment);
-            }
-
-            await context.SaveChangesAsync();
-        }
+        
     }
 }
