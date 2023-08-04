@@ -22,12 +22,6 @@ namespace News_Reviews.Services.Interfaces
 
         public Task EditReviewAsync(int id, ReviewFormModel model);
 
-        public Task<ReviewFormModel> FindReviewById(int id);
-
-        public Task<IEnumerable<CommentsViewModel>> GetCommendsAsync(int id);
-
-        public Task AddNewCommentAsync(CommentsFormModel model, string userId);
-
-        public Task RemoveCommentAsync(int id);
+        public Task<ReviewFormModel> FindReviewById(int id);       
     }
 }
