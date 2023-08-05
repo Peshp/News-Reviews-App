@@ -94,6 +94,23 @@ namespace News_Reviews.Services.Services
             return themes;
         }
 
+        public async Task<IEnumerable<PostViewModel>> GetUserPostsAsync(string userName)
+        {
+            var models = await context.Posts
+                .Where(p => p.Username == userName)
+                .ToArrayAsync();
+
+            var posts = models
+                .Select(p => new PostViewModel()
+                {
+                    Id = p.Id,
+                    Content = p.Content,
+                    Username = p.Username,
+                });
+
+            return posts;
+        }
+
         public async Task RemovePostAsync(int postId)
         {
             var post = await context.Posts
