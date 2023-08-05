@@ -39,7 +39,7 @@ namespace News_Reviews.Services.Services
                 .Where(r => r.ReviewId == id)
                 .ToArrayAsync();
 
-            var reviews = models
+            var comments = models
                 .Select(r => new CommentsViewModel()
                 {
                     Id = r.Id,
@@ -47,7 +47,24 @@ namespace News_Reviews.Services.Services
                     Content = r.Content,
                 });
 
-            return reviews;
+            return comments;
+        }
+
+        public async Task<IEnumerable<CommentsViewModel>> GetUserCommentsAsync(string id)
+        {
+            var models = await context.Comments
+                .Where(r => r.UserId == id)
+                .ToArrayAsync();
+
+            var comments = models
+                .Select(r => new CommentsViewModel()
+                {
+                    Id = r.Id,
+                    Username = r.Username,
+                    Content = r.Content,
+                });
+
+            return comments;
         }
 
         public async Task RemoveCommentAsync(int id)
@@ -62,5 +79,5 @@ namespace News_Reviews.Services.Services
 
             await context.SaveChangesAsync();
         }
-    }
+    }       
 }
