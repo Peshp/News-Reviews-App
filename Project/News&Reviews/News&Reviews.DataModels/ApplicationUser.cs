@@ -9,6 +9,8 @@ namespace News_Reviews.DataModels
         public ApplicationUser() : base()
         { 
             Comments = new HashSet<Comment>();
+            Posts = new HashSet<Post>();
+            Themes = new HashSet<Theme>();
         }
 
         [Required]
@@ -16,5 +18,9 @@ namespace News_Reviews.DataModels
         public override string UserName { get => base.UserName; set => base.UserName = value; }
 
         public IEnumerable<Comment> Comments { get; set; }
+
+        public IEnumerable<Post> Posts { get; set; }
+
+        public IEnumerable<Theme> Themes { get; set; }
     }
 }
