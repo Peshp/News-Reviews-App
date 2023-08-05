@@ -8,6 +8,8 @@ namespace News_Reviews.Services.Interfaces
 
         Task<IEnumerable<PostViewModel>> GetPostsAsync(int themeId);
 
+        Task<IEnumerable<PostViewModel>> GetUserPostsAsync(string userId);
+
         Task AddNewThemeAsync(ThemesFormModel model);
 
         Task RemoveThemeAsync(int themeId);
