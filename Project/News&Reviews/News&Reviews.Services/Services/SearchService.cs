@@ -1,4 +1,6 @@
-﻿using News_Reviews.DataModels.DataModels;
+﻿using News_Reviews.DataModels;
+using News_Reviews.DataModels.DataModels;
+using News_Reviews.Models.Models.Forum;
 using News_Reviews.Models.Models.News;
 using News_Reviews.Models.Models.Reviews;
 using News_Reviews.Services.Interfaces;
@@ -18,6 +20,16 @@ namespace News_Reviews.Services.Services
             return news;
         }
 
+        public async Task<IEnumerable<PostViewModel>> SearchPosts(string query, IEnumerable<PostViewModel> posts)
+        {
+            if (query != null)
+            {
+                posts = posts.Where(r => r.Content.Contains(query, StringComparison.OrdinalIgnoreCase));
+            }
+
+            return posts;
+        }
+
         public async Task<IEnumerable<ReviewsViewModel>> SearchReview(string query, IEnumerable<ReviewsViewModel> reviews)
         {
             if (query != null)
@@ -26,6 +38,16 @@ namespace News_Reviews.Services.Services
             }
             
             return reviews;
+        }
+
+        public async Task<IEnumerable<ThemesViewModel>> SearchThemes(string query, IEnumerable<ThemesViewModel> themes)
+        {
+            if (query != null)
+            {
+                themes = themes.Where(r => r.Title.Contains(query, StringComparison.OrdinalIgnoreCase));
+            }
+
+            return themes;
         }
     }
 }
