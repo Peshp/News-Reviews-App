@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using News_Reviews.DataModels;
 using News_Reviews.Models.Models.Account;
 using News_Reviews.Services.Interfaces;
+using System.Net.NetworkInformation;
+using X.PagedList.Mvc.Core;
+using X.PagedList;
 
 namespace News_Reviews.Controllers
 {
@@ -13,13 +16,20 @@ namespace News_Reviews.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IForumService forumService;
-        private readonly IReviewsService reviewsService;
+        private readonly ICommentService commentService;
+        private readonly IAccountService accountService;
 
         public AccountController(UserManager<ApplicationUser> userManager, 
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IForumService forumService,
+            ICommentService commentService,
+            IAccountService accountService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.forumService = forumService;
+            this.commentService = commentService;
+            this.accountService = accountService;
         }
 
         [HttpGet]
@@ -27,12 +37,7 @@ namespace News_Reviews.Controllers
         {
             var user = await userManager.GetUserAsync(User);
 
-            DisplayProfileViewModel model = new DisplayProfileViewModel()
-            {
-                UserId = user.Id,
-                Username = user.UserName,
-                Password = user.PasswordHash,
-            };
+            var model = await accountService.GetUserDetailsAsync(user);
 
             return View(model);
         }
@@ -70,6 +75,18 @@ namespace News_Reviews.Controllers
             await signInManager.RefreshSignInAsync(user);
 
             return RedirectToAction(nameof(DisplayProfile));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LastActivity()
+        {
+            var user = await userManager.GetUserAsync(User);
+
+            var comments = await commentService.GetUserCommentsAsync(user.Id);
+            var posts = await forumService.GetUserPostsAsync(user.UserName);
+            var model = await accountService.GetLastActivityAsync(comments, posts, user.Id);          
+
+            return View(model);
         }
     }
 }
