@@ -78,8 +78,13 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer">
-            <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-primary">Change Password</a>
+        <div class="card-footer d-flex justify-content-between">
+            <div>
+                <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-primary">Change Password</a>
+            </div>
+            <div>
+                <a href="@Url.Action("LastActivity", "Account")" class="btn btn-warning" style="font-weight: bold; color: black;">Last Activity</a>
+            </div>
         </div>
     </div>
 </div>
