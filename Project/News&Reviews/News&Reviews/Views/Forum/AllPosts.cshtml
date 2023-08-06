@@ -8,6 +8,14 @@
     var themeId = ViewContext.RouteData.Values["id"] as string;
 }
 
+<div>
+    <form method="get" action="@Url.Action("AllPosts", "Forum")" class="mb-4">
+        <partial name="_SearchPartial" />
+    </form>
+</div>
+
+
+
 @foreach (var post in Model)
 {
     <div class="card mb-3" style="background-color: #353746; border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
