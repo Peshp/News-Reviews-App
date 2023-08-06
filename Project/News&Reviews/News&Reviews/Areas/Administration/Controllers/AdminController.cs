@@ -27,9 +27,10 @@ namespace News_Reviews.Areas.Administration.Controllers
 
         public async Task<IActionResult> All()
         {
-            var model = new List<ApplicationUserModel>();
+            var model = new List<ApplicationUserModel>();            
+            var roleId = "0a1c1685-c05d-4186-a1a0-fbaebdb7ae79";
+
             ApplicationUserModel mod;
-            var roleId = "0a1c1685-c05d-4186-a1a0-fbaebdb7ae79"; 
 
             var usersWithRole = context.UserRoles
                 .Where(r => r.RoleId == roleId);
