@@ -1,0 +1,35 @@
+﻿@using News_Reviews.Models.Models.Account;
+@model IEnumerable<LastActivityViewModel>
+
+<div class="container" style="background-image: url('https://static.vecteezy.com/system/resources/previews/013/402/107/non_2x/moonlight-night-in-forest-dark-forest-sky-with-river-and-moon-landscape-background-illustration-free-vector.jpg'); min-height: 100vh; display: flex; justify-content: center; align-items: center;">
+    <div style="background-color: rgba(0, 0, 0, 0.7); border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
+        <h1 style="color: white; text-align: center; margin-bottom: 20px;">Last Activity</h1>
+
+        @foreach (var item in Model)
+        {
+            <h2 style="color: white; text-align: center; margin-bottom: 10px;">Posts</h2>
+            @foreach (var post in item.Posts)
+            {
+                var words = post.Content.Split(' ');
+                var postContent = string.Join(' ', words.Take(8));
+
+                <div style="background-color: rgba(0, 0, 0, 0.7); border-radius: 8px; padding: 10px; margin-bottom: 20px;">
+                    <p style="color: lightblue;">@postContent</p>
+                </div>
+            }
+
+            <h2 style="color: white; text-align: center; margin-bottom: 10px;">Comments</h2>
+            @foreach (var comment in item.Comments)
+            {
+                var words = comment.Content.Split(' ');
+                var commentContent = string.Join(' ', words.Take(8));
+
+                <div style="background-color: rgba(0, 0, 0, 0.7); border-radius: 8px; padding: 10px; margin-bottom: 20px;">
+                    <p style="color: lightblue;">@commentContent</p>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+
