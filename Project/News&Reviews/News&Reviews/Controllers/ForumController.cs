@@ -13,14 +13,17 @@ namespace News_Reviews.Controllers
     public class ForumController : Controller
     {
         private readonly IForumService service;
+        private readonly ISearchService searchService;
 
-        public ForumController(IForumService _service)
+        public ForumController(IForumService _service,
+            ISearchService searchService)
         {
             service = _service;
+            this.searchService = searchService;
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All(int id, int? page)
+        public async Task<IActionResult> All(int id, int? page, string query)
         {
             var pageNumber = page ?? 1;
             int pageSize = 8;          
@@ -29,6 +32,7 @@ namespace News_Reviews.Controllers
             var posts = await service.GetPostsAsync(id);
 
             var themes = await service.GetThemesAsync(posts);
+            themes = await searchService.SearchThemes(query, themes);
             var onePageOfThemes = themes.ToPagedList(pageNumber, pageSize);
 
             return View(onePageOfThemes);
@@ -63,12 +67,13 @@ namespace News_Reviews.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> AllPosts(int id, int? page)
+        public async Task<IActionResult> AllPosts(int id, int? page, string query)
         {
             var pageNumber = page ?? 1;
             int pageSize = 8;
 
             var posts = await service.GetPostsAsync(id);
+            posts = await searchService.SearchPosts(query, posts);
 
             var onePageOfThemes = posts.ToPagedList(pageNumber, pageSize);
 
