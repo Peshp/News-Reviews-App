@@ -46,6 +46,8 @@ builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<IForumService, ForumService>();
 builder.Services.AddScoped<IQuizService, QuizService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 var app = builder.Build();
 
@@ -87,7 +89,7 @@ using(var scoped = app.Services.CreateScope())
     var roleManager =
         scoped.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-    var roles = new[] { "Admin", "Moderator", "User" };
+    var roles = new[] { "Admin", "Moderator", "Member" };
 
     foreach (var role in roles)
     {
