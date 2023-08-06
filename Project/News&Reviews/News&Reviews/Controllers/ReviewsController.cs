@@ -7,6 +7,7 @@ using News_Reviews.Models.Models;
 using News_Reviews.Models.Models.Comments;
 using News_Reviews.Models.Models.Reviews;
 using News_Reviews.Services.Interfaces;
+using System.IO;
 using System.Security.Claims;
 
 using X.PagedList;
@@ -19,15 +20,19 @@ namespace News_Reviews.Controllers
     {
         private readonly IReviewsService service;
         private readonly ISearchService searchService;
+        private readonly ICommentService commentService;
 
-        public ReviewsController(IReviewsService service, ISearchService searchService)
+        public ReviewsController(IReviewsService service, 
+            ISearchService searchService, 
+            ICommentService commentService)
         {
             this.service = service;
             this.searchService = searchService;
+            this.commentService = commentService;
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All(int? page, string query)
+        public async Task<IActionResult> All(int? page, string? query)
         {
             var pageNumber = page ?? 1;
             int pageSize = 12;
@@ -147,9 +152,9 @@ namespace News_Reviews.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Read(int id)
         {            
-            var comments = service.GetCommendsAsync(id);
+            var comments = await commentService.GetCommentsAsync(id);
 
-            ReadReviewModel review = await service.ReadReview(id, comments.Result);
+            ReadReviewModel review = await service.ReadReview(id, comments);
             
             return View(review);
         }
@@ -194,7 +199,7 @@ namespace News_Reviews.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await service.AddNewCommentAsync(model, userId);
+            await commentService.AddNewCommentAsync(model, userId);
 
             return RedirectToAction("Read", new { id = themeId });
         }
@@ -202,7 +207,7 @@ namespace News_Reviews.Controllers
         [Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> RemoveComment(int id, int themeId)
         {
-            await service.RemoveCommentAsync(id);
+            await commentService.RemoveCommentAsync(id);
 
             return RedirectToAction("Read", new { id = themeId });
         }
