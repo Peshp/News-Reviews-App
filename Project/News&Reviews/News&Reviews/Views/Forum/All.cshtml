@@ -5,8 +5,8 @@
 
 @model IEnumerable<ThemesViewModel>
 
-<div style="padding: 20px; display: flex; justify-content: flex-start;">
-    <div style="width: 50%;">
+<div style="padding: 20px; display: flex; justify-content: flex-end;">
+    <div style="width: 70%;">
         <div style="display: flex; flex-direction: column;">
             @foreach (var theme in Model)
             {
@@ -15,15 +15,22 @@
                         <a asp-controller="Forum" asp-action="AllPosts" asp-route-id="@theme.Id" style="text-decoration: none; color: white;">@theme.Title</a>
                     </h3>
                     <h3 style="font-size: 20px; color: #333; margin-bottom: 10px;">
-                        @if(User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                        @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                         {
                             <form class="input-group-sm" asp-controller="Forum" asp-action="RemoveTheme" asp-route-id="@theme.Id">
                                 <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
-                            </form>                           
-                        }                       
+                            </form>
+                        }
                     </h3>
                 </div>
             }
+        </div>
+    </div>
+    <div style="width: 30%;">
+        <div>
+            <form method="get" action="@Url.Action("All", "Forum")" class="mb-4">
+                <partial name="_SearchPartial" />
+            </form>
         </div>
     </div>
 </div>
