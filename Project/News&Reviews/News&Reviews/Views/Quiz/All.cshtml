@@ -43,6 +43,19 @@
         color: white;
         font-size: 35px;
     }
+
+    .quiz-button {
+        text-decoration: none;
+        background-color: transparent;
+        border: 4px solid cyan;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+        /* Hover effect for the button */
+        .quiz-button:hover {
+            background-color: rgba(255, 255, 255, 0.2); 
+            border-color: cyan; 
+        }
 </style>
 
 <div>
@@ -64,6 +77,10 @@
 </div>
 
 <input type="hidden" id="totalPoints" value="0" />
+
+<div class="d-flex align-items-center justify-content-center">
+    <a asp-controller="Quiz" asp-action="All" class="nav-link text-light quiz-button">Make Quiz again</a>
+</div>
 
 @section Scripts {
     <script>
@@ -103,71 +120,49 @@
                     // Save the total points to the hidden input field
                     $('#totalPoints').val(totalPoints);
 
+                    var title = '';
+                    var text = '';
+                    var image = '';
+
                     if (totalPoints > 1 && totalPoints <= 14) {
-                        // Display the image
-                        var imageSrc = 'https://assetsio.reedpopcdn.com/warcraft-3-reforged-mp.jpg?width=1600&height=900&fit=crop&quality=100&format=png&enable=upscale&auto=webp';
-                        var imageAlt = 'Image';
-                        var imageElement = $('<img>').attr('src', imageSrc).attr('alt', imageAlt).addClass('small-image');
-                        $('body').append(imageElement);
-                        var titleText = $('<p>').text('Strategy').addClass('title-text');
-                        $('body').append(imageElement).append(imageText).append(titleText);
-                        var imageText = $('<p>').text('You feel the need to play a Strategy game! These include patience and intelligence, and some titles include Age Of Empires, Civilisation, Command & Conquer, XCOM 2, Into the Breach, etc. ').addClass('image-text');
-                        $('body').append(imageElement).append(imageText);
+                        title = 'Strategy';
+                        text = 'You feel the need to play a Strategy game! These include patience and intelligence, and some titles include Age Of Empires, Civilisation, Command & Conquer, XCOM 2, Into the Breach, etc. ';
+                        image = 'https://assetsio.reedpopcdn.com/warcraft-3-reforged-mp.jpg?width=1600&height=900&fit=crop&quality=100&format=png&enable=upscale&auto=webp';
                     }
                     else if (totalPoints > 14 && totalPoints <= 23) {
-                        // Display the image
-                        var imageSrc = 'https://assetsio.reedpopcdn.com/-1564995005172.jpg?width=1600&height=900&fit=crop&quality=100&format=png&enable=upscale&auto=webp';
-                        var imageAlt = 'Image';
-                        var imageElement = $('<img>').attr('src', imageSrc).attr('alt', imageAlt).addClass('small-image');
-                        $('body').append(imageElement);
-                        var titleText = $('<p>').text('Sports').addClass('title-text');
-                        $('body').append(imageElement).append(imageText).append(titleText);
-                        var imageText = $('<p>').text('You should play a Sports game! Some titles for you to consider are Fifa, Madden, F1, Rocket League, EA Sports UFC, etc.').addClass('image-text');
-                        $('body').append(imageElement).append(imageText);
+                        title = 'Sports';
+                        text = 'You should play a Sports game! Some titles for you to consider are Fifa, Madden, F1, Rocket League, EA Sports UFC, etc.';
+                        image = 'https://assetsio.reedpopcdn.com/-1564995005172.jpg?width=1600&height=900&fit=crop&quality=100&format=png&enable=upscale&auto=webp';                        
                     }
-                    else if (totalPoints > 23 && totalPoints <= 31) {
-                        // Display the image
-                        var imageSrc = 'https://images.indianexpress.com/2022/01/6-top-fps-games-featured-1.jpg';
-                        var imageAlt = 'Image';
-                        var imageElement = $('<img>').attr('src', imageSrc).attr('alt', imageAlt).addClass('small-image');
-                        $('body').append(imageElement);
-                        var titleText = $('<p>').text('Shooter').addClass('title-text');
-                        $('body').append(imageElement).append(imageText).append(titleText);
-                        var imageText = $('<p>').text('You should play a Shooter! Some great titles to try include Call Of Duty, Gears Of War, Downwell, RIVE, Halo, etc.').addClass('image-text');
-                        $('body').append(imageElement).append(imageText);
+                    else if (totalPoints > 23 && totalPoints <= 30) {
+                        title = 'Shooter'
+                        text = 'You should play a Shooter! Some great titles to try include Call Of Duty, Gears Of War, Downwell, RIVE, Halo, etc.';
+                        image = 'https://images.indianexpress.com/2022/01/6-top-fps-games-featured-1.jpg';
                     }
                     else if (totalPoints > 31 && totalPoints <= 39) {
-                        // Display the image
-                        var imageSrc = 'https://media.wired.com/photos/5932a9c29be5e55af6c26664/master/w_2560%2Cc_limit/old_testchamber.jpg';
-                        var imageAlt = 'Image';
-                        var imageElement = $('<img>').attr('src', imageSrc).attr('alt', imageAlt).addClass('small-image');
-                        $('body').append(imageElement);
-                        var titleText = $('<p>').text('Puzzle').addClass('title-text');
-                        $('body').append(imageElement).append(imageText).append(titleText);
-                        var imageText = $('<p>').text('You seem to be in the mood for a puzzle game! Why not give some of these a try? Professor Layton and the Curious Village, The Turing Test, Portal, The Inner World - The Last Wind Monk, etc. ').addClass('image-text');
-                        $('body').append(imageElement).append(imageText);
+                        title = 'Puzzle';
+                        text = 'You seem to be in the mood for a puzzle game! Why not give some of these a try? Professor Layton and the Curious Village, The Turing Test, Portal, The Inner World - The Last Wind Monk, etc. ';
+                        image = 'https://media.wired.com/photos/5932a9c29be5e55af6c26664/master/w_2560%2Cc_limit/old_testchamber.jpg';                        
                     }
                     else if (totalPoints > 39 && totalPoints <= 48) {
-                        // Display the image
-                        var imageSrc = 'https://www.gamespot.com/a/uploads/original/1552/15524586/3774263-613605-assassins-creed-valhalla-patch.jpg';
-                        var imageAlt = 'Image';
-                        var imageElement = $('<img>').attr('src', imageSrc).attr('alt', imageAlt).addClass('small-image');
-                        $('body').append(imageElement);
-                        var titleText = $('<p>').text('Action-Adventure').addClass('title-text');
-                        $('body').append(imageElement).append(imageText).append(titleText);
-                        var imageText = $('<p>').text('You should play an action/adventure game! Some games for you to try are: Uncharted: The Lost Legacy, The Legend Of Zelda, Shadow of the Tomb Raider, Dishonored 2, etc. ').addClass('image-text');
-                        $('body').append(imageElement).append(imageText);
+                        title = 'Action-Adventure';
+                        text = 'You should play an action/adventure game! Some games for you to try are: Uncharted: The Lost Legacy, The Legend Of Zelda, Shadow of the Tomb Raider, Dishonored 2, etc. ';
+                        image = 'https://www.gamespot.com/a/uploads/original/1552/15524586/3774263-613605-assassins-creed-valhalla-patch.jpg';                       
                     }
                     else{
-                        var imageSrc = 'https://static0.gamerantimages.com/wordpress/wp-content/uploads/2020/11/PC-Offline-RPGs.jpg';
-                        var imageAlt = 'Image';
-                        var imageElement = $('<img>').attr('src', imageSrc).attr('alt', imageAlt).addClass('small-image');
-                        $('body').append(imageElement);
-                        var titleText = $('<p>').text('RPG').addClass('title-text');
-                        $('body').append(imageElement).append(imageText).append(titleText);
-                        var imageText = $('<p>').text('You should play a Role Playing Game! Some examples for you to try are: World Of Warcraft, Final Fantasy, Dragon Quest, Dauntless, Nier: Automata, etc. ').addClass('image-text');
-                        $('body').append(imageElement).append(imageText);
+                        title = 'RGB';
+                        text = 'You should play a Role Playing Game! Some examples for you to try are: World Of Warcraft, Final Fantasy, Dragon Quest, Dauntless, Nier: Automata, etc. ';
+                        image = 'https://static0.gamerantimages.com/wordpress/wp-content/uploads/2020/11/PC-Offline-RPGs.jpg';                        
                     }
+
+                    var imageSrc = image;
+                    var imageAlt = 'Image';
+                    var imageElement = $('<img>').attr('src', imageSrc).attr('alt', imageAlt).addClass('small-image');
+                    $('body').append(imageElement);
+                    var titleText = $('<p>').text(title).addClass('title-text');
+                    $('body').append(imageElement).append(imageText).append(titleText);
+                    var imageText = $('<p>').text(text).addClass('image-text');
+                    $('body').append(imageElement).append(imageText);
 
                     // Scroll to the image
                     $('html, body').animate({
