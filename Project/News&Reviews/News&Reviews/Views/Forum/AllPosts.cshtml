@@ -5,6 +5,7 @@
 @model IEnumerable<PostViewModel>
 
 @{
+    ViewData["Search"] = "post";
     var themeId = ViewContext.RouteData.Values["id"] as string;
 }
 
