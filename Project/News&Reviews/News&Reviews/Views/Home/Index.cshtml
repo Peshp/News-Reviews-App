@@ -1,31 +1,128 @@
-﻿@{
-    ViewData["Title"] = "News&Reviews";
-}
+﻿@using News_Reviews.Models.Models;
+@model HomeModel
 
 <style>
-    .image {
-        background-image: url('/2128432.jpg');
-        background-size: cover;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
+    .big-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
     }
 
-        .image h1 {
-            color: black;
-            font-weight: 700;
-            font-size: 5rem;
-            padding-top: 30px;
+    .big-card {
+        background-color: transparent;
+        border: 2px solid grey; 
+        position: relative;
+        text-decoration: underline;
+    }
+
+    .card {
+        background: rgb(2,0,36);
+        background: linear-gradient(9deg, rgba(2,0,36,0.3) 0%, rgba(9,9,121,0.3) 50%, rgba(0,212,255,0.3) 99%);
+        border: 2px solid lightblue; 
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-
-    .custom-img-container{
-        border: 2px solid cyan; 
-        height: 300px; 
-    }
 </style>
 
-<div class="image">
-    <h1>@ViewData["Title"]</h1>
+<a asp-controller="Reviews" asp-action="All" class="text-decoration-none">
+    <h3 class="justify-content-center mt-4 font-weight-bold bg-blue border-bottom-secondary border-left-secondary mb-3 pbs-box text-center"
+        style="color: white; font-family: 'Times New Roman'; background-color: darkblue;">
+        Reviews
+    </h3>
+</a>
+
+
+
+<div class="mb-4">
+    <div class="row">
+        @foreach (var review in Model.Reviews.Take(3))
+        {
+            string[] sentences = review.Content.Split('.');
+            string firstTwoSentences = string.Join(".", sentences.Take(2));
+
+            <div class="col-md-4">
+                <div class="big-card">
+                    <div class="card w-100">
+                        <a asp-controller="Reviews" asp-action="Read" asp-route-id="@review.Id" class="card-link">
+                            <div class="big-card">
+                                <img src="@review.ImageURL" class="img-fluid custom-image-style" alt="@review.ImageURL">
+                            </div>
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: white;">@review.Title</h5>
+                            <p class="card-text" style="color: white;">@firstTwoSentences</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 custom-box">
+            <a asp-controller="News" asp-action="All" class="text-decoration-none">
+                <h3 class="justify-content-center mt-4 font-weight-bold bg-blue border-bottom-secondary border-left-secondary mb-3 pbs-box text-center"
+                    style="color: white; font-family: 'Times New Roman'; background-color: darkblue;">
+                    News
+                </h3>
+            </a>
+            @foreach (var news in Model.News)
+            {
+                string[] sentences = news.Content.Split('.');
+                string firstTwoSentences = string.Join(".", sentences.Take(2));
+
+                <div class="col-md-12 mb-4">
+                    <div class="card col-md-8" style="width: 100%;">
+                        <div class="row no-gutters">
+                            <div class="col-md-12">
+                                <div class="card-body">
+                                    <a asp-controller="News" asp-action="Read" asp-route-id="@news.Id" class="card-link" style="text-decoration: none; color: white;">
+                                        <h5 class="card-title">@news.Title</h5>
+                                        <p class="card-text">@firstTwoSentences</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="col-md-4 discussions-box">
+            <a asp-controller="Forum" asp-action="All" class="text-decoration-none">
+                <h3 class="justify-content-center mt-4 font-weight-bold border-bottom-secondary border-left-secondary mb-3 pbs-box text-center"
+                    style="color: black; font-family: 'Times New Roman'; background-color: lightblue;">
+                    Discussions
+                </h3>
+            </a>
+
+            <div class="container">
+                <div class="row">
+                    @foreach (var post in Model.Posts.Take(6))
+                    {
+                        <div class="col-md-12">
+                            <div style="border: 2px solid grey; background-color: rgba(15, 82, 186, 0.2)">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: white;">@post.Username</h5>
+                                    <p class="card-text">
+                                        <a asp-controller="Forum" asp-action="AllPosts" asp-route-id="2" class="post-content-no-hover" style="text-decoration: none; color: white;">@post.Content</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
 
