@@ -7,6 +7,7 @@
 @model IEnumerable<NewsViewModel>
 
 @{
+    ViewData["Search"] = "news";
     var sortedNews = Model.OrderBy(news => news.Data);    
 }
 
