@@ -23,7 +23,6 @@
 
     h1 {
         color: cyan;
-        padding: 25px;
         padding-bottom: 25px;
         font-family: Calibri, sans-serif;
         font-weight: bold;
@@ -104,7 +103,14 @@
     }
 </style>
 
-<div>
+@{
+    ViewData["Search"] = "review";
+}
+
+<div>    
+    <<form method="get" action="@Url.Action("All", "Reviews")" class="mb-4">
+        <partial name="_SearchPartial" />
+    </form>
     <h1> Game Reviews</h1>
     <div class="row">
         @foreach (var review in Model.Take(6))
