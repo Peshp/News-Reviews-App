@@ -106,6 +106,7 @@ namespace News_Reviews.Services.Services
 
         public async Task<IEnumerable<PlatformViewModel>> GetPlatformAsync()
         {
+            //Used GetPlatformsAsync from ReviewsService to return platforms
             var platforms = await reviewsService.GetPlatformAsync();
 
             return platforms;
