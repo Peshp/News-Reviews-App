@@ -5,6 +5,7 @@ using News_Reviews.Data;
 using News_Reviews.DataModels;
 using News_Reviews.Services.Interfaces;
 using News_Reviews.Services.Services;
+using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
