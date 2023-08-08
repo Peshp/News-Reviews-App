@@ -23,6 +23,7 @@ namespace News_Reviews.Services.Services
 
             Post post = new Post()
             {
+                //Used for defence against XSS attack
                 Content = WebUtility.HtmlEncode(model.Content),
                 ThemeId = model.ThemeId,
                 Username = usser.UserName,
@@ -38,6 +39,7 @@ namespace News_Reviews.Services.Services
             Theme theme = new Theme()
             {
                 Id = model.Id,
+                //Used for defence against XSS attack
                 Title = WebUtility.HtmlEncode(model.Title),
             };
 
