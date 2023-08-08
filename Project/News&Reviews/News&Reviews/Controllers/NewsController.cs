@@ -11,6 +11,10 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace News_Reviews.Controllers
 {
+    /// <summary>
+    /// Used X.PagedList to create pagination
+    /// </summary>
+
     [Authorize]
     public class NewsController : Controller
     {
