@@ -15,6 +15,10 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace News_Reviews.Controllers
 {
+    /// <summary>
+    /// Used X.PagedList to create pagination
+    /// </summary>
+
     [Authorize]
     public class ReviewsController : Controller
     {
@@ -30,6 +34,7 @@ namespace News_Reviews.Controllers
             this.searchService = searchService;
             this.commentService = commentService;
         }
+
 
         [AllowAnonymous]
         public async Task<IActionResult> All(int? page, string? query)
