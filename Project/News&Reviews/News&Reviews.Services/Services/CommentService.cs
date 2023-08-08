@@ -25,6 +25,7 @@ namespace News_Reviews.Services.Services
             {
                 ReviewId = model.ReviewId,
                 Username = user.UserName,
+                //Used for defence against XSS attack
                 Content = WebUtility.HtmlEncode(model.Content),
                 UserId = userId,
             };
