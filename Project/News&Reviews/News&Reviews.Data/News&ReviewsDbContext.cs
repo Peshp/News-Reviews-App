@@ -37,7 +37,7 @@ namespace News_Reviews.Data
 
         public DbSet<UserAnswers> UserAnswers { get; set; } = null!;
 
-
+        //Use configuration class to fill database
         protected override void OnModelCreating(ModelBuilder builder)
         {
             Assembly configAssembly = Assembly.GetAssembly(typeof(ApplicationDbContext)) ??
