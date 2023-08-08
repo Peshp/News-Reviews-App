@@ -165,6 +165,8 @@ namespace News_Reviews.Services.Services
 
         public async Task<ReadReviewModel> ReadReview(int Id, IEnumerable<CommentsViewModel> comments)
         {
+            //Get review with that id, fill the view model with appropriate data and comments.
+            //Comments need to visualize the comments of the current review
             var review = await context.Reviews
                 .Where(r => r.Id == Id)
                 .Select(r => new ReadReviewModel
