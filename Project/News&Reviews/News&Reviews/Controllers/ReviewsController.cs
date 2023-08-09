@@ -26,8 +26,8 @@ namespace News_Reviews.Controllers
         private readonly ISearchService searchService;
         private readonly ICommentService commentService;
 
-        public ReviewsController(IReviewsService service, 
-            ISearchService searchService, 
+        public ReviewsController(IReviewsService service,
+            ISearchService searchService,
             ICommentService commentService)
         {
             this.service = service;
@@ -72,7 +72,7 @@ namespace News_Reviews.Controllers
 
             var reviews = await service.GetReviewsAsync();
             var psReviews = reviews.Where(r => r.Platform == "Playstation");
-            psReviews =  await searchService.SearchReview(query, psReviews);
+            psReviews = await searchService.SearchReview(query, psReviews);
 
             var onePageOfReviews = psReviews.ToPagedList(pageNumber, pageSize);
 
@@ -124,43 +124,13 @@ namespace News_Reviews.Controllers
             return View(onePageOfReviews);
         }
 
-        [Authorize(Roles = "Admin")]
-        [HttpGet]
-        public async Task<IActionResult> Add()
-        {
-            var platforms = await service.GetPlatformAsync();
-            var genres = await service.GetGenresAsync();
-            var publishers = await service.GetPublishersAsync();
-
-            var model = new ReviewFormModel
-            {
-                Platforms = platforms,
-                Genres = genres,
-                Publishers = publishers
-            };
-
-            return View(model);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public async Task<IActionResult> Add(ReviewFormModel model)
-        {
-            var validPlatforms = await service.GetPlatformAsync();
-
-            await service.AddNewReview(model);
-
-            return RedirectToAction(nameof(All));
-        }
-
-
         [AllowAnonymous]
         public async Task<IActionResult> Read(int id)
-        {            
+        {
             var comments = await commentService.GetCommentsAsync(id);
 
             ReadReviewModel review = await service.ReadReview(id, comments);
-            
+
             return View(review);
         }
 
@@ -199,7 +169,7 @@ namespace News_Reviews.Controllers
 
             return RedirectToAction($"{nameof(All)}");
         }
-        
+
         public async Task<IActionResult> AddComment(CommentsFormModel model, int themeId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

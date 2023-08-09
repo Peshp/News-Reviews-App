@@ -114,38 +114,7 @@ namespace News_Reviews.Controllers
             var onePageOfNews = mobNews.ToPagedList(pageNumber, pageSize);
 
             return View(onePageOfNews);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet]
-        public async Task<IActionResult> Add()
-        {
-            var platforms = await service.GetPlatformAsync();
-
-            var model = new NewsFormModel()
-            {
-                Platforms = platforms,
-            };
-
-            return View(model);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public async Task<IActionResult> Add(NewsFormModel model)
-        {
-            var validPlatforms = await service.GetPlatformAsync();
-
-            if (ModelState.IsValid)
-            {
-                model.Platforms = validPlatforms;
-                return View(model);
-            }
-
-            await service.AddNews(model);
-
-            return RedirectToAction(nameof(All));
-        }
+        }       
 
         [AllowAnonymous]
         public async Task<IActionResult> Read(int id)
