@@ -29,6 +29,11 @@ namespace News_Reviews.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (this.User.IsInRole("Admin"))
+            {
+                return this.RedirectToAction("Index", "Home", new { Area = "Administration" });
+            }
+
             var model = new HomeModel
             {
                 Reviews = await reviewsService.GetReviewsAsync(),
