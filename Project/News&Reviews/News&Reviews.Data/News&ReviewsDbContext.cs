@@ -39,7 +39,7 @@ namespace News_Reviews.Data
 
         //Use configuration class to fill database
         protected override void OnModelCreating(ModelBuilder builder)
-        {
+        {   
             Assembly configAssembly = Assembly.GetAssembly(typeof(ApplicationDbContext)) ??
                                       Assembly.GetExecutingAssembly();
             builder.ApplyConfigurationsFromAssembly(configAssembly);
