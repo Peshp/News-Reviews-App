@@ -7,9 +7,7 @@ using News_Reviews.DataModels;
 
 namespace News_Reviews.Areas.Administration.Controllers
 {
-    [Area("Administration")]
-    [Authorize(Roles = "Admin")]
-    public class AdminController : Controller
+    public class AdminController : BaseAdminController
     {
         private UserManager<ApplicationUser> userManager;
         private SignInManager<ApplicationUser> signInManager;
