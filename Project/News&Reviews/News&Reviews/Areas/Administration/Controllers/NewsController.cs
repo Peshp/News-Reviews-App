@@ -41,7 +41,7 @@ namespace News_Reviews.Areas.Administration.Controllers
 
             await service.AddNews(model);
 
-            return RedirectToAction("All", "News");
+            return RedirectToAction("All", "News", new { Area = "" });
         }
     }
 }
