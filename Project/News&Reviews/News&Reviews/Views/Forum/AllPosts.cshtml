@@ -37,18 +37,31 @@
    </div>
 }
 
-<div class="row justify-content-center mt-4">
-    <div class="col-md-6">
-        <h3 style="font-size: 25px; color: lightblue;">Write a Post</h3>
-        <form method="post" asp-controller="Forum" asp-action="AddPost" asp-route-themeId="@themeId">
-            <div class="form-group">
-                <input type="hidden" name="themeId" value="@themeId" />
-                <textarea class="form-control" name="content" rows="3" placeholder="Enter your post" style="border: 2px solid cyan; border-radius: 5px; padding: 5px; background-color: #1C1E2F; color: white;" oninput="changeTextColor(this)"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary" style="background-color: #007bff; color: #1C1E2F; border: none; border-radius: 5px; font-size: 14px; padding: 8px 16px; cursor: pointer;">Submit</button>
-        </form>
+@if (User?.Identity?.IsAuthenticated ?? false)
+{
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <h3 style="font-size: 25px; color: lightblue;">Write a Post</h3>
+            <form method="post" asp-controller="Forum" asp-action="AddPost" asp-route-themeId="@themeId">
+                <div class="form-group">
+                    <input type="hidden" name="themeId" value="@themeId" />
+                    <textarea class="form-control" name="content" rows="3" placeholder="Enter your post" style="border: 2px solid cyan; border-radius: 5px; padding: 5px; background-color: #1C1E2F; color: white;" oninput="changeTextColor(this)"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="background-color: #007bff; color: #1C1E2F; border: none; border-radius: 5px; font-size: 14px; padding: 8px 16px; cursor: pointer;">Submit</button>
+            </form>
+        </div>
     </div>
-</div>
+}
+else
+{
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <div class="alert alert-secondary text-white border-2 bg-transparent">
+                You need a profile to write posts.
+            </div>
+        </div>
+    </div>
+}
 
 <!-- paging control for navigation to the previous page, next page, etc -->
 @Html.PagedListPager((IPagedList)Model, page => Url.Action("AllPosts", new { page = page, id = themeId }),
