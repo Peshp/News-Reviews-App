@@ -1,56 +1,36 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using News_Reviews.Areas.Administration.Models;
-using News_Reviews.Data;
 using News_Reviews.DataModels;
+using News_Reviews.Services.Interfaces;
 
 namespace News_Reviews.Areas.Administration.Controllers
 {
     public class AdminController : BaseAdminController
     {
+        private IAdminService adminService;
         private UserManager<ApplicationUser> userManager;
-        private SignInManager<ApplicationUser> signInManager;
-        private ApplicationDbContext context;
 
-        public AdminController(
-            UserManager<ApplicationUser> _userManager,
-            SignInManager<ApplicationUser> _signInManager,
-            ApplicationDbContext context)
+        public AdminController(IAdminService adminService,
+            UserManager<ApplicationUser> _userManager)
         {
+            this.adminService = adminService;
             userManager = _userManager;
-            signInManager = _signInManager;
-            this.context = context;
         }
 
         public async Task<IActionResult> All()
         {
-            var model = new List<ApplicationUserModel>();            
-            var roleId = "0a1c1685-c05d-4186-a1a0-fbaebdb7ae79";
-
-            ApplicationUserModel mod;
-
-            var usersWithRole = context.UserRoles
-                .Where(r => r.RoleId == roleId);
-
-            foreach (var userRole in usersWithRole)
-            {
-                var user = await userManager.FindByIdAsync(userRole.UserId);
-
-                if (user != null)
-                {
-                    mod = new ApplicationUserModel
-                    {
-                        Id = user.Id,
-                        Name = user.UserName,
-                    };
-                    model.Add(mod);
-                }
-            }
+            var model = await adminService.GetAllModsAsync();
 
             return View(model);
         }
 
+        public async Task<IActionResult> AllUsers()
+        {
+            var users = await adminService.GetAllUsersAsync();
+        
+            return View(users);
+        }
+        
         [HttpPost]
         public async Task<IActionResult> Add(string username)
         {
@@ -60,7 +40,7 @@ namespace News_Reviews.Areas.Administration.Controllers
                 TempData["Message"] = "User not found";
                 return RedirectToAction(nameof(All));
             }
-
+        
             var result = await userManager.AddToRoleAsync(user, "Moderator");
             if (result.Succeeded)
             {
@@ -70,21 +50,22 @@ namespace News_Reviews.Areas.Administration.Controllers
             {
                 TempData["Message"] = "Failed to add Moderator role to the user.";
             }
-
+        
             return RedirectToAction(nameof(All));
         }
-
+        
         public async Task<IActionResult> Remove(string id)
         {
-            var user = await context.Users
-                .FindAsync(id);
-
-            if (user != null)
-            {
-                var result = await userManager.RemoveFromRoleAsync(user, "Moderator");
-            }          
-
+            await adminService.RemoveModeratorAsync(id);    
+        
             return RedirectToAction(nameof(All));
+        }
+        
+        public async Task<IActionResult> RemoveUser(string id)
+        {            
+            await adminService.RemoveUserAsync(id);
+
+            return RedirectToAction(nameof(AllUsers));
         }
     }
 }
