@@ -1,0 +1,31 @@
+﻿@using News_Reviews.Models.Models.Admin;
+@model IEnumerable<ApplicationUserModel>
+
+<div class="d-flex flex-column align-items-center text-light">
+    <h1>All Users</h1>
+    <table class="table text-light" style="width: 80%; max-width: 800px;">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Name</td>
+                    <td>
+                        @*With razor syntax razor view redirect to action Remove in controller Admin*@
+                        @using (Html.BeginForm("RemoveUser", "Admin", new { user.Id }, FormMethod.Post))
+                        {
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
