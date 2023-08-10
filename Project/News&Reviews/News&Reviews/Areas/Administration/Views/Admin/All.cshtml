@@ -1,61 +1,52 @@
-﻿@using News_Reviews.Areas.Administration.Models;
+﻿@using News_Reviews.Models.Models.Admin;
 @model IEnumerable<ApplicationUserModel>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>All Mods</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-</head>
-<body>  
-    <div class="d-flex flex-column align-items-center">
-        <h1>All Mods</h1>
-        <table class="table" style="width: 80%; max-width: 800px;">
-            <thead>
+<div class="d-flex flex-column align-items-center text-light">
+    <h1>All Mods</h1>
+    <table class="table text-light" style="width: 80%; max-width: 800px;">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var mod in Model)
+            {
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Action</th>
+                    <td>@mod.Id</td>
+                    <td>@mod.Name</td>
+                    <td>
+                        @*With razor syntax razor view redirect to action Remove in controller Admin*@
+                        @using (Html.BeginForm("Remove", "Admin", new { mod.Id }, FormMethod.Post))
+                        {
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        }
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var mod in Model)
-                {
-                    <tr>
-                        <td>@mod.Id</td>
-                        <td>@mod.Name</td>
-                        <td>
-                            @*With razor syntax razor view redirect to action Remove in controller Admin*@
-                            @using (Html.BeginForm("Remove", "Admin", new { mod.Id }, FormMethod.Post))
-                            {
-                                <button type="submit" class="btn btn-danger">Remove</button>
-                            }
-                        </td>
-                    </tr>                   
-                }
-            </tbody>
-        </table>
-        <div style="padding-top: 40px;">
-            <h4 style="padding-bottom: 10px;">Add Moderator</h4>
-            @if (!string.IsNullOrEmpty(TempData["Message"] as string))
-            {
-                <div class="alert alert-info">
-                    @TempData["Message"]
-                </div>
             }
+        </tbody>
+    </table>
+    <div style="padding-top: 40px;">
+        <h4 style="padding-bottom: 10px;">Add Moderator</h4>
+        @if (!string.IsNullOrEmpty(TempData["Message"] as string))
+        {
+            <div class="alert alert-info">
+                @TempData["Message"]
+            </div>
+        }
 
-            @* Begin the HTML form. When submitted, 
-            it will call the "Add" action in the "Admin" controller using the HTTP POST method. *@
-            @using (Html.BeginForm("Add", "Admin", FormMethod.Post))
-            {
-                <div class="form-group">
-                    @Html.Label("Username:")
-                    @Html.TextBox("username", null, new { @class = "form-control" })
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm">Add Moderator</button>
-            }
-        </div>     
+        @* Begin the HTML form. When submitted,
+        it will call the "Add" action in the "Admin" controller using the HTTP POST method. *@
+        @using (Html.BeginForm("Add", "Admin", FormMethod.Post))
+        {
+            <div class="form-group">
+                @Html.Label("Username:")
+                @Html.TextBox("username", null, new { @class = "form-control" })
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Add Moderator</button>
+        }
     </div>
-</body>
-</html>
+</div>
 
