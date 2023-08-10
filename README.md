@@ -8,6 +8,12 @@
 
 News&Reviews App is an game-related website, where users can read reviews and news about different games on different platforms. Inspired by ign.com.
 
+<p align="center">
+  <a href="https://newsreviews.azurewebsites.net" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; border-radius: 4px;">
+    News&Reviews
+  </a>
+</p>
+
 ## Features
 - Users can create and manage their profiles.
 - Detailed information about games news and reviews, including platform, genre, publisher, released date.
