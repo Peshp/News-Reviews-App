@@ -81,7 +81,6 @@ namespace News_Reviews.Controllers
             }
 
             var user = await userManager.FindByNameAsync(model.Username);
-            await userManager.AddToRoleAsync(user, "Member");
 
             if (user != null)
             {
@@ -89,6 +88,7 @@ namespace News_Reviews.Controllers
 
                 if (result.Succeeded)
                 {
+                    await userManager.AddToRoleAsync(user, "Member");
                     return RedirectToAction("Index", "Home");
                 }
                 else
