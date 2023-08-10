@@ -1,4 +1,5 @@
-﻿using News_Reviews.Data;
+﻿using Microsoft.AspNetCore.Identity;
+using News_Reviews.Data;
 using News_Reviews.DataModels;
 
 namespace News_Reviews.Tests
