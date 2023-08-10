@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using News_Reviews.Models.Models.Admin;
 
 namespace News_Reviews.Services.Interfaces
 {
-    internal class IAdminService
+    public interface IAdminService
     {
+        Task<IEnumerable<ApplicationUserModel>> GetAllModsAsync();
+
+        Task<IEnumerable<ApplicationUserModel>> GetAllUsersAsync();
+
+        Task RemoveModeratorAsync(string id);
+
+        Task RemoveUserAsync(string id);
     }
 }
