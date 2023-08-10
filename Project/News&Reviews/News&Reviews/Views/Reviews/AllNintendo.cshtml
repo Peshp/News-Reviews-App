@@ -5,6 +5,10 @@
 @using X.PagedList.Mvc.Core;
 @using X.PagedList;
 
+@{
+    ViewData["Search"] = "review";
+}
+
 <div class="text-center">
     <h1 style="color: white;">Nintendo game Reviews</h1>
 </div>
@@ -13,6 +17,10 @@
     <img src="https://i.insider.com/64108b1c9aa2e6001956d32a?width=1136&format=jpeg"
          alt="Xbox reviews" style="width: 50%; height: 50%;" />
 </div>
+
+<form method="get" action="@Url.Action("AllNintendo", "Reviews")" class="mb-4">
+    <partial name="_SearchPartial" />
+</form>
 
 <div class="text-center row">
     <partial name="_ReviewsPartial" model="Model" />

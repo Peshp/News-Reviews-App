@@ -5,6 +5,10 @@
 @using X.PagedList.Mvc.Core;
 @using X.PagedList;
 
+@{
+    ViewData["Search"] = "review";
+}
+
 <div class="text-center">
     <h1 style="color: white;">Mobile game Reviews</h1>
 </div>
@@ -13,6 +17,10 @@
     <img src="https://www.androidauthority.com/wp-content/uploads/2019/07/Vivo-Z1-Pro-with-PUBG-running-on-it.jpg"
          alt="Xbox reviews" style="width: 50%; height: 50%;" />
 </div>
+
+<form method="get" action="@Url.Action("AllMobile", "Reviews")" class="mb-4">
+    <partial name="_SearchPartial" />
+</form>
 
 <div class="text-center row">
     <partial name="_ReviewsPartial" model="Model" />
