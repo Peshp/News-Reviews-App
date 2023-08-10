@@ -6,6 +6,8 @@
 
 @{
     ViewData["Search"] = "post";
+
+    //Get themeId which is in http request. It needs to visualize posts when refresh page.
     var themeId = ViewContext.RouteData.Values["id"] as string;
 }
 

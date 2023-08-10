@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -52,11 +53,11 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-light" href="#" id="newsreviewsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Add</a>
                                 <ul class="dropdown-menu" aria-labelledby="reviewsDropdown">
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="Add">Add Reviews</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="Add">Add News</a></li>
+                                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Review" asp-action="Add">Add Reviews</a></li>
+                                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="News" asp-action="Add">Add News</a></li>
                                 </ul>
-                            </li>                           
-                        }                       
+                            </li>
+                        }
 
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Forum" asp-action="All">Forum</a>
@@ -68,7 +69,13 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="Administration" asp-controller="Admin" asp-action="All">AllMods</a>
+                                <a class="nav-link text-light" asp-area="Administration" asp-controller="Admin" asp-action="All">Mods</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="Administration" asp-controller="Admin" asp-action="AllUsers">Users</a>
                             </li>
                         }
                     </ul>
@@ -76,14 +83,14 @@
                 </div>
             </div>
         </nav>
-      </header>
-        <div class="container">
-            @RenderBody()
-        </div>
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        @await RenderSectionAsync("Scripts", required: false)
+    </header>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
 

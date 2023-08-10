@@ -49,6 +49,7 @@ builder.Services.AddScoped<IQuizService, QuizService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 
 var app = builder.Build();
 
@@ -104,8 +105,8 @@ using (var scoped = app.Services.CreateScope())
     var userManager =
         scoped.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-    var username = "Tonkata";
-    var password = "v2l)M@LWfpMS";
+    var username = "Admin1";
+    var password = "admin1";
 
     if(await userManager.FindByNameAsync(username) == null)
     {
