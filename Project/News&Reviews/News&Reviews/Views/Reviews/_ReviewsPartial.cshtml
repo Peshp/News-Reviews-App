@@ -114,8 +114,7 @@
     <div class="row">
         @foreach (var review in Model.Take(6))
         {
-            string[] sentences = review.Content.Split('.');
-            string firstTwoSentences = string.Join(".", sentences.Take(2));
+            string firstTwoSentences = review.Content.Substring(0, Math.Min(200, review.Content.Length));
 
             <div class="col-md-4">
                 <a asp-controller="Reviews" asp-action="Read" asp-route-id="@review.Id" class="card-link">

@@ -27,8 +27,7 @@
         <h1 style="color: white;">Recently News</h1>
         @foreach (var news in sortedNews.Take(4))
         {
-            string[] words = news.Content.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            string firstTwentyOneWords = string.Join(" ", words.Take(15));
+            string firstTwentyOneWords = news.Content.Substring(0, Math.Min(90, news.Content.Length));
             <div class="col-md-3">
                 <a asp-controller="News" asp-action="Read" asp-route-id="@news.Id" class="card-link">
                     <div class="card" style="width: 300px;">

@@ -41,7 +41,7 @@
         @foreach (var review in Model.Reviews.Take(3))
         {
             string[] sentences = review.Content.Split('.');
-            string firstTwoSentences = string.Join(".", sentences.Take(2));
+            string firstTwoSentences = review.Content.Substring(0, Math.Min(200, review.Content.Length));
 
             <div class="col-md-4">
                 <div class="big-card">
