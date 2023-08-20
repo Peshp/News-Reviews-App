@@ -87,38 +87,38 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
-using(var scoped = app.Services.CreateScope())
-{
-    var roleManager =
-        scoped.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-    var roles = new[] { "Admin", "Moderator", "Member" };
-
-    foreach (var role in roles)
-    {
-        if (!await roleManager.RoleExistsAsync(role))
-            await roleManager.CreateAsync(new IdentityRole(role));
-    }
-}
-
-using (var scoped = app.Services.CreateScope())
-{
-    var userManager =
-        scoped.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-
-    var username = "Admin1";
-    var password = "admin1";
-
-    if(await userManager.FindByNameAsync(username) == null)
-    {
-        var user = new ApplicationUser();
-        user.UserName = username;
-
-        await userManager.CreateAsync(user, password);
-
-        await userManager.AddToRoleAsync(user, "Admin");
-    }
-}
+//using(var scoped = app.Services.CreateScope())
+//{
+//    var roleManager =
+//        scoped.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+//
+//    var roles = new[] { "Admin", "Moderator", "Member" };
+//
+//    foreach (var role in roles)
+//    {
+//        if (!await roleManager.RoleExistsAsync(role))
+//            await roleManager.CreateAsync(new IdentityRole(role));
+//    }
+//}
+//
+//using (var scoped = app.Services.CreateScope())
+//{
+//    var userManager =
+//        scoped.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+//
+//    var username = "Admin1";
+//    var password = "admin1";
+//
+//    if(await userManager.FindByNameAsync(username) == null)
+//    {
+//        var user = new ApplicationUser();
+//        user.UserName = username;
+//
+//        await userManager.CreateAsync(user, password);
+//
+//        await userManager.AddToRoleAsync(user, "Admin");
+//    }
+//}
 
 
 await app.RunAsync();
